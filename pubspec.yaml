@@ -1,0 +1,45 @@
+name: mhris
+description: "মাতৃত্ব স্বাস্থ্য তথ্য ব্যবস্থাপনা - Maternal Health Record Information System"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # BLoC State Management
+  flutter_bloc: ^9.1.1
+  bloc: ^9.0.0
+  equatable: ^2.0.7
+
+  # Navigation
+  go_router: ^15.1.2
+
+  # UI & Fonts
+  google_fonts: ^6.2.1
+  flutter_svg: ^2.0.10+1
+  fl_chart: ^0.70.2
+
+  # Utilities
+  intl: ^0.20.2
+  shared_preferences: ^2.5.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+
+
