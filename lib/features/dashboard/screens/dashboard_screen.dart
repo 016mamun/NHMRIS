@@ -467,59 +467,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             ),
                           ),
 
-                          // ── Module Grid ──────────────────────────────────
-                          SliverToBoxAdapter(
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
-                              child: Row(
-                                children: [
-                                  Container(width: 4, height: 20, decoration: BoxDecoration(color: AppColors.primary, borderRadius: BorderRadius.circular(4))),
-                                  const SizedBox(width: 10),
-                                  Text('আপনার মডিউল সমূহ'.tr(context), style: AppTextStyles.headingMedium),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SliverPadding(
-                            padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-                            sliver: SliverGrid(
-                              delegate: SliverChildBuilderDelegate(
-                                (context, index) {
-                                  final module = state.modules[index];
-                                  return ModuleCardWidget(
-                                    module: module,
-                                    onTap: () => _navigateToModule(module.route, context),
-                                  );
-                                },
-                                childCount: state.modules.length,
-                              ),
-                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 12,
-                                mainAxisSpacing: 12,
-                                childAspectRatio: 0.8,
-                              ),
-                            ),
-                          ),
 
-                          // Daily Tip
-                          if (state.showTip)
-                            SliverToBoxAdapter(
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 24, bottom: 8),
-                                child: DailyTipWidget(
-                                  tip: state.dailyTip,
-                                  onDismiss: () => context.read<DashboardBloc>().add(const DashboardTipDismissed()),
-                                  onDetails: () {
-                                    showModalBottomSheet(
-                                      context: context,
-                                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
-                                      builder: (_) => _TipDetailSheet(tip: state.dailyTip),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
 
                           const SliverToBoxAdapter(child: SizedBox(height: 32)),
                         ],
@@ -554,10 +502,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildNavItem(0, Icons.home_rounded, 'হোম'.tr(context)),
-                  _buildNavItem(1, Icons.pregnant_woman_rounded, 'গর্ভাবস্থা'.tr(context)),
-                  _buildNavItem(2, Icons.child_care_rounded, 'শিশুর জন্য'.tr(context)),
-                  _buildNavItem(3, Icons.person_rounded, 'প্রোফাইল'.tr(context)),
-                  _buildNavItem(4, Icons.menu_rounded, 'আরও'.tr(context)),
+                  _buildNavItem(1, Icons.grid_view_rounded, 'মডিউল'.tr(context)),
+                  _buildNavItem(2, Icons.person_rounded, 'প্রোফাইল'.tr(context)),
+                  _buildNavItem(3, Icons.menu_rounded, 'আরও'.tr(context)),
                 ],
               ),
             ),
@@ -576,12 +523,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
           _currentIndex = index;
         });
         if (index == 1) {
-          _showPregnancyMenu(context);
+          _showModuleMenu(context);
         } else if (index == 2) {
-          _showBabyMenu(context);
-        } else if (index == 3) {
           _showProfileMenu(context);
-        } else if (index == 4) {
+        } else if (index == 3) {
           _showMoreMenu(context);
         }
       },
@@ -726,30 +671,31 @@ class _DashboardScreenState extends State<DashboardScreen> {
     });
   }
 
-  void _showPregnancyMenu(BuildContext context) {
+  void _showModuleMenu(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      builder: (_) => _PregnancyMenuSheet(
-        onModuleTap: (route) => _navigateToModule(route, context),
-      ),
-    ).then((_) {
-      setState(() {
-        _currentIndex = 0;
-      });
-    });
-  }
-
-  void _showBabyMenu(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      builder: (_) => _BabyMenuSheet(
-        onModuleTap: (route) => _navigateToModule(route, context),
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => BlocBuilder<DashboardBloc, DashboardState>(
+        builder: (context, state) {
+          if (state is DashboardLoaded) {
+            return _ModuleMenuSheet(
+              modules: state.modules,
+              showTip: state.showTip,
+              dailyTip: state.dailyTip,
+              onModuleTap: (route) => _navigateToModule(route, context),
+              onDismissTip: () => context.read<DashboardBloc>().add(const DashboardTipDismissed()),
+              onTipDetails: () {
+                showModalBottomSheet(
+                  context: context,
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+                  builder: (_) => _TipDetailSheet(tip: state.dailyTip),
+                );
+              },
+            );
+          }
+          return const SizedBox.shrink();
+        },
       ),
     ).then((_) {
       setState(() {
@@ -1009,93 +955,89 @@ class _ProfileMenuSheet extends StatelessWidget {
   }
 }
 
-// ── Pregnancy Menu Sheet ──────────────────────────────────────────────────────
-class _PregnancyMenuSheet extends StatelessWidget {
+// ── Module Menu Sheet ─────────────────────────────────────────────────────────
+class _ModuleMenuSheet extends StatelessWidget {
+  final List<dynamic> modules;
+  final bool showTip;
+  final String dailyTip;
   final Function(String) onModuleTap;
-  const _PregnancyMenuSheet({required this.onModuleTap});
+  final VoidCallback onDismissTip;
+  final VoidCallback onTipDetails;
+
+  const _ModuleMenuSheet({
+    required this.modules,
+    required this.showTip,
+    required this.dailyTip,
+    required this.onModuleTap,
+    required this.onDismissTip,
+    required this.onTipDetails,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.85,
+      decoration: const BoxDecoration(
+        color: AppColors.background,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      child: Column(
         children: [
-          Center(child: Container(width: 40, height: 4, decoration: BoxDecoration(color: AppColors.border, borderRadius: BorderRadius.circular(2)))),
-          const SizedBox(height: 20),
-          Text('গর্ভাবস্থা ট্র্যাকার সমূহ'.tr(context), style: AppTextStyles.headingMedium),
-          const SizedBox(height: 16),
-          _buildMenuItem(context, Icons.pregnant_woman_rounded, 'কিক কাউন্টার', '/kick-counter', AppColors.kickCounterIcon),
-          _buildMenuItem(context, Icons.restaurant_menu_rounded, 'পুষ্টি ও ডায়েট গাইড', '/nutrition', AppColors.nutritionIcon),
-          _buildMenuItem(context, Icons.checklist_rounded, 'ডেলিভারির প্রস্তুতি', '/delivery-prep', AppColors.deliveryIcon),
-          _buildMenuItem(context, Icons.local_hospital_outlined, 'ডাক্তার পরামর্শ', '/doctor', AppColors.doctorIcon),
           const SizedBox(height: 12),
+          Container(width: 40, height: 4, decoration: BoxDecoration(color: AppColors.border, borderRadius: BorderRadius.circular(2))),
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              children: [
+                Container(width: 4, height: 20, decoration: BoxDecoration(color: AppColors.primary, borderRadius: BorderRadius.circular(4))),
+                const SizedBox(width: 10),
+                Text('আপনার মডিউল সমূহ'.tr(context), style: AppTextStyles.headingMedium),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                children: [
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: modules.length,
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 12,
+                      childAspectRatio: 0.8,
+                    ),
+                    itemBuilder: (context, index) {
+                      return ModuleCardWidget(
+                        module: modules[index],
+                        onTap: () {
+                          Navigator.pop(context);
+                          onModuleTap(modules[index].route);
+                        },
+                      );
+                    },
+                  ),
+                  if (showTip)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 24, bottom: 24),
+                      child: DailyTipWidget(
+                        tip: dailyTip,
+                        onDismiss: onDismissTip,
+                        onDetails: onTipDetails,
+                      ),
+                    ),
+                  const SizedBox(height: 24),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
-      ),
-    );
-  }
-
-  Widget _buildMenuItem(BuildContext context, IconData icon, String title, String route, Color color) {
-    return ListTile(
-      leading: Container(
-        width: 40, height: 40,
-        decoration: BoxDecoration(color: color.withValues(alpha: 0.1), shape: BoxShape.circle),
-        child: Center(child: Icon(icon, color: color, size: 20)),
-      ),
-      title: Text(title.tr(context), style: AppTextStyles.labelMedium),
-      trailing: const Icon(Icons.arrow_forward_ios, size: 14),
-      onTap: () {
-        Navigator.pop(context);
-        onModuleTap(route);
-      },
-    );
-  }
-}
-
-// ── Baby Menu Sheet ───────────────────────────────────────────────────────────
-class _BabyMenuSheet extends StatelessWidget {
-  final Function(String) onModuleTap;
-  const _BabyMenuSheet({required this.onModuleTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(child: Container(width: 40, height: 4, decoration: BoxDecoration(color: AppColors.border, borderRadius: BorderRadius.circular(2)))),
-          const SizedBox(height: 20),
-          Text('শিশুর জন্য সেবা সমূহ'.tr(context), style: AppTextStyles.headingMedium),
-          const SizedBox(height: 16),
-          _buildMenuItem(context, Icons.calendar_month_rounded, 'সাপ্তাহিক বেবি আপডেট', '/weekly-update', AppColors.weeklyIcon),
-          _buildMenuItem(context, Icons.vaccines_rounded, 'শিশুর টিকা সূচি', '/reminders', AppColors.reminderIcon),
-          _buildMenuItem(context, Icons.child_care_rounded, 'শিশুর পুষ্টি ও যত্ন', '/nutrition', AppColors.nutritionIcon),
-          const SizedBox(height: 12),
-        ],
-      ),
-      ),
-    );
-  }
-
-  Widget _buildMenuItem(BuildContext context, IconData icon, String title, String route, Color color) {
-    return ListTile(
-      leading: Container(
-        width: 40, height: 40,
-        decoration: BoxDecoration(color: color.withValues(alpha: 0.1), shape: BoxShape.circle),
-        child: Center(child: Icon(icon, color: color, size: 20)),
-      ),
-      title: Text(title.tr(context), style: AppTextStyles.labelMedium),
-      trailing: const Icon(Icons.arrow_forward_ios, size: 14),
-      onTap: () {
-        Navigator.pop(context);
-        onModuleTap(route);
-      },
     );
   }
 }
