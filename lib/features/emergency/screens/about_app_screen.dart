@@ -34,7 +34,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('অ্যাপ সম্পর্কে জানুন', style: TextStyle(fontFamily: 'Hind_Siliguri', fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B))),
+        title: const Text('অ্যাপ সম্পর্কে জানুন', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B))),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
@@ -81,7 +81,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                   const SizedBox(height: 4),
                   const Text(
                     'মাতৃ ও শিশু স্বাস্থ্য রেকর্ড তথ্য ব্যবস্থা',
-                    style: TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 14.5, fontWeight: FontWeight.bold, color: Color(0xFF475569)),
+                    style: TextStyle(fontSize: 14.5, fontWeight: FontWeight.bold, color: Color(0xFF475569)),
                   ),
                   const SizedBox(height: 8),
                   Container(
@@ -89,7 +89,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                     decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
                     child: const Text(
                       'সংস্করণ: ১.২.০ (পাবলিক বেটা)',
-                      style: TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 10.5, fontWeight: FontWeight.bold, color: AppColors.primary),
+                      style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold, color: AppColors.primary),
                     ),
                   ),
                 ],
@@ -110,7 +110,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
               ),
               child: const Text(
                 'বাংলাদেশ সরকারের জাতীয় মাতৃ ও শিশু স্বাস্থ্য সুরক্ষা লক্ষ্যকে সামনে রেখে MHRIS অ্যাপটি তৈরি করা হয়েছে। আমাদের লক্ষ্য হলো গর্ভকালীন জটিলতা দূরীকরণ, সঠিক সময়ে স্বাস্থ্যসেবা নিশ্চিতকরণ, শিশু জন্মের পর টিকাদানের সময়সূচি ট্র্যাকিং এবং জরুরি রক্তের প্রয়োজনে দ্রুত দাতা খুঁজে দেওয়ার মাধ্যমে নিরাপদ মাতৃত্ব ও সুস্থ শিশু বিকাশকে এক ক্লিকে সহজসাধ্য করা।',
-                style: TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 13, height: 1.5, color: Color(0xFF475569)),
+                style: TextStyle(fontSize: 13, height: 1.5, color: Color(0xFF475569)),
               ),
             ),
             const SizedBox(height: 24),
@@ -174,12 +174,12 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                 children: [
                   const Text(
                     'MHRIS টেকনিক্যাল টিম',
-                    style: TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     'বাংলাদেশ হেলথ আইটি ডেভেলপমেন্ট টিম দ্বারা পরিকল্পিত ও সফটওয়্যার ডিজাইন করা হয়েছে।',
-                    style: TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 11.5, color: Colors.grey.shade400, height: 1.4),
+                    style: TextStyle(fontSize: 11.5, color: Colors.grey.shade400, height: 1.4),
                   ),
                   const SizedBox(height: 12),
                   const Divider(color: Colors.white24),
@@ -204,7 +204,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(8)),
-                          child: const Text('মেইল করুন', style: TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 10, color: Colors.white, fontWeight: FontWeight.bold)),
+                          child: const Text('মেইল করুন', style: TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.bold)),
                         ),
                       )
                     ],
@@ -231,7 +231,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                     maxLines: 2,
                     decoration: const InputDecoration(
                       hintText: 'অ্যাপের উন্নয়ন বা যেকোনো সুনির্দিষ্ট ফিডব্যাক এখানে লিখুন...',
-                      hintStyle: TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 12, color: Colors.grey),
+                      hintStyle: TextStyle(fontSize: 12, color: Colors.grey),
                       border: InputBorder.none,
                       fillColor: Color(0xFFF8FAFC),
                       filled: true,
@@ -249,7 +249,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                         ),
                         onPressed: _submitFeedback,
-                        child: const Text('পাঠিয়ে দিন', style: TextStyle(fontFamily: 'Hind_Siliguri', color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
+                        child: const Text('পাঠিয়ে দিন', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
                       )
                     ],
                   ),
@@ -261,7 +261,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                     const SizedBox(height: 8),
                     const Align(
                       alignment: Alignment.centerLeft,
-                      child: Text('আমার পাঠানো মতামতসমূহ:', style: TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black54)),
+                      child: Text('আমার পাঠানো মতামতসমূহ:', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black54)),
                     ),
                     const SizedBox(height: 8),
                     ListView.builder(
@@ -297,7 +297,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
         const SizedBox(width: 8),
         Text(
           title,
-          style: const TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B)),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B)),
         ),
       ],
     );
@@ -318,7 +318,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
           Expanded(
             child: Text(
               title,
-              style: const TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 11.5, fontWeight: FontWeight.bold, color: Color(0xFF1E293B)),
+              style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: Color(0xFF1E293B)),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
@@ -336,7 +336,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
           const SizedBox(height: 6),
           Text(
             label,
-            style: const TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 8.5, color: Color(0xFF475569), fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 8.5, color: Color(0xFF475569), fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,

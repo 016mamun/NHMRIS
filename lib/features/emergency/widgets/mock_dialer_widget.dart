@@ -124,7 +124,7 @@ class _MockDialerWidgetState extends State<MockDialerWidget> with SingleTickerPr
             Text(
               widget.name,
               style: const TextStyle(
-                fontFamily: 'Hind_Siliguri',
+                
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
@@ -146,7 +146,7 @@ class _MockDialerWidgetState extends State<MockDialerWidget> with SingleTickerPr
             Text(
               _isConnected ? 'কল চলছে • ${_formatDuration()}' : 'কল করা হচ্ছে...',
               style: TextStyle(
-                fontFamily: 'Hind_Siliguri',
+                
                 fontSize: 14.5,
                 color: _isConnected ? AppColors.success : Colors.grey.shade400,
                 fontWeight: FontWeight.w600,
@@ -174,7 +174,7 @@ class _MockDialerWidgetState extends State<MockDialerWidget> with SingleTickerPr
                     const SizedBox(height: 8),
                     const Text(
                       'মিউট',
-                      style: TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 12, color: Colors.white70),
+                      style: TextStyle(fontSize: 12, color: Colors.white70),
                     )
                   ],
                 ),
@@ -195,7 +195,7 @@ class _MockDialerWidgetState extends State<MockDialerWidget> with SingleTickerPr
                     const SizedBox(height: 8),
                     const Text(
                       'কাটুন',
-                      style: TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 12, color: Colors.white70),
+                      style: TextStyle(fontSize: 12, color: Colors.white70),
                     )
                   ],
                 ),
@@ -216,7 +216,7 @@ class _MockDialerWidgetState extends State<MockDialerWidget> with SingleTickerPr
                     const SizedBox(height: 8),
                     const Text(
                       'লাউড স্পিকার',
-                      style: TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 12, color: Colors.white70),
+                      style: TextStyle(fontSize: 12, color: Colors.white70),
                     )
                   ],
                 ),

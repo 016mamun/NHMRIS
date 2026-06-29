@@ -653,7 +653,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                 : Text(
                     '${i + 1}',
                     style: TextStyle(
-                      fontFamily: 'Hind_Siliguri',
+                      
                       fontSize: 14,
                       fontWeight: isActive || isCompleted ? FontWeight.w700 : FontWeight.w500,
                       color: isActive || isCompleted

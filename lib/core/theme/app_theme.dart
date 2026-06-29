@@ -8,7 +8,7 @@ class AppTheme {
   AppTheme._();
 
   static ThemeData get lightTheme {
-    final defaultFontFamily = GoogleFonts.hindSiliguri().fontFamily;
+    final defaultFontFamily = GoogleFonts.notoSansBengali().fontFamily;
 
     return ThemeData(
       useMaterial3: true,
@@ -34,7 +34,7 @@ class AppTheme {
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.light,
         ),
-        titleTextStyle: GoogleFonts.hindSiliguri(
+        titleTextStyle: GoogleFonts.notoSansBengali(
           fontSize: 20,
           fontWeight: FontWeight.w700,
           color: AppColors.textOnPrimary,
@@ -90,7 +90,7 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          textStyle: GoogleFonts.hindSiliguri(
+          textStyle: GoogleFonts.notoSansBengali(
             fontSize: 15,
             fontWeight: FontWeight.w600,
           ),

@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/localization/app_translations.dart';
+import '../../../core/localization/language_cubit.dart';
 import '../bloc/dashboard_bloc.dart';
 import '../bloc/dashboard_event.dart';
-import '../bloc/dashboard_state.dart';
+
+import '../../anc/screens/mayer_shastho_screen.dart';
+import '../../delivery_prep/screens/babar_koronio_screen.dart';
+import '../../doctor_consultation/screens/gorvokalin_shastho_somossha_screen.dart';
+import '../../anc/screens/gorvokalin_sheba_screen.dart';
 import '../../auth/bloc/auth_bloc.dart';
 import '../../auth/bloc/auth_event.dart';
 import '../../auth/bloc/auth_state.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
+import '../../dashboard/bloc/dashboard_state.dart';
 import '../../kick_counter/screens/kick_counter_screen.dart';
 import '../../doctor_consultation/screens/doctor_consultation_screen.dart';
 import '../../nutrition/screens/nutrition_screen.dart';
@@ -23,7 +30,16 @@ import '../../emergency/screens/hospital_directory_screen.dart';
 import '../../emergency/screens/helpline_screen.dart';
 import '../../emergency/screens/about_app_screen.dart';
 import '../../pregnancy_registration/screens/pregnancy_registration_screen.dart';
-
+import '../../health_tips/screens/daily_tips_screen.dart';
+import '../../health_tips/screens/common_problems_screen.dart';
+import '../../health_tips/screens/complications_screen.dart';
+import '../../health_tips/screens/medicine_guide_screen.dart';
+import '../../health_tips/screens/kegel_exercise_screen.dart';
+import '../../health_tips/screens/bmi_calculator_screen.dart';
+import '../../health_tips/screens/gmp_chart_screen.dart';
+import '../../anc/screens/pnc_screen.dart';
+import '../../reminders/screens/newborn_care_screen.dart';
+import '../../reminders/screens/baby_food_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -89,6 +105,7 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,
       child: Scaffold(
@@ -127,147 +144,147 @@ class _DashboardScreenState extends State<DashboardScreen>
                         _buildPregnancyProgressCard(context),
 
                         // ── Section: শিশু ও মায়ের তথ্য ─────────────────
-                        _buildSectionTitle('শিশু ও মায়ের তথ্য', Icons.child_care_rounded, AppColors.primary),
+                        _buildSectionTitle('শিশু ও মায়ের তথ্য'.tr(context), Icons.child_care_rounded, AppColors.primary),
                         _buildRow2Cards(
                           _buildFeatureCard(
-                            title: 'প্রতিদিনের\nটিপস',
+                            title: 'প্রতিদিনের টিপস'.tr(context),
                             icon: Icons.tips_and_updates_rounded,
                             color: const Color(0xFF7C3AED),
                             bgColor: const Color(0xFFEDE7F6),
-                            subtitle: 'দৈনিক স্বাস্থ্য টিপস ও পরামর্শ',
-                            onTap: () => _navigateToScreen(const WeeklyUpdateScreen()),
+                            subtitle: 'দৈনিক স্বাস্থ্য টিপস ও পরামর্শ'.tr(context),
+                            onTap: () => _navigateToScreen(const DailyTipsScreen()),
                           ),
                           _buildFeatureCard(
-                            title: 'গর্ভের শিশুর\nঅবস্থা',
+                            title: 'গর্ভের শিশুর অবস্থা'.tr(context),
                             icon: Icons.monitor_heart_rounded,
                             color: const Color(0xFF2196F3),
                             bgColor: const Color(0xFFE3F2FD),
-                            subtitle: 'শিশু 3D ছবি, দৈর্ঘ্য, ওজন, ধাপ',
+                            subtitle: 'শিশু 3D ছবি, দৈর্ঘ্য, ওজন, ধাপ'.tr(context),
                             onTap: () => _navigateToScreen(const WeeklyUpdateScreen()),
                           ),
                         ),
                         _buildRow2Cards(
                           _buildFeatureCard(
-                            title: 'মায়ের\nস্বাস্থ্য',
+                            title: 'মায়ের স্বাস্থ্য'.tr(context),
                             icon: Icons.woman_rounded,
                             color: const Color(0xFFEC407A),
                             bgColor: const Color(0xFFFCE4EC),
-                            subtitle: 'মায়ের বিস্তারিত অবস্থা ও সমস্যা',
-                            onTap: () => _navigateToScreen(const ANCScreen()),
+                            subtitle: 'মায়ের বিস্তারিত অবস্থা ও সমস্যা'.tr(context),
+                            onTap: () => _navigateToScreen(const MayerShasthoScreen()),
                           ),
                           _buildFeatureCard(
-                            title: 'বাবার\nকরণীয়',
+                            title: 'বাবার করণীয়'.tr(context),
                             icon: Icons.man_rounded,
                             color: const Color(0xFF00897B),
                             bgColor: const Color(0xFFE0F2F1),
-                            subtitle: 'বাবার দায়িত্ব ও কর্তব্য',
-                            onTap: () => _navigateToScreen(const DeliveryPrepScreen()),
+                            subtitle: 'বাবার দায়িত্ব ও কর্তব্য'.tr(context),
+                            onTap: () => _navigateToScreen(const BabarKoronioScreen()),
                           ),
                         ),
 
                         // ── Section: গর্ভবতী সেবা ────────────────────────
-                        _buildSectionTitle('গর্ভবতী সেবা', Icons.pregnant_woman_rounded, const Color(0xFF7C3AED)),
+                        _buildSectionTitle('গর্ভবতী সেবা'.tr(context), Icons.pregnant_woman_rounded, const Color(0xFF7C3AED)),
                         _buildRow2Cards(
                           _buildFeatureCard(
-                            title: 'গর্ভবতী\nনিবন্ধন',
+                            title: 'গর্ভবতী নিবন্ধন'.tr(context),
                             icon: Icons.app_registration_rounded,
                             color: const Color(0xFF43A047),
                             bgColor: const Color(0xFFE8F5E9),
-                            subtitle: 'সেবা কার্ড ও নিবন্ধন',
+                            subtitle: 'সেবা কার্ড ও নিবন্ধন'.tr(context),
                             onTap: () => _navigateToScreen(const PregnancyRegistrationScreen()),
                           ),
                           _buildFeatureCard(
-                            title: 'খাদ্য তালিকা\nও পুষ্টি',
+                            title: 'খাদ্য তালিকা ও পুষ্টি'.tr(context),
                             icon: Icons.restaurant_menu_rounded,
                             color: const Color(0xFFFF8F00),
                             bgColor: const Color(0xFFFFF3E0),
-                            subtitle: 'পুষ্টিকর খাদ্য পরিকল্পনা',
+                            subtitle: 'পুষ্টিকর খাদ্য পরিকল্পনা'.tr(context),
                             onTap: () => _navigateToScreen(const NutritionScreen()),
                           ),
                         ),
                         _buildFullWidthCard(
-                          title: 'গর্ভকালীন স্বাস্থ্য\nসমস্যা ও সমাধান',
+                          title: 'গর্ভকালীন স্বাস্থ্য সমস্যা ও সমাধান'.tr(context),
                           icon: Icons.medical_information_rounded,
                           color: const Color(0xFF5E35B1),
                           bgColor: const Color(0xFFEDE7F6),
-                          subtitle: 'সকল গর্ভকালীন জটিলতা ও পরামর্শ',
-                          onTap: () => _navigateToScreen(const DoctorConsultationScreen()),
+                          subtitle: 'সকল গর্ভকালীন জটিলতা ও পরামর্শ'.tr(context),
+                          onTap: () => _navigateToScreen(const GorvokalinShasthoSomosshaScreen()),
                         ),
 
                         // ── Section: স্বাস্থ্য সমস্যা ───────────────────
-                        _buildSectionTitle('স্বাস্থ্য ও জটিলতা', Icons.health_and_safety_rounded, const Color(0xFFE53935)),
+                        _buildSectionTitle('স্বাস্থ্য ও জটিলতা'.tr(context), Icons.health_and_safety_rounded, const Color(0xFFE53935)),
                         _buildRow2Cards(
                           _buildFeatureCard(
-                            title: 'সাধারণ সমস্যা\nও সমাধান',
+                            title: 'সাধারণ সমস্যা ও সমাধান'.tr(context),
                             icon: Icons.warning_amber_rounded,
                             color: const Color(0xFFE53935),
                             bgColor: const Color(0xFFFFEBEE),
-                            subtitle: 'জরুরি স্বাস্থ্য তথ্য',
-                            onTap: () => _showComingSoon(context, 'মার্কেট সমস্যা ও সমাধান'),
+                            subtitle: 'জরুরি স্বাস্থ্য তথ্য'.tr(context),
+                            onTap: () => _navigateToScreen(const CommonProblemsScreen()),
                           ),
                           _buildFeatureCard(
-                            title: 'গর্ভকালীন\nজটিলতা ও করণীয়',
+                            title: 'গর্ভকালীন জটিলতা ও করণীয়'.tr(context),
                             icon: Icons.emergency_rounded,
                             color: const Color(0xFFD81B60),
                             bgColor: const Color(0xFFFCE4EC),
-                            subtitle: 'জরুরি পদক্ষেপ',
-                            onTap: () => _showComingSoon(context, 'গর্ভকালীন জটিলতা'),
+                            subtitle: 'জরুরি পদক্ষেপ'.tr(context),
+                            onTap: () => _navigateToScreen(const ComplicationsScreen()),
                           ),
                         ),
                         _buildFullWidthCard(
-                          title: 'ওষুধ, চিকিৎসা\nও পরীক্ষা',
+                          title: 'ওষুধ, চিকিৎসা ও পরীক্ষা'.tr(context),
                           icon: Icons.science_rounded,
                           color: const Color(0xFF0277BD),
                           bgColor: const Color(0xFFE1F5FE),
-                          subtitle: 'ল্যাব রিপোর্ট ও পরীক্ষার ফলাফল বিশ্লেষণ',
-                          onTap: () => _showComingSoon(context, 'উপকরণ টেস্টিং'),
+                          subtitle: 'ল্যাব রিপোর্ট ও পরীক্ষার ফলাফল বিশ্লেষণ'.tr(context),
+                          onTap: () => _navigateToScreen(const MedicineguideScreen()),
                         ),
 
                         // ── Section: ANC ও PNC সেবা ────────────────────
-                        _buildSectionTitle('ANC ও PNC সেবা', Icons.baby_changing_station_rounded, const Color(0xFF00897B)),
+                        _buildSectionTitle('ANC ও PNC সেবা'.tr(context), Icons.baby_changing_station_rounded, const Color(0xFF00897B)),
                         _buildRow3Cards(
                           _buildSmallFeatureCard(
-                            title: 'প্রসবপূর্ব (ANC)\nসেবা আপডেট',
+                            title: 'প্রসবপূর্ব (ANC) সেবা আপডেট'.tr(context),
                             icon: Icons.pregnant_woman_rounded,
                             color: const Color(0xFF7C3AED),
                             bgColor: const Color(0xFFEDE7F6),
                             onTap: () => _navigateToScreen(const ANCScreen()),
                           ),
                           _buildSmallFeatureCard(
-                            title: 'গর্ভকালীন সেবা\nও করণীয়',
+                            title: 'গর্ভকালীন সেবা ও করণীয়'.tr(context),
                             icon: Icons.medical_services_rounded,
                             color: const Color(0xFF00897B),
                             bgColor: const Color(0xFFE0F2F1),
-                            onTap: () => _navigateToScreen(const DoctorConsultationScreen()),
+                            onTap: () => _navigateToScreen(const GorvokalinShebaScreen()),
                           ),
                           _buildSmallFeatureCard(
-                            title: 'প্রসব পরবর্তী (PNC)\nসেবা আপডেট',
+                            title: 'প্রসব পরবর্তী (PNC) সেবা আপডেট'.tr(context),
                             icon: Icons.child_friendly_rounded,
                             color: const Color(0xFFEC407A),
                             bgColor: const Color(0xFFFCE4EC),
-                            onTap: () => _showComingSoon(context, 'PNC সেবা'),
+                            onTap: () => _navigateToScreen(const PncScreen()),
                           ),
                         ),
 
                         // ── Section: জরুরি সেবা ────────────────────────
-                        _buildSectionTitle('জরুরি সেবা', Icons.emergency_rounded, const Color(0xFFE53935)),
+                        _buildSectionTitle('জরুরি সেবা'.tr(context), Icons.emergency_rounded, const Color(0xFFE53935)),
                         _buildRow3Cards(
                           _buildSmallFeatureCard(
-                            title: 'রক্তদাতা',
+                            title: 'রক্তদাতা'.tr(context),
                             icon: Icons.bloodtype_rounded,
                             color: const Color(0xFFE53935),
                             bgColor: const Color(0xFFFFEBEE),
                             onTap: () => _navigateToScreen(const BloodDonorScreen()),
                           ),
                           _buildSmallFeatureCard(
-                            title: 'জরুরি যোগাযোগ\nনম্বর',
+                            title: 'জরুরি যোগাযোগ নম্বর'.tr(context),
                             icon: Icons.phone_in_talk_rounded,
                             color: const Color(0xFF1E88E5),
                             bgColor: const Color(0xFFE3F2FD),
                             onTap: () => _navigateToScreen(const HelplineScreen()),
                           ),
                           _buildSmallFeatureCard(
-                            title: 'স্বাস্থ্যকেন্দ্র/\nহাসপাতাল',
+                            title: 'স্বাস্থ্যকেন্দ্র/হাসপাতাল'.tr(context),
                             icon: Icons.local_hospital_rounded,
                             color: const Color(0xFF00897B),
                             bgColor: const Color(0xFFE0F2F1),
@@ -277,63 +294,63 @@ class _DashboardScreenState extends State<DashboardScreen>
                         ),
 
                         // ── Section: নবজাতকের সেবা ────────────────────
-                        _buildSectionTitle('নবজাতকের সেবা', Icons.child_care_rounded, const Color(0xFF43A047)),
+                        _buildSectionTitle('নবজাতকের সেবা'.tr(context), Icons.child_care_rounded, const Color(0xFF43A047)),
                         _buildRow3Cards(
                           _buildSmallFeatureCard(
-                            title: 'নবজাতকের\nযত্ন ও পুষ্টি',
+                            title: 'নবজাতকের যত্ন ও পুষ্টি'.tr(context),
                             icon: Icons.baby_changing_station_rounded,
                             color: const Color(0xFF43A047),
                             bgColor: const Color(0xFFE8F5E9),
-                            onTap: () => _showComingSoon(context, 'নবজাতকের যত্ন'),
+                            onTap: () => _navigateToScreen(const NewbornCareScreen()),
                           ),
                           _buildSmallFeatureCard(
-                            title: 'টিকা',
+                            title: 'টিকা'.tr(context),
                             icon: Icons.vaccines_rounded,
                             color: const Color(0xFFEC407A),
                             bgColor: const Color(0xFFFCE4EC),
                             onTap: () => _navigateToScreen(const RemindersScreen()),
                           ),
                           _buildSmallFeatureCard(
-                            title: 'শিশুর খাদ্য\nতালিকা',
+                            title: 'শিশুর খাদ্য তালিকা'.tr(context),
                             icon: Icons.restaurant_rounded,
                             color: const Color(0xFFFF8F00),
                             bgColor: const Color(0xFFFFF3E0),
-                            onTap: () => _showComingSoon(context, 'শিশুর খাদ্য তালিকা'),
+                            onTap: () => _navigateToScreen(const BabyFoodScreen()),
                           ),
                         ),
 
                         // ── Section: টুলস ─────────────────────────────
-                        _buildSectionTitle('স্বাস্থ্য টুলস', Icons.build_circle_rounded, const Color(0xFF5E35B1)),
+                        _buildSectionTitle('স্বাস্থ্য টুলস'.tr(context), Icons.build_circle_rounded, const Color(0xFF5E35B1)),
                         _buildRow3Cards(
                           _buildSmallFeatureCard(
-                            title: 'গর্ভের শিশুর\nনড়াচড়া',
+                            title: 'গর্ভের শিশুর নড়াচড়া'.tr(context),
                             icon: Icons.touch_app_rounded,
                             color: const Color(0xFF7C3AED),
                             bgColor: const Color(0xFFEDE7F6),
                             onTap: () => _navigateToScreen(const KickCounterScreen()),
                           ),
                           _buildSmallFeatureCard(
-                            title: 'Kegel\nব্যায়াম',
+                            title: 'Kegel ব্যায়াম'.tr(context),
                             icon: Icons.fitness_center_rounded,
                             color: const Color(0xFFD81B60),
                             bgColor: const Color(0xFFFCE4EC),
-                            onTap: () => _showComingSoon(context, 'Kegel ব্যায়াম'),
+                            onTap: () => _navigateToScreen(const KegelExerciseScreen()),
                           ),
                           _buildSmallFeatureCard(
-                            title: 'BMI\nCalculator',
+                            title: 'BMI Calculator'.tr(context),
                             icon: Icons.calculate_rounded,
                             color: const Color(0xFF1E88E5),
                             bgColor: const Color(0xFFE3F2FD),
-                            onTap: () => _showComingSoon(context, 'BMI Calculator'),
+                            onTap: () => _navigateToScreen(const BmiCalculatorScreen()),
                           ),
                         ),
                         _buildFullWidthCard(
-                          title: 'GMP চার্ট',
+                          title: 'GMP চার্ট'.tr(context),
                           icon: Icons.bar_chart_rounded,
                           color: const Color(0xFF00897B),
                           bgColor: const Color(0xFFE0F2F1),
-                          subtitle: 'শিশুর বৃদ্ধির মনিটরিং চার্ট (Growth Monitoring Programme)',
-                          onTap: () => _showComingSoon(context, 'GMP চার্ট'),
+                          subtitle: 'শিশুর বৃদ্ধির মনিটরিং চার্ট (Growth Monitoring Programme)'.tr(context),
+                          onTap: () => _navigateToScreen(const GmpChartScreen()),
                         ),
 
                         const SizedBox(height: 16),
@@ -371,11 +388,11 @@ class _DashboardScreenState extends State<DashboardScreen>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildNavItem(0, Icons.home_rounded, 'হোম'),
-              _buildNavItem(1, Icons.medical_services_rounded, 'পরামর্শ'),
-              _buildNavItem(2, Icons.track_changes_rounded, 'ট্র্যাকার'),
-              _buildNavItem(3, Icons.local_hospital_rounded, 'হাসপাতাল'),
-              _buildNavItem(4, Icons.menu_rounded, 'আরও'),
+              _buildNavItem(0, Icons.home_rounded, 'হোম'.tr(context)),
+              _buildNavItem(1, Icons.medical_services_rounded, 'পরামর্শ'.tr(context)),
+              _buildNavItem(2, Icons.track_changes_rounded, 'ট্র্যাকার'.tr(context)),
+              _buildNavItem(3, Icons.local_hospital_rounded, 'হাসপাতাল'.tr(context)),
+              _buildNavItem(4, Icons.menu_rounded, 'আরও'.tr(context)),
             ],
           ),
         ),
@@ -419,7 +436,7 @@ class _DashboardScreenState extends State<DashboardScreen>
             Text(
               label,
               style: TextStyle(
-                fontFamily: 'Hind_Siliguri',
+                
                 fontSize: 11,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                 color: color,
@@ -529,11 +546,11 @@ class _DashboardScreenState extends State<DashboardScreen>
         // Profile Avatar
         BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
-            String initials = 'ম';
-            String name = 'প্রোফাইল';
+            String initials = 'ম'.tr(context);
+            String name = 'প্রোফাইল'.tr(context);
             if (state is AuthAuthenticated) {
-              initials = state.user.initials;
-              name = state.user.name;
+              name = state.user.name.tr(context);
+              initials = name.isNotEmpty ? name[0] : 'ম'.tr(context);
             }
             return GestureDetector(
               onTap: () => _showProfileBottomSheet(context),
@@ -552,7 +569,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                         ),
                       ),
                       Text(
-                        'প্রোফাইল দেখুন',
+                        'প্রোফাইল দেখুন'.tr(context),
                         style: TextStyle(
                           color: Colors.white.withValues(alpha: 0.7),
                           fontSize: 9,
@@ -619,10 +636,10 @@ class _DashboardScreenState extends State<DashboardScreen>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    '"নিরাপদ হোক প্রতিটি প্রসব, যত্নে থাকুক মা ও নবজাতক"',
+                  Text(
+                    '"নিরাপদ হোক প্রতিটি প্রসব, যত্নে থাকুক মা ও নবজাতক"'.tr(context),
                     style: TextStyle(
-                      fontFamily: 'Hind_Siliguri',
+                      
                       color: Colors.white,
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
@@ -633,9 +650,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                   Row(
                     children: [
                       Text(
-                        'একনজরে দেখুন →',
+                        'একনজরে দেখুন →'.tr(context),
                         style: TextStyle(
-                          fontFamily: 'Hind_Siliguri',
+                          
                           color: Colors.white.withValues(alpha: 0.8),
                           fontSize: 11,
                         ),
@@ -661,7 +678,7 @@ class _DashboardScreenState extends State<DashboardScreen>
 
         final deliveryDate = DateTime.now().add(Duration(days: (40 - weeks) * 7));
         final deliveryStr =
-            '${deliveryDate.day.toString().padLeft(2, '0')} ${_monthName(deliveryDate.month)} ${deliveryDate.year}';
+            '${deliveryDate.day.toString().padLeft(2, '0')} ${_monthName(deliveryDate.month).tr(context)} ${deliveryDate.year}';
         final progress = weeks / 40.0;
 
         return Container(
@@ -701,18 +718,18 @@ class _DashboardScreenState extends State<DashboardScreen>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${weeks}তম সপ্তাহ চলছে',
+                          '$weeks${'তম সপ্তাহ চলছে'.tr(context)}',
                           style: const TextStyle(
-                            fontFamily: 'Hind_Siliguri',
+                            
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Color(0xFF1A1030),
                           ),
                         ),
                         Text(
-                          'সম্ভাব্য ডেলিভারি: $deliveryStr',
+                          '${'সম্ভাব্য ডেলিভারি:'.tr(context)} $deliveryStr',
                           style: TextStyle(
-                            fontFamily: 'Hind_Siliguri',
+                            
                             fontSize: 12,
                             color: Colors.grey.shade600,
                           ),
@@ -727,9 +744,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
-                      '${(40 - weeks)} সপ্তাহ বাকি',
+                      '${(40 - weeks)} ${'সপ্তাহ বাকি'.tr(context)}',
                       style: const TextStyle(
-                        fontFamily: 'Hind_Siliguri',
+                        
                         fontSize: 11,
                         fontWeight: FontWeight.w600,
                         color: AppColors.primary,
@@ -747,9 +764,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'গর্ভাবস্থার অগ্রগতি',
+                        'গর্ভাবস্থার অগ্রগতি'.tr(context),
                         style: TextStyle(
-                          fontFamily: 'Hind_Siliguri',
+                          
                           fontSize: 11,
                           color: Colors.grey.shade600,
                         ),
@@ -757,7 +774,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                       Text(
                         '${(progress * 100).toInt()}%',
                         style: const TextStyle(
-                          fontFamily: 'Hind_Siliguri',
+                          
                           fontSize: 11,
                           fontWeight: FontWeight.bold,
                           color: AppColors.primary,
@@ -780,16 +797,16 @@ class _DashboardScreenState extends State<DashboardScreen>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '১ম ত্রৈমাসিক',
-                        style: TextStyle(fontSize: 9, color: Colors.grey.shade500, fontFamily: 'Hind_Siliguri'),
+                        '১ম ত্রৈমাসিক'.tr(context),
+                        style: TextStyle(fontSize: 9, color: Colors.grey.shade500),
                       ),
                       Text(
-                        '২য় ত্রৈমাসিক',
-                        style: TextStyle(fontSize: 9, color: Colors.grey.shade500, fontFamily: 'Hind_Siliguri'),
+                        '২য় ত্রৈমাসিক'.tr(context),
+                        style: TextStyle(fontSize: 9, color: Colors.grey.shade500),
                       ),
                       Text(
-                        '৩য় ত্রৈমাসিক',
-                        style: TextStyle(fontSize: 9, color: Colors.grey.shade500, fontFamily: 'Hind_Siliguri'),
+                        '৩য় ত্রৈমাসিক'.tr(context),
+                        style: TextStyle(fontSize: 9, color: Colors.grey.shade500),
                       ),
                     ],
                   ),
@@ -815,21 +832,13 @@ class _DashboardScreenState extends State<DashboardScreen>
       padding: const EdgeInsets.fromLTRB(16, 20, 16, 8),
       child: Row(
         children: [
-          Container(
-            width: 4,
-            height: 20,
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(4),
-            ),
-          ),
-          const SizedBox(width: 10),
+
           Icon(icon, color: color, size: 18),
           const SizedBox(width: 6),
           Text(
             title,
             style: TextStyle(
-              fontFamily: 'Hind_Siliguri',
+              
               fontSize: 15,
               fontWeight: FontWeight.bold,
               color: const Color(0xFF1A1030),
@@ -843,12 +852,15 @@ class _DashboardScreenState extends State<DashboardScreen>
   Widget _buildRow2Cards(Widget left, Widget right) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
-      child: Row(
-        children: [
-          Expanded(child: left),
-          const SizedBox(width: 10),
-          Expanded(child: right),
-        ],
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(child: left),
+            const SizedBox(width: 10),
+            Expanded(child: right),
+          ],
+        ),
       ),
     );
   }
@@ -856,14 +868,17 @@ class _DashboardScreenState extends State<DashboardScreen>
   Widget _buildRow3Cards(Widget a, Widget b, Widget c) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
-      child: Row(
-        children: [
-          Expanded(child: a),
-          const SizedBox(width: 8),
-          Expanded(child: b),
-          const SizedBox(width: 8),
-          Expanded(child: c),
-        ],
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(child: a),
+            const SizedBox(width: 8),
+            Expanded(child: b),
+            const SizedBox(width: 8),
+            Expanded(child: c),
+          ],
+        ),
       ),
     );
   }
@@ -907,11 +922,13 @@ class _DashboardScreenState extends State<DashboardScreen>
             Text(
               title,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Hind_Siliguri',
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                
                 fontSize: 13,
                 fontWeight: FontWeight.bold,
-                color: const Color(0xFF1A1030),
+                color: Color(0xFF1A1030),
                 height: 1.3,
               ),
             ),
@@ -920,28 +937,11 @@ class _DashboardScreenState extends State<DashboardScreen>
               subtitle,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontFamily: 'Hind_Siliguri',
+                
                 fontSize: 10,
                 color: Colors.grey.shade600,
                 height: 1.4,
               ),
-            ),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'দেখুন',
-                  style: TextStyle(
-                    fontFamily: 'Hind_Siliguri',
-                    fontSize: 11,
-                    color: color,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(width: 4),
-                Icon(Icons.arrow_forward_rounded, size: 12, color: color),
-              ],
             ),
           ],
         ),
@@ -974,7 +974,6 @@ class _DashboardScreenState extends State<DashboardScreen>
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
           children: [
             Stack(
               clipBehavior: Clip.none,
@@ -1014,16 +1013,16 @@ class _DashboardScreenState extends State<DashboardScreen>
             Text(
               title,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Hind_Siliguri',
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                
                 fontSize: 11,
                 fontWeight: FontWeight.bold,
-                color: const Color(0xFF1A1030),
-                height: 1.3,
+                color: Color(0xFF1A1030),
+                height: 1.2,
               ),
             ),
-            const SizedBox(height: 4),
-            Icon(Icons.arrow_forward_rounded, size: 12, color: color),
           ],
         ),
       ),
@@ -1072,8 +1071,10 @@ class _DashboardScreenState extends State<DashboardScreen>
                 children: [
                   Text(
                     title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
-                      fontFamily: 'Hind_Siliguri',
+                      
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF1A1030),
@@ -1083,7 +1084,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   Text(
                     subtitle,
                     style: TextStyle(
-                      fontFamily: 'Hind_Siliguri',
+                      
                       fontSize: 11,
                       color: Colors.grey.shade600,
                       height: 1.4,
@@ -1130,7 +1131,7 @@ class _DashboardScreenState extends State<DashboardScreen>
               const Text(
                 'গর্ভবতী আয়না',
                 style: TextStyle(
-                  fontFamily: 'Hind_Siliguri',
+                  
                   color: Colors.white,
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -1141,7 +1142,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                 '"নিরাপদ হোক প্রতিটি প্রসব, যত্নে থাকুক মা ও নবজাতক"',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontFamily: 'Hind_Siliguri',
+                  
                   color: Colors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -1153,7 +1154,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                 'NHMRIS - National Health Management & Reporting Information System',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontFamily: 'Hind_Siliguri',
+                  
                   color: Colors.white.withValues(alpha: 0.75),
                   fontSize: 11,
                   height: 1.5,
@@ -1202,6 +1203,8 @@ class _DashboardScreenState extends State<DashboardScreen>
       builder: (_) => BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           final user = state is AuthAuthenticated ? state.user : null;
+          final String name = (user?.name ?? '').tr(context);
+          final String initials = name.isNotEmpty ? name[0] : 'ম'.tr(context);
           return Padding(
             padding: const EdgeInsets.all(24),
             child: SingleChildScrollView(
@@ -1223,7 +1226,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                     radius: 36,
                     backgroundColor: AppColors.primarySurface,
                     child: Text(
-                      user?.initials ?? 'ম',
+                      initials,
                       style: const TextStyle(
                         color: AppColors.primary,
                         fontSize: 24,
@@ -1232,13 +1235,13 @@ class _DashboardScreenState extends State<DashboardScreen>
                     ),
                   ),
                   const SizedBox(height: 12),
-                  Text(user?.name ?? '', style: AppTextStyles.headingMedium),
+                  Text(name, style: AppTextStyles.headingMedium),
                   Text(user?.phone ?? '', style: AppTextStyles.bodyMedium),
                   const SizedBox(height: 24),
                   const Divider(),
                   ListTile(
                     leading: const Icon(Icons.person_outline, color: AppColors.primary),
-                    title: const Text('প্রোফাইল সম্পাদনা', style: TextStyle(fontFamily: 'Hind_Siliguri')),
+                    title: Text('প্রোফাইল সম্পাদনা'.tr(context)),
                     trailing: const Icon(Icons.arrow_forward_ios, size: 14),
                     onTap: () {
                       Navigator.pop(context);
@@ -1247,7 +1250,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   ),
                   ListTile(
                     leading: const Icon(Icons.settings_outlined, color: AppColors.primary),
-                    title: const Text('সেটিংস', style: TextStyle(fontFamily: 'Hind_Siliguri')),
+                    title: Text('সেটিংস'.tr(context)),
                     trailing: const Icon(Icons.arrow_forward_ios, size: 14),
                     onTap: () {
                       Navigator.pop(context);
@@ -1256,7 +1259,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   ),
                   ListTile(
                     leading: const Icon(Icons.info_outline, color: AppColors.primary),
-                    title: const Text('অ্যাপ সম্পর্কে', style: TextStyle(fontFamily: 'Hind_Siliguri')),
+                    title: Text('অ্যাপ সম্পর্কে'.tr(context)),
                     trailing: const Icon(Icons.arrow_forward_ios, size: 14),
                     onTap: () {
                       Navigator.pop(context);
@@ -1317,12 +1320,12 @@ class _TrackerMenuSheet extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            Text('সকল ট্র্যাকার সমূহ', style: AppTextStyles.headingMedium),
+            Text('সকল ট্র্যাকার সমূহ'.tr(context), style: AppTextStyles.headingMedium),
             const SizedBox(height: 16),
-            _buildMenuItem(context, Icons.pregnant_woman_rounded, 'কিক কাউন্টার', const KickCounterScreen(), const Color(0xFF7C3AED)),
-            _buildMenuItem(context, Icons.calendar_month_rounded, 'সাপ্তাহিক বেবি আপডেট', const WeeklyUpdateScreen(), const Color(0xFF00897B)),
-            _buildMenuItem(context, Icons.vaccines_rounded, 'শিশুর টিকা সূচি', const RemindersScreen(), const Color(0xFFEC407A)),
-            _buildMenuItem(context, Icons.checklist_rounded, 'ডেলিভারির প্রস্তুতি', const DeliveryPrepScreen(), const Color(0xFFFF8F00)),
+            _buildMenuItem(context, Icons.pregnant_woman_rounded, 'কিক কাউন্টার'.tr(context), const KickCounterScreen(), const Color(0xFF7C3AED)),
+            _buildMenuItem(context, Icons.calendar_month_rounded, 'সাপ্তাহিক বেবি আপডেট'.tr(context), const WeeklyUpdateScreen(), const Color(0xFF00897B)),
+            _buildMenuItem(context, Icons.vaccines_rounded, 'শিশুর টিকা সূচি'.tr(context), const RemindersScreen(), const Color(0xFFEC407A)),
+            _buildMenuItem(context, Icons.checklist_rounded, 'ডেলিভারির প্রস্তুতি'.tr(context), const DeliveryPrepScreen(), const Color(0xFFFF8F00)),
             const SizedBox(height: 12),
           ],
         ),
@@ -1376,7 +1379,7 @@ class _MoreMenuSheet extends StatelessWidget {
           const SizedBox(height: 12),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Text('আরও ফিচার সমূহ', style: AppTextStyles.headingMedium),
+            child: Text('আরও ফিচার সমূহ'.tr(context), style: AppTextStyles.headingMedium),
           ),
           const SizedBox(height: 8),
           Expanded(
@@ -1384,35 +1387,37 @@ class _MoreMenuSheet extends StatelessWidget {
               controller: scrollCtrl,
               padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
               children: [
+                _buildSectionHeader('শিশু ও মায়ের তথ্য'.tr(context), Icons.child_care_rounded, AppColors.primary),
+                _buildMenuItem(context, Icons.tips_and_updates_rounded, 'প্রতিদিনের টিপস'.tr(context), const DailyTipsScreen(), const Color(0xFF7C3AED)),
+                _buildMenuItem(context, Icons.monitor_heart_rounded, 'গর্ভের শিশুর অবস্থা'.tr(context), const KickCounterScreen(), const Color(0xFF2196F3)),
+                _buildMenuItem(context, Icons.woman_rounded, 'মায়ের স্বাস্থ্য'.tr(context), const ANCScreen(), const Color(0xFFEC407A)),
+                _buildMenuItem(context, Icons.man_rounded, 'বাবার করণীয়'.tr(context), const DeliveryPrepScreen(), const Color(0xFF00897B)),
 
-                _buildSectionHeader('শিশু ও মায়ের তথ্য', Icons.child_care_rounded, AppColors.primary),
-                _buildMenuItem(context, Icons.tips_and_updates_rounded, 'প্রতিদিনের টিপস', const WeeklyUpdateScreen(), const Color(0xFF7C3AED)),
-                _buildMenuItem(context, Icons.monitor_heart_rounded, 'গর্ভের শিশুর অবস্থা', const KickCounterScreen(), const Color(0xFF2196F3)),
-                _buildMenuItem(context, Icons.woman_rounded, 'মায়ের স্বাস্থ্য', const ANCScreen(), const Color(0xFFEC407A)),
-                _buildMenuItem(context, Icons.man_rounded, 'বাবার করণীয়', const DeliveryPrepScreen(), const Color(0xFF00897B)),
+                _buildSectionHeader('গর্ভবতী সেবা'.tr(context), Icons.pregnant_woman_rounded, const Color(0xFF7C3AED)),
+                _buildMenuItem(context, Icons.app_registration_rounded, 'গর্ভবতী নিবন্ধন'.tr(context), const PregnancyRegistrationScreen(), const Color(0xFF43A047)),
+                _buildMenuItem(context, Icons.restaurant_menu_rounded, 'খাদ্য তালিকা ও পুষ্টি'.tr(context), const NutritionScreen(), const Color(0xFFFF8F00)),
+                _buildMenuItem(context, Icons.medical_information_rounded, 'গর্ভকালীন স্বাস্থ্য সমস্যা ও সমাধান'.tr(context), const DoctorConsultationScreen(), const Color(0xFF5E35B1)),
 
-                _buildSectionHeader('গর্ভবতী সেবা', Icons.pregnant_woman_rounded, const Color(0xFF7C3AED)),
-                _buildMenuItem(context, Icons.app_registration_rounded, 'গর্ভবতী নিবন্ধন', const PregnancyRegistrationScreen(), const Color(0xFF43A047)),
-                _buildMenuItem(context, Icons.restaurant_menu_rounded, 'খাদ্য তালিকা ও পুষ্টি', const NutritionScreen(), const Color(0xFFFF8F00)),
-                _buildMenuItem(context, Icons.medical_information_rounded, 'গর্ভকালীন স্বাস্থ্য সমস্যা ও সমাধান', const DoctorConsultationScreen(), const Color(0xFF5E35B1)),
+                _buildSectionHeader('ANC ও PNC সেবা'.tr(context), Icons.baby_changing_station_rounded, const Color(0xFF00897B)),
+                _buildMenuItem(context, Icons.pregnant_woman_rounded, 'প্রসবপূর্ব (ANC) সেবা আপডেট'.tr(context), const ANCScreen(), const Color(0xFF7C3AED)),
+                _buildMenuItem(context, Icons.child_friendly_rounded, 'প্রসব পরবর্তী (PNC) সেবা আপডেট'.tr(context), const PncScreen(), const Color(0xFFEC407A)),
+                _buildMenuItem(context, Icons.medical_services_rounded, 'গর্ভকালীন সেবা ও করণীয়'.tr(context), const DoctorConsultationScreen(), const Color(0xFF00897B)),
 
-                _buildSectionHeader('ANC ও PNC সেবা', Icons.baby_changing_station_rounded, const Color(0xFF00897B)),
-                _buildMenuItem(context, Icons.pregnant_woman_rounded, 'প্রসবপূর্ব (ANC) সেবা আপডেট', const ANCScreen(), const Color(0xFF7C3AED)),
-                _buildMenuItem(context, Icons.medical_services_rounded, 'গর্ভকালীন সেবা ও করণীয়', const DoctorConsultationScreen(), const Color(0xFF00897B)),
+                _buildSectionHeader('জরুরি সেবা'.tr(context), Icons.emergency_rounded, const Color(0xFFE53935)),
+                _buildMenuItem(context, Icons.bloodtype_rounded, 'রক্তদাতা'.tr(context), const BloodDonorScreen(), const Color(0xFFE53935)),
+                _buildMenuItem(context, Icons.phone_in_talk_rounded, 'জরুরি যোগাযোগ নম্বর'.tr(context), const HelplineScreen(), const Color(0xFF1E88E5)),
+                _buildMenuItem(context, Icons.local_hospital_rounded, 'স্বাস্থ্যকেন্দ্র/হাসপাতাল'.tr(context), const HospitalDirectoryScreen(), const Color(0xFF00897B)),
 
-                _buildSectionHeader('জরুরি সেবা', Icons.emergency_rounded, const Color(0xFFE53935)),
-                _buildMenuItem(context, Icons.bloodtype_rounded, 'রক্তদাতা', const BloodDonorScreen(), const Color(0xFFE53935)),
-                _buildMenuItem(context, Icons.phone_in_talk_rounded, 'জরুরি যোগাযোগ নম্বর', const HelplineScreen(), const Color(0xFF1E88E5)),
-                _buildMenuItem(context, Icons.local_hospital_rounded, 'স্বাস্থ্যকেন্দ্র / হাসপাতাল', const HospitalDirectoryScreen(), const Color(0xFF00897B)),
+                _buildSectionHeader('নবজাতকের সেবা'.tr(context), Icons.child_care_rounded, const Color(0xFF43A047)),
+                _buildMenuItem(context, Icons.baby_changing_station_rounded, 'নবজাতকের যত্ন ও পুষ্টি'.tr(context), const NewbornCareScreen(), const Color(0xFF43A047)),
+                _buildMenuItem(context, Icons.vaccines_rounded, 'টিকা'.tr(context), const RemindersScreen(), const Color(0xFFEC407A)),
+                _buildMenuItem(context, Icons.restaurant_rounded, 'শিশুর খাদ্য তালিকা'.tr(context), const BabyFoodScreen(), const Color(0xFFFF8F00)),
 
-                _buildSectionHeader('নবজাতকের সেবা', Icons.child_care_rounded, const Color(0xFF43A047)),
-                _buildMenuItem(context, Icons.vaccines_rounded, 'টিকা', const RemindersScreen(), const Color(0xFFEC407A)),
+                _buildSectionHeader('স্বাস্থ্য টুলস'.tr(context), Icons.build_circle_rounded, const Color(0xFF5E35B1)),
+                _buildMenuItem(context, Icons.touch_app_rounded, 'গর্ভের শিশুর নড়াচড়া'.tr(context), const KickCounterScreen(), const Color(0xFF7C3AED)),
 
-                _buildSectionHeader('স্বাস্থ্য টুলস', Icons.build_circle_rounded, const Color(0xFF5E35B1)),
-                _buildMenuItem(context, Icons.touch_app_rounded, 'গর্ভের শিশুর নড়াচড়া (কিক)', const KickCounterScreen(), const Color(0xFF7C3AED)),
-
-                _buildSectionHeader('অ্যাপ', Icons.info_outline, Colors.grey.shade600),
-                _buildMenuItem(context, Icons.info_outline, 'অ্যাপ সম্পর্কে জানুন', const AboutAppScreen(), Colors.grey.shade600),
+                _buildSectionHeader('অ্যাপ সম্পর্কে'.tr(context), Icons.info_outline, Colors.grey.shade600),
+                _buildMenuItem(context, Icons.info_outline, 'অ্যাপ সম্পর্কে জানুন'.tr(context), const AboutAppScreen(), Colors.grey.shade600),
               ],
             ),
           ),
@@ -1433,7 +1438,7 @@ class _MoreMenuSheet extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              fontFamily: 'Hind_Siliguri',
+              
               fontSize: 12,
               fontWeight: FontWeight.bold,
               color: color,
@@ -1463,3 +1468,4 @@ class _MoreMenuSheet extends StatelessWidget {
     );
   }
 }
+

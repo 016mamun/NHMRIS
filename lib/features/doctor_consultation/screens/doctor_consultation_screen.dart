@@ -87,7 +87,7 @@ class DoctorConsultationScreen extends StatelessWidget {
   Widget _buildHeader(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        gradient: AppColors.primaryGradient,
+        color: Color(0xFF6B3FA0),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(28),
           bottomRight: Radius.circular(28),
@@ -104,34 +104,20 @@ class DoctorConsultationScreen extends StatelessWidget {
                 child: Container(
                   width: 40, height: 40,
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.2),
+                    color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
               const SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('ডাক্তার পরামর্শ', style: AppTextStyles.onPrimaryHeading),
-                  Text('বিশেষজ্ঞ ডাক্তারের সাথে যোগাযোগ করুন', style: AppTextStyles.onPrimaryBody),
-                ],
-              ),
-              const Spacer(),
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.15),
-                  shape: BoxShape.circle,
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.notifications_none_rounded,
-                    color: Colors.white,
-                    size: 20,
-                  ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('ডাক্তার পরামর্শ', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
+                    Text('বিশেষজ্ঞ ডাক্তারের সাথে যোগাযোগ করুন', style: const TextStyle(fontSize: 12, color: Colors.white70)),
+                  ],
                 ),
               ),
             ],
@@ -140,6 +126,7 @@ class DoctorConsultationScreen extends StatelessWidget {
       ),
     );
   }
+
 }
 
 class _DoctorCard extends StatelessWidget {

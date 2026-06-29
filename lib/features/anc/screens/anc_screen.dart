@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/localization/language_cubit.dart';
+import '../../../core/localization/app_translations.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
 
@@ -127,6 +130,7 @@ class _ANCScreenState extends State<ANCScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
     final currentStep = _steps[_activeStep];
 
     return Scaffold(
@@ -150,12 +154,12 @@ class _ANCScreenState extends State<ANCScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         // Custom Stepper Indicator
-                        _buildStepper(),
+                        _buildStepper(context),
 
                         const SizedBox(height: 16),
 
                         // Main Content Card
-                        _buildMainCard(currentStep),
+                        _buildMainCard(context, currentStep),
 
                         const SizedBox(height: 24),
 
@@ -176,11 +180,11 @@ class _ANCScreenState extends State<ANCScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  _activeStep == _steps.length - 1
+                                  (_activeStep == _steps.length - 1
                                       ? 'ঠিক আছে'
-                                      : 'পরবর্তী ধাপ',
+                                      : 'পরবর্তী ধাপ').tr(context),
                                   style: const TextStyle(
-                                    fontFamily: 'Hind_Siliguri',
+                                    
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
                                     color: Colors.white,
@@ -213,7 +217,7 @@ class _ANCScreenState extends State<ANCScreen> {
   Widget _buildHeader(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        gradient: AppColors.primaryGradient,
+        color: Color(0xFF6B3FA0),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(28),
           bottomRight: Radius.circular(28),
@@ -228,46 +232,22 @@ class _ANCScreenState extends State<ANCScreen> {
               GestureDetector(
                 onTap: () => Navigator.pop(context),
                 child: Container(
-                  width: 40,
-                  height: 40,
+                  width: 40, height: 40,
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.2),
+                    color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Center(
-                    child: Icon(
-                      Icons.arrow_back_ios_new,
-                      color: Colors.white,
-                      size: 18,
-                    ),
-                  ),
+                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
               const SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('এএনসি (গর্ভকালীন সেবা)', style: AppTextStyles.onPrimaryHeading),
-                  Text(
-                    'আপনার গর্ভকালীন স্বাস্থ্যের ৪টি গুরুত্বপূর্ণ ধাপ',
-                    style: AppTextStyles.onPrimaryBody,
-                  ),
-                ],
-              ),
-              const Spacer(),
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.15),
-                  shape: BoxShape.circle,
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.notifications_none_rounded,
-                    color: Colors.white,
-                    size: 20,
-                  ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('এএনসি (গর্ভকালীন সেবা)'.tr(context), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
+                    Text('আপনার গর্ভকালীন স্বাস্থ্যের ৪টি গুরুত্বপূর্ণ ধাপ'.tr(context), style: const TextStyle(fontSize: 12, color: Colors.white70)),
+                  ],
                 ),
               ),
             ],
@@ -277,7 +257,8 @@ class _ANCScreenState extends State<ANCScreen> {
     );
   }
 
-  Widget _buildStepper() {
+
+  Widget _buildStepper(BuildContext context) {
     return Column(
       children: [
         Row(
@@ -337,7 +318,7 @@ class _ANCScreenState extends State<ANCScreen> {
                     child: Text(
                       '${stepIndex + 1}',
                       style: TextStyle(
-                        fontFamily: 'Hind_Siliguri',
+                        
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
                         color: isActive
@@ -354,10 +335,10 @@ class _ANCScreenState extends State<ANCScreen> {
           }),
         ),
         const SizedBox(height: 8),
-        const Text(
-          'আপনার গর্ভাবস্থার যত্নের ৪টি গুরুত্বপূর্ণ ধাপ',
+        Text(
+          'আপনার গর্ভাবস্থার যত্নের ৪টি গুরুত্বপূর্ণ ধাপ'.tr(context),
           style: TextStyle(
-            fontFamily: 'Hind_Siliguri',
+            
             fontSize: 13,
             fontWeight: FontWeight.w600,
             color: AppColors.textSecondary,
@@ -367,7 +348,7 @@ class _ANCScreenState extends State<ANCScreen> {
     );
   }
 
-  Widget _buildMainCard(ANCStep step) {
+  Widget _buildMainCard(BuildContext context, ANCStep step) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -414,9 +395,9 @@ class _ANCScreenState extends State<ANCScreen> {
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: Text(
-                        step.trimester,
+                        step.trimester.tr(context),
                         style: const TextStyle(
-                          fontFamily: 'Hind_Siliguri',
+                          
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
                           color: AppColors.primary,
@@ -425,9 +406,9 @@ class _ANCScreenState extends State<ANCScreen> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      step.title,
+                      step.title.tr(context),
                       style: const TextStyle(
-                        fontFamily: 'Hind_Siliguri',
+                        
                         fontSize: 24,
                         fontWeight: FontWeight.w800,
                         color: AppColors.primaryDark,
@@ -435,9 +416,9 @@ class _ANCScreenState extends State<ANCScreen> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      step.duration,
+                      step.duration.tr(context),
                       style: TextStyle(
-                        fontFamily: 'Hind_Siliguri',
+                        
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
                         color: AppColors.textPrimary.withValues(alpha: 0.8),
@@ -470,10 +451,10 @@ class _ANCScreenState extends State<ANCScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'লক্ষ্য',
+              Text(
+                'লক্ষ্য'.tr(context),
                 style: TextStyle(
-                  fontFamily: 'Hind_Siliguri',
+                  
                   fontSize: 13,
                   fontWeight: FontWeight.w700,
                   color: AppColors.primary,
@@ -481,9 +462,9 @@ class _ANCScreenState extends State<ANCScreen> {
               ),
               const SizedBox(height: 6),
               Text(
-                step.goal,
+                step.goal.tr(context),
                 style: const TextStyle(
-                  fontFamily: 'Hind_Siliguri',
+                  
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                   height: 1.4,
@@ -497,12 +478,12 @@ class _ANCScreenState extends State<ANCScreen> {
         const SizedBox(height: 20),
 
         // ── Activities Section ──────────────────────────────────────────────
-        const Padding(
-          padding: EdgeInsets.only(left: 4, bottom: 10),
+        Padding(
+          padding: const EdgeInsets.only(left: 4, bottom: 10),
           child: Text(
-            'মূল কার্যক্রম',
+            'মূল কার্যক্রম'.tr(context),
             style: TextStyle(
-              fontFamily: 'Hind_Siliguri',
+              
               fontSize: 15,
               fontWeight: FontWeight.w700,
               color: AppColors.textPrimary,
@@ -511,13 +492,13 @@ class _ANCScreenState extends State<ANCScreen> {
         ),
 
         Column(
-          children: step.activities.map((activity) => _buildActivityItem(activity)).toList(),
+          children: step.activities.map((activity) => _buildActivityItem(context, activity)).toList(),
         ),
       ],
     );
   }
 
-  Widget _buildActivityItem(ANCActivity activity) {
+  Widget _buildActivityItem(BuildContext context, ANCActivity activity) {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(12),
@@ -546,9 +527,9 @@ class _ANCScreenState extends State<ANCScreen> {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              activity.title,
+              activity.title.tr(context),
               style: const TextStyle(
-                fontFamily: 'Hind_Siliguri',
+                
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
                 color: AppColors.textPrimary,

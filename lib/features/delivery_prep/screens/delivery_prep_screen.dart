@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/localization/language_cubit.dart';
+import '../../../core/localization/app_translations.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
 
@@ -50,6 +53,7 @@ class _DeliveryPrepScreenState extends State<DeliveryPrepScreen>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Column(
@@ -63,7 +67,7 @@ class _DeliveryPrepScreenState extends State<DeliveryPrepScreen>
               unselectedLabelColor: AppColors.textSecondary,
               indicatorColor: AppColors.deliveryIcon,
               labelStyle: AppTextStyles.labelMedium,
-              tabs: const [Tab(text: 'চেকলিস্ট'), Tab(text: 'লেবার সাইন')],
+              tabs: [Tab(text: 'চেকলিস্ট'.tr(context)), Tab(text: 'লেবার সাইন'.tr(context))],
             ),
           ),
           Expanded(child: TabBarView(controller: _tab, children: [
@@ -78,7 +82,7 @@ class _DeliveryPrepScreenState extends State<DeliveryPrepScreen>
   Widget _buildHeader(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        gradient: AppColors.primaryGradient,
+        color: Color(0xFF6B3FA0),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(28),
           bottomRight: Radius.circular(28),
@@ -88,41 +92,36 @@ class _DeliveryPrepScreenState extends State<DeliveryPrepScreen>
         bottom: false,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
-          child: Row(children: [
-            GestureDetector(
-              onTap: () => Navigator.pop(context),
-              child: Container(
-                width: 40, height: 40,
-                decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(12)),
-                child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
-              ),
-            ),
-            const SizedBox(width: 12),
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text('ডেলিভারির প্রস্তুতি', style: AppTextStyles.onPrimaryHeading),
-              Text('সময়মতো প্রস্তুত থাকুন', style: AppTextStyles.onPrimaryBody),
-            ]),
-            const Spacer(),
-            Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.15),
-                shape: BoxShape.circle,
-              ),
-              child: const Center(
-                child: Icon(
-                  Icons.notifications_none_rounded,
-                  color: Colors.white,
-                  size: 20,
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  width: 40, height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
-            ),
-          ]),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('ডেলিভারির প্রস্তুতি'.tr(context), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
+                    Text('সময়মতো প্রস্তুত থাকুন'.tr(context), style: const TextStyle(fontSize: 12, color: Colors.white70)),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+
 
   Widget _buildChecklistTab() {
     return Column(children: [
@@ -136,7 +135,7 @@ class _DeliveryPrepScreenState extends State<DeliveryPrepScreen>
         ),
         child: Column(children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Text('প্রস্তুতির অগ্রগতি', style: AppTextStyles.headingSmall),
+            Text('প্রস্তুতির অগ্রগতি'.tr(context), style: AppTextStyles.headingSmall),
             Text('$_checkedCount/${_checklist.length}', style: AppTextStyles.labelMedium.copyWith(color: AppColors.deliveryIcon)),
           ]),
           const SizedBox(height: 10),
@@ -181,13 +180,13 @@ class _DeliveryPrepScreenState extends State<DeliveryPrepScreen>
                   const SizedBox(width: 12),
                   Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     Text(
-                      item['item'] as String,
+                      (item['item'] as String).tr(context),
                       style: AppTextStyles.labelMedium.copyWith(
                         color: done ? AppColors.textHint : AppColors.textPrimary,
                         decoration: done ? TextDecoration.lineThrough : null,
                       ),
                     ),
-                    Text(item['category'] as String, style: AppTextStyles.bodySmall),
+                    Text((item['category'] as String).tr(context), style: AppTextStyles.bodySmall),
                   ])),
                 ]),
               ),
@@ -222,15 +221,15 @@ class _DeliveryPrepScreenState extends State<DeliveryPrepScreen>
             const SizedBox(width: 14),
             Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(children: [
-                Text(s['sign'] as String, style: AppTextStyles.headingSmall.copyWith(color: color)),
+                Text((s['sign'] as String).tr(context), style: AppTextStyles.headingSmall.copyWith(color: color)),
                 if (urgent) ...[const SizedBox(width: 6), Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   decoration: BoxDecoration(color: AppColors.error, borderRadius: BorderRadius.circular(20)),
-                  child: const Text('জরুরি', style: TextStyle(fontSize: 10, color: Colors.white)),
+                  child: Text('জরুরি'.tr(context), style: const TextStyle(fontSize: 10, color: Colors.white)),
                 )],
               ]),
               const SizedBox(height: 4),
-              Text(s['desc'] as String, style: AppTextStyles.bodyMedium),
+              Text((s['desc'] as String).tr(context), style: AppTextStyles.bodyMedium),
             ])),
           ]),
         );

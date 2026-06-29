@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/localization/language_cubit.dart';
+import '../../../core/localization/app_translations.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../../core/constants/app_constants.dart';
@@ -15,6 +18,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Column(
@@ -35,7 +39,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                   const SizedBox(height: 20),
 
                   // ── Category Circles Row ──────────────────────────────────────────
-                  _buildCategoriesRow(),
+                  _buildCategoriesRow(context),
 
                   const SizedBox(height: 24),
 
@@ -52,9 +56,9 @@ class _NutritionScreenState extends State<NutritionScreen> {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        'আজকের খাবারের পরিকল্পনা',
+                        'আজকের খাবারের পরিকল্পনা'.tr(context),
                         style: TextStyle(
-                          fontFamily: 'Hind_Siliguri',
+                          
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
                           color: Colors.green.shade900,
@@ -65,12 +69,12 @@ class _NutritionScreenState extends State<NutritionScreen> {
                   const SizedBox(height: 12),
 
                   // ── Meal Plan List ────────────────────────────────────────────────
-                  _buildMealPlanList(),
+                  _buildMealPlanList(context),
 
                   const SizedBox(height: 24),
 
                   // ── Bottom Card: Interactive Water Reminder ───────────────────────
-                  _buildWaterReminderCard(),
+                  _buildWaterReminderCard(context),
                 ],
               ),
             ),
@@ -83,7 +87,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
   Widget _buildHeader(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        gradient: AppColors.primaryGradient,
+        color: Color(0xFF6B3FA0),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(28),
           bottomRight: Radius.circular(28),
@@ -98,46 +102,22 @@ class _NutritionScreenState extends State<NutritionScreen> {
               GestureDetector(
                 onTap: () => Navigator.pop(context),
                 child: Container(
-                  width: 40,
-                  height: 40,
+                  width: 40, height: 40,
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.2),
+                    color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Center(
-                    child: Icon(
-                      Icons.arrow_back_ios_new,
-                      color: Colors.white,
-                      size: 18,
-                    ),
-                  ),
+                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
               const SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('পুষ্টি ও যত্ন গাইড', style: AppTextStyles.onPrimaryHeading),
-                  Text(
-                    'সুস্থ মা ও শিশুর পুষ্টিকর খাদ্যাভ্যাস',
-                    style: AppTextStyles.onPrimaryBody,
-                  ),
-                ],
-              ),
-              const Spacer(),
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.15),
-                  shape: BoxShape.circle,
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.notifications_none_rounded,
-                    color: Colors.white,
-                    size: 20,
-                  ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('পুষ্টি ও যত্ন গাইড'.tr(context), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
+                    Text('সুস্থ মা ও শিশুর পুষ্টিকর খাদ্যাভ্যাস'.tr(context), style: const TextStyle(fontSize: 12, color: Colors.white70)),
+                  ],
                 ),
               ),
             ],
@@ -146,6 +126,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
       ),
     );
   }
+
 
   Widget _buildNutritionAdviceBanner() {
     return Container(
@@ -180,9 +161,9 @@ class _NutritionScreenState extends State<NutritionScreen> {
                 Row(
                   children: [
                     Text(
-                      'আজকের',
+                      'আজকের'.tr(context),
                       style: TextStyle(
-                        fontFamily: 'Hind_Siliguri',
+                        
                         fontSize: 22,
                         fontWeight: FontWeight.w800,
                         color: Colors.green.shade900,
@@ -197,9 +178,9 @@ class _NutritionScreenState extends State<NutritionScreen> {
                   ],
                 ),
                 Text(
-                  'পুষ্টি পরামর্শ',
+                  'পুষ্টি পরামর্শ'.tr(context),
                   style: TextStyle(
-                    fontFamily: 'Hind_Siliguri',
+                    
                     fontSize: 22,
                     fontWeight: FontWeight.w800,
                     color: Colors.green.shade900,
@@ -207,9 +188,9 @@ class _NutritionScreenState extends State<NutritionScreen> {
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  'প্রতিদিনের খাদ্যতালিকায় সবুজ শাকসবজি, ফল ও ডাল রাখুন।',
+                  'প্রতিদিনের খাদ্যতালিকায় সবুজ শাকসবজি, ফল ও ডাল রাখুন।'.tr(context),
                   style: TextStyle(
-                    fontFamily: 'Hind_Siliguri',
+                    
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
                     color: Colors.green.shade800,
@@ -246,7 +227,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
     );
   }
 
-  Widget _buildCategoriesRow() {
+  Widget _buildCategoriesRow(BuildContext context) {
     final List<Map<String, dynamic>> categories = [
       {
         'title': 'গর্ভবতীর\nডায়েট',
@@ -314,10 +295,10 @@ class _NutritionScreenState extends State<NutritionScreen> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  cat['title'] as String,
+                  (cat['title'] as String).tr(context),
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                    fontFamily: 'Hind_Siliguri',
+                    
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
                     color: AppColors.textPrimary,
@@ -332,7 +313,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
     );
   }
 
-  Widget _buildMealPlanList() {
+  Widget _buildMealPlanList(BuildContext context) {
     final List<Map<String, dynamic>> meals = [
       {
         'title': 'সকালের নাস্তা',
@@ -399,9 +380,9 @@ class _NutritionScreenState extends State<NutritionScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      meal['title'] as String,
+                      (meal['title'] as String).tr(context),
                       style: TextStyle(
-                        fontFamily: 'Hind_Siliguri',
+                        
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
                         color: color,
@@ -409,9 +390,9 @@ class _NutritionScreenState extends State<NutritionScreen> {
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      meal['desc'] as String,
+                      (meal['desc'] as String).tr(context),
                       style: const TextStyle(
-                        fontFamily: 'Hind_Siliguri',
+                        
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: AppColors.textPrimary,
@@ -427,9 +408,9 @@ class _NutritionScreenState extends State<NutritionScreen> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
-                  meal['time'] as String,
+                  (meal['time'] as String).tr(context),
                   style: const TextStyle(
-                    fontFamily: 'Hind_Siliguri',
+                    
                     fontSize: 10,
                     fontWeight: FontWeight.w600,
                     color: AppColors.textSecondary,
@@ -443,7 +424,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
     );
   }
 
-  Widget _buildWaterReminderCard() {
+  Widget _buildWaterReminderCard(BuildContext context) {
     final progress = (_waterGlasses / 8).clamp(0.0, 1.0);
     return Container(
       width: double.infinity,
@@ -467,18 +448,18 @@ class _NutritionScreenState extends State<NutritionScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Row(
+              Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.water_drop_rounded,
                     color: Color(0xFF0EA5E9),
                     size: 20,
                   ),
                   SizedBox(width: 6),
                   Text(
-                    'পানি রিমাইন্ডার',
-                    style: TextStyle(
-                      fontFamily: 'Hind_Siliguri',
+                    'পানি রিমাইন্ডার'.tr(context),
+                    style: const TextStyle(
+                      
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
                       color: Color(0xFF0369A1),
@@ -487,9 +468,9 @@ class _NutritionScreenState extends State<NutritionScreen> {
                 ],
               ),
               Text(
-                '${AppConstants.toBengaliNumber(_waterGlasses)} / ৮ গ্লাস',
+                '${AppConstants.toBengaliNumber(_waterGlasses)}${' / ৮ গ্লাস'.tr(context)}',
                 style: const TextStyle(
-                  fontFamily: 'Hind_Siliguri',
+                  
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
                   color: Color(0xFF0369A1),
@@ -547,11 +528,11 @@ class _NutritionScreenState extends State<NutritionScreen> {
             }),
           ),
           const SizedBox(height: 12),
-          const Text(
-            'প্রতিটি গ্লাসে ট্যাপ করে আপনার আজকের পানি পানের হিসাব রাখুন',
+          Text(
+            'প্রতিটি গ্লাসে ট্যাপ করে আপনার আজকের পানি পানের হিসাব রাখুন'.tr(context),
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontFamily: 'Hind_Siliguri',
+              
               fontSize: 11,
               fontWeight: FontWeight.w500,
               color: Color(0xFF0369A1),
@@ -571,10 +552,10 @@ class _NutritionScreenState extends State<NutritionScreen> {
       content = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildDetailItem('🥬 শাকসবজি ও ফলমূল', 'আয়রন, ফলিক অ্যাসিড ও কোষ্ঠকাঠিন্য দূর করতে ফাইবার প্রদান করে।'),
-          _buildDetailItem('🥛 দুধ ও ক্যালসিয়াম সমৃদ্ধ খাবার', 'শিশুর হাড় ও দাঁতের গঠন মজবুত করতে দিনে অন্তত ২ গ্লাস দুধ পান করুন।'),
-          _buildDetailItem('🥚 ডিম ও মাছ/মাংস', 'উচ্চমানের প্রোটিন শিশুর পেশী গঠনে মুখ্য ভূমিকা রাখে।'),
-          _buildDetailItem('🫘 ডাল ও লাল চাল', 'প্রয়োজনীয় কার্বোহাইড্রেট ও শক্তি সরবরাহ করে।'),
+          _buildDetailItem(context, '🥬 শাকসবজি ও ফলমূল', 'আয়রন, ফলিক অ্যাসিড ও কোষ্ঠকাঠিন্য দূর করতে ফাইবার প্রদান করে।'),
+          _buildDetailItem(context, '🥛 দুধ ও ক্যালসিয়াম সমৃদ্ধ খাবার', 'শিশুর হাড় ও দাঁতের গঠন মজবুত করতে দিনে অন্তত ২ গ্লাস দুধ পান করুন।'),
+          _buildDetailItem(context, '🥚 ডিম ও মাছ/মাংস', 'উচ্চমানের প্রোটিন শিশুর পেশী গঠনে মুখ্য ভূমিকা রাখে।'),
+          _buildDetailItem(context, '🫘 ডাল ও লাল চাল', 'প্রয়োজনীয় কার্বোহাইড্রেট ও শক্তি সরবরাহ করে।'),
         ],
       );
     } else if (type == 'water') {
@@ -582,8 +563,8 @@ class _NutritionScreenState extends State<NutritionScreen> {
       content = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildDetailItem('💧 কেন পানি প্রয়োজন?', 'গর্ভে পর্যাপ্ত অ্যামনিয়াটিক তরল বজায় রাখতে এবং ইউরিনারি ইনফেকশন (UTI) প্রতিরোধ করতে দিনে অন্তত ৮-১০ গ্লাস পানি আবশ্যক।'),
-          _buildDetailItem('🥤 ফলের রস ও ডাবের পানি', 'খাবার পানির পাশাপাশি ডাবের পানি বা তাজা ফলের রস গর্ভবতী মায়ের ক্লান্তি দূর করতে সহায়ক।'),
+          _buildDetailItem(context, '💧 কেন পানি প্রয়োজন?', 'গর্ভে পর্যাপ্ত অ্যামনিয়াটিক তরল বজায় রাখতে এবং ইউরিনারি ইনফেকশন (UTI) প্রতিরোধ করতে দিনে অন্তত ৮-১০ গ্লাস পানি আবশ্যক।'),
+          _buildDetailItem(context, '🥤 ফলের রস ও ডাবের পানি', 'খাবার পানির পাশাপাশি ডাবের পানি বা তাজা ফলের রস গর্ভবতী মায়ের ক্লান্তি দূর করতে সহায়ক।'),
         ],
       );
     } else if (type == 'exercise') {
@@ -591,9 +572,9 @@ class _NutritionScreenState extends State<NutritionScreen> {
       content = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildDetailItem('🚶‍♀️ হালকা হাঁটা', 'প্রতিদিন সকালে বা বিকেলে ১৫-২০ মিনিট ধীর গতিতে হাঁটা রক্ত সঞ্চালন স্বাভাবিক রাখে।'),
-          _buildDetailItem('🧘‍♀️ প্রেগন্যান্সি যোগব্যায়াম', 'পেশী শিথিল করতে ও প্রসববেদনা সহজ করতে নিরাপদ যোগাসন করুন।'),
-          _buildDetailItem('💪 কেগেল ব্যায়াম', 'শ্রোণিদেশের পেশী মজবুত করতে অত্যন্ত সহায়ক।'),
+          _buildDetailItem(context, '🚶‍♀️ হালকা হাঁটা', 'প্রতিদিন সকালে বা বিকেলে ১৫-২০ মিনিট ধীর গতিতে হাঁটা রক্ত সঞ্চালন স্বাভাবিক রাখে।'),
+          _buildDetailItem(context, '🧘‍♀️ প্রেগন্যান্সি যোগব্যায়াম', 'পেশী শিথিল করতে ও প্রসববেদনা সহজ করতে নিরাপদ যোগাসন করুন।'),
+          _buildDetailItem(context, '💪 কেগেল ব্যায়াম', 'শ্রোণিদেশের পেশী মজবুত করতে অত্যন্ত সহায়ক।'),
         ],
       );
     } else if (type == 'vitamins') {
@@ -601,9 +582,9 @@ class _NutritionScreenState extends State<NutritionScreen> {
       content = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildDetailItem('💊 ফলিক অ্যাসিড', 'গর্ভাবস্থার প্রথম ১২ সপ্তাহ শিশুর মেরুদণ্ড ও মস্তিষ্কের ত্রুটি প্রতিরোধে অত্যন্ত জরুরি।'),
-          _buildDetailItem('🩸 আয়রন ও ফলিক ট্যাবলেট', 'রক্তশূন্যতা দূর করতে প্রতিদিন চিকিৎসকের পরামর্শে আয়রন ক্যাপসুল গ্রহণ করুন।'),
-          _buildDetailItem('🦴 ক্যালসিয়াম ও ভিটামিন ডি', 'দুগ্ধজাত খাবারের পাশাপাশি ক্যালসিয়াম সাপ্লিমেন্ট হাড়ের ক্ষয় রোধে আবশ্যক।'),
+          _buildDetailItem(context, '💊 ফলিক অ্যাসিড', 'গর্ভাবস্থার প্রথম ১২ সপ্তাহ শিশুর মেরুদণ্ড ও মস্তিষ্কের ত্রুটি প্রতিরোধে অত্যন্ত জরুরি।'),
+          _buildDetailItem(context, '🩸 আয়রন ও ফলিক ট্যাবলেট', 'রক্তশূন্যতা দূর করতে প্রতিদিন চিকিৎসকের পরামর্শে আয়রন ক্যাপসুল গ্রহণ করুন।'),
+          _buildDetailItem(context, '🦴 ক্যালসিয়াম ও ভিটামিন ডি', 'দুগ্ধজাত খাবারের পাশাপাশি ক্যালসিয়াম সাপ্লিমেন্ট হাড়ের ক্ষয় রোধে আবশ্যক।'),
         ],
       );
     }
@@ -632,7 +613,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
               ),
               const SizedBox(height: 20),
               Text(
-                title,
+                title.tr(context),
                 style: AppTextStyles.headingMedium.copyWith(color: AppColors.primary),
               ),
               const SizedBox(height: 16),
@@ -642,7 +623,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text('ঠিক আছে'),
+                  child: Text('ঠিক আছে'.tr(context)),
                 ),
               ),
             ],
@@ -652,16 +633,16 @@ class _NutritionScreenState extends State<NutritionScreen> {
     );
   }
 
-  Widget _buildDetailItem(String title, String desc) {
+  Widget _buildDetailItem(BuildContext context, String title, String desc) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            title,
+            title.tr(context),
             style: const TextStyle(
-              fontFamily: 'Hind_Siliguri',
+              
               fontSize: 14,
               fontWeight: FontWeight.w700,
               color: AppColors.textPrimary,
@@ -669,9 +650,9 @@ class _NutritionScreenState extends State<NutritionScreen> {
           ),
           const SizedBox(height: 2),
           Text(
-            desc,
+            desc.tr(context),
             style: const TextStyle(
-              fontFamily: 'Hind_Siliguri',
+              
               fontSize: 13,
               color: AppColors.textSecondary,
               height: 1.3,

@@ -153,7 +153,7 @@ class _PregnancyRegistrationScreenState
             const Text(
               'গর্ভবতীর সম্পূর্ণ তথ্য, সেবা কার্ড ও প্রসবোত্তর তথ্য সফলভাবে যুক্ত হয়েছে।',
               textAlign: TextAlign.center,
-              style: TextStyle(fontFamily: 'Hind_Siliguri', color: AppColors.textSecondary),
+              style: TextStyle(color: AppColors.textSecondary),
             ),
             const SizedBox(height: 24),
             SizedBox(
@@ -202,7 +202,7 @@ class _PregnancyRegistrationScreenState
   Widget _buildHeader() {
     return Container(
       decoration: const BoxDecoration(
-        gradient: AppColors.primaryGradient,
+        color: Color(0xFF6B3FA0),
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(28), bottomRight: Radius.circular(28)),
       ),
       child: SafeArea(
@@ -235,7 +235,7 @@ class _PregnancyRegistrationScreenState
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                     decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(20)),
                     child: Text('${_currentStep + 1}/$_totalSteps',
-                        style: const TextStyle(color: Colors.white, fontFamily: 'Hind_Siliguri', fontWeight: FontWeight.w700)),
+                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                   ),
                 ],
               ),
@@ -284,7 +284,7 @@ class _PregnancyRegistrationScreenState
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                     side: const BorderSide(color: AppColors.primary),
                   ),
-                  child: const Text('পূর্ববর্তী', style: TextStyle(fontFamily: 'Hind_Siliguri', color: AppColors.primary, fontSize: 15, fontWeight: FontWeight.w600)),
+                  child: const Text('পূর্ববর্তী', style: TextStyle(color: AppColors.primary, fontSize: 15, fontWeight: FontWeight.w600)),
                 ),
               ),
             if (_currentStep > 0) const SizedBox(width: 12),
@@ -300,7 +300,7 @@ class _PregnancyRegistrationScreenState
                 ),
                 child: Text(
                   _currentStep == _totalSteps - 1 ? 'সংরক্ষণ করুন' : 'পরবর্তী ধাপ',
-                  style: const TextStyle(fontFamily: 'Hind_Siliguri', color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
+                  style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
                 ),
               ),
             ),
@@ -334,12 +334,12 @@ class _PregnancyRegistrationScreenState
 
   Widget _label(String text) => Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(text, style: const TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+    child: Text(text, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
   );
 
   InputDecoration _inputDeco(String hint, {IconData? icon}) => InputDecoration(
     hintText: hint,
-    hintStyle: const TextStyle(fontFamily: 'Hind_Siliguri', color: AppColors.textSecondary, fontSize: 13),
+    hintStyle: const TextStyle(color: AppColors.textSecondary, fontSize: 13),
     prefixIcon: icon != null ? Icon(icon, color: AppColors.primary.withValues(alpha: 0.45), size: 20) : null,
     filled: true,
     fillColor: AppColors.surface,
@@ -358,7 +358,7 @@ class _PregnancyRegistrationScreenState
           _label(label),
           TextFormField(
             keyboardType: type,
-            style: const TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 14),
+            style: const TextStyle(fontSize: 14),
             decoration: _inputDeco(hint, icon: icon),
           ),
         ],
@@ -376,7 +376,7 @@ class _PregnancyRegistrationScreenState
           DropdownButtonFormField<String>(
             decoration: _inputDeco(hint, icon: icon),
             isExpanded: true,
-            items: items.map((e) => DropdownMenuItem(value: e, child: Text(e, style: const TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 13)))).toList(),
+            items: items.map((e) => DropdownMenuItem(value: e, child: Text(e, style: const TextStyle(fontSize: 13)))).toList(),
             onChanged: (val) {},
           ),
         ],
@@ -395,7 +395,7 @@ class _PregnancyRegistrationScreenState
       child: CheckboxListTile(
         value: value,
         onChanged: (v) { setState(() => onChanged(v)); },
-        title: Text(label, style: const TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 13, color: AppColors.textPrimary)),
+        title: Text(label, style: const TextStyle(fontSize: 13, color: AppColors.textPrimary)),
         activeColor: AppColors.primary,
         checkColor: Colors.white,
         controlAffinity: ListTileControlAffinity.leading,
@@ -408,7 +408,7 @@ class _PregnancyRegistrationScreenState
   Widget _subHeading(String text) => Padding(
     padding: const EdgeInsets.only(top: 12, bottom: 8),
     child: Text(text, style: const TextStyle(
-      fontFamily: 'Hind_Siliguri', fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w700,
       fontSize: 13, color: AppColors.primary,
     )),
   );
@@ -441,7 +441,7 @@ class _PregnancyRegistrationScreenState
                 children: [
                   Icon(Icons.add_a_photo_outlined, color: AppColors.primary.withValues(alpha: 0.5), size: 36),
                   const SizedBox(height: 6),
-                  const Text('ছবি', style: TextStyle(fontFamily: 'Hind_Siliguri', color: AppColors.primary, fontSize: 13)),
+                  const Text('ছবি', style: TextStyle(color: AppColors.primary, fontSize: 13)),
                 ],
               ),
             ),
@@ -577,7 +577,7 @@ class _PregnancyRegistrationScreenState
           TextButton.icon(
             onPressed: () => setState(() => _addObstetricRow()),
             icon: const Icon(Icons.add_circle_outline, color: AppColors.primary),
-            label: const Text('নতুন সারি যুক্ত করুন', style: TextStyle(fontFamily: 'Hind_Siliguri', color: AppColors.primary)),
+            label: const Text('নতুন সারি যুক্ত করুন', style: TextStyle(color: AppColors.primary)),
           ),
 
           const Divider(height: 24),
@@ -724,7 +724,7 @@ class _PregnancyRegistrationScreenState
             child: Row(
               children: headers.map((h) => Expanded(
                 child: Text(h, textAlign: TextAlign.center,
-                  style: const TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 10, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+                  style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
               )).toList(),
             ),
           ),
@@ -750,7 +750,7 @@ class _PregnancyRegistrationScreenState
             padding: const EdgeInsets.symmetric(horizontal: 2),
             child: TextFormField(
               controller: row[k],
-              style: const TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 11),
+              style: const TextStyle(fontSize: 11),
               decoration: InputDecoration(
                 isDense: true,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
@@ -789,7 +789,7 @@ class _PregnancyRegistrationScreenState
               children: headers.asMap().entries.map((e) => Expanded(
                 flex: e.key == 0 ? 2 : 1,
                 child: Text(e.value, textAlign: TextAlign.center,
-                  style: const TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 9, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+                  style: const TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
               )).toList(),
             ),
           ),
@@ -808,14 +808,14 @@ class _PregnancyRegistrationScreenState
                 children: [
                   Expanded(flex: 2, child: Padding(
                     padding: const EdgeInsets.only(left: 4),
-                    child: Text(label, style: const TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+                    child: Text(label, style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
                   )),
                   ...List.generate(5, (i) => Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2),
                       child: TextFormField(
                         controller: controllers[i],
-                        style: const TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 10),
+                        style: const TextStyle(fontSize: 10),
                         decoration: InputDecoration(
                           isDense: true,
                           contentPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),

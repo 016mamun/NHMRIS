@@ -71,7 +71,7 @@ class _KickCounterView extends StatelessWidget {
   Widget _buildHeader(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        gradient: AppColors.primaryGradient,
+        color: Color(0xFF6B3FA0),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(28),
           bottomRight: Radius.circular(28),
@@ -86,46 +86,22 @@ class _KickCounterView extends StatelessWidget {
               GestureDetector(
                 onTap: () => Navigator.pop(context),
                 child: Container(
-                  width: 40,
-                  height: 40,
+                  width: 40, height: 40,
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.2),
+                    color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Center(
-                    child: Icon(
-                      Icons.arrow_back_ios_new,
-                      color: Colors.white,
-                      size: 18,
-                    ),
-                  ),
+                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
               const SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('কিক কাউন্টার', style: AppTextStyles.onPrimaryHeading),
-                  Text(
-                    'শিশুর নড়াচড়া ট্র্যাক করুন',
-                    style: AppTextStyles.onPrimaryBody,
-                  ),
-                ],
-              ),
-              const Spacer(),
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.15),
-                  shape: BoxShape.circle,
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.notifications_none_rounded,
-                    color: Colors.white,
-                    size: 20,
-                  ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('কিক কাউন্টার', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
+                    Text('শিশুর নড়াচড়া ট্র্যাক করুন', style: const TextStyle(fontSize: 12, color: Colors.white70)),
+                  ],
                 ),
               ),
             ],
@@ -134,6 +110,7 @@ class _KickCounterView extends StatelessWidget {
       ),
     );
   }
+
 }
 
 class _TimerCard extends StatelessWidget {
@@ -163,7 +140,7 @@ class _TimerCard extends StatelessWidget {
           Text(
             state.formattedTime,
             style: const TextStyle(
-              fontFamily: 'Hind_Siliguri',
+              
               fontSize: 32,
               fontWeight: FontWeight.w700,
               color: AppColors.primary,
@@ -182,7 +159,7 @@ class _TimerCard extends StatelessWidget {
             child: Text(
               state.isRunning ? '● চলমান' : 'শুরু হয়নি',
               style: TextStyle(
-                fontFamily: 'Hind_Siliguri',
+                
                 fontSize: 11,
                 fontWeight: FontWeight.w600,
                 color: state.isRunning ? AppColors.success : AppColors.primary,
@@ -233,7 +210,7 @@ class _KickButton extends StatelessWidget {
                 Text(
                   AppConstants.toBengaliNumber(state.kickCount),
                   style: const TextStyle(
-                    fontFamily: 'Hind_Siliguri',
+                    
                     fontSize: 44,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
@@ -242,7 +219,7 @@ class _KickButton extends StatelessWidget {
                 Text(
                   isGoal ? '🎉 লক্ষ্য পূরণ!' : 'কিক',
                   style: const TextStyle(
-                    fontFamily: 'Hind_Siliguri',
+                    
                     fontSize: 14,
                     color: Colors.white70,
                   ),
@@ -260,7 +237,7 @@ class _KickButton extends StatelessWidget {
                   ? 'চমৎকার! ১০টি কিক সম্পন্ন হয়েছে।'
                   : 'নড়াচড়া করলে বাটনে চাপ দিন',
               style: const TextStyle(
-                fontFamily: 'Hind_Siliguri',
+                
                 fontSize: 12,
                 color: AppColors.textSecondary,
               ),
@@ -283,7 +260,7 @@ class _KickButton extends StatelessWidget {
                     Text(
                       'রিসেট',
                       style: TextStyle(
-                        fontFamily: 'Hind_Siliguri',
+                        
                         fontSize: 11,
                         color: AppColors.primary,
                         fontWeight: FontWeight.w600,
@@ -322,7 +299,7 @@ class _InfoCard extends StatelessWidget {
             child: Text(
               '২৮তম সপ্তাহ থেকে প্রতিদিন শিশুর নড়াচড়া গণনা করুন। ২ ঘণ্টার মধ্যে ১০টি কিক স্বাভাবিক।',
               style: AppTextStyles.bodySmall.copyWith(
-                fontFamily: 'Hind_Siliguri',
+                
                 color: AppColors.kickCounterIcon,
                 fontSize: 10,
               ),
@@ -406,7 +383,7 @@ class _WeeklyChartCard extends StatelessWidget {
               Text(
                 'আজকের লক্ষ্য: ${AppConstants.toBengaliNumber(state.kickCount)} / ১০',
                 style: const TextStyle(
-                  fontFamily: 'Hind_Siliguri',
+                  
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
                   color: AppColors.primary,
@@ -449,7 +426,7 @@ class _WeeklyChartCard extends StatelessWidget {
                     Text(
                       AppConstants.toBengaliNumber(count),
                       style: TextStyle(
-                        fontFamily: 'Hind_Siliguri',
+                        
                         fontSize: 9,
                         fontWeight: isToday ? FontWeight.w700 : FontWeight.w500,
                         color: isToday ? AppColors.primary : AppColors.textSecondary,
@@ -478,7 +455,7 @@ class _WeeklyChartCard extends StatelessWidget {
                     Text(
                       day,
                       style: TextStyle(
-                        fontFamily: 'Hind_Siliguri',
+                        
                         fontSize: 10,
                         fontWeight: isToday ? FontWeight.w700 : FontWeight.w400,
                         color: isToday ? AppColors.primary : AppColors.textSecondary,

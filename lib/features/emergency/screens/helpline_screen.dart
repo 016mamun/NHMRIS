@@ -94,7 +94,7 @@ class _HelplineScreenState extends State<HelplineScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('জরুরি যোগাযোগ ও হেল্পলাইন', style: TextStyle(fontFamily: 'Hind_Siliguri', fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B))),
+        title: const Text('জরুরি যোগাযোগ ও হেল্পলাইন', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B))),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
@@ -110,7 +110,7 @@ class _HelplineScreenState extends State<HelplineScreen> {
             // Subtitle
             const Text(
               'গর্ভকালীন বা অন্য যেকোনো জরুরি মুহূর্তে নিচের টোল-ফ্রি বা বিশেষজ্ঞ হেল্পলাইনগুলোতে তাৎক্ষণিক পরামর্শ ও সহায়তার জন্য কল করুন।',
-              style: TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 13, height: 1.4, color: Colors.black54, fontWeight: FontWeight.w600),
+              style: TextStyle(fontSize: 13, height: 1.4, color: Colors.black54, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 20),
 
@@ -121,7 +121,7 @@ class _HelplineScreenState extends State<HelplineScreen> {
                 SizedBox(width: 6),
                 Text(
                   'জাতীয় জরুরি নম্বরসমূহ',
-                  style: TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 16.5, fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B)),
+                  style: TextStyle(fontSize: 16.5, fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B)),
                 ),
               ],
             ),
@@ -145,7 +145,7 @@ class _HelplineScreenState extends State<HelplineScreen> {
                 SizedBox(width: 6),
                 Text(
                   'মাতৃত্ব ও প্রসূতি বিশেষজ্ঞ লাইনসমূহ',
-                  style: TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 16.5, fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B)),
+                  style: TextStyle(fontSize: 16.5, fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B)),
                 ),
               ],
             ),
@@ -222,7 +222,7 @@ class _HelplineScreenState extends State<HelplineScreen> {
                       child: Text(
                         isFree ? 'টোল ফ্রি' : 'সাধারণ রেট',
                         style: TextStyle(
-                          fontFamily: 'Hind_Siliguri',
+                          
                           fontSize: 9,
                           fontWeight: FontWeight.bold,
                           color: isFree ? const Color(0xFF2E7D32) : const Color(0xFF475569),
@@ -235,7 +235,7 @@ class _HelplineScreenState extends State<HelplineScreen> {
                 Text(
                   line['title'] as String,
                   style: const TextStyle(
-                    fontFamily: 'Hind_Siliguri',
+                    
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF1E293B),
@@ -245,7 +245,7 @@ class _HelplineScreenState extends State<HelplineScreen> {
                 Text(
                   line['desc'] as String,
                   style: const TextStyle(
-                    fontFamily: 'Hind_Siliguri',
+                    
                     fontSize: 11.5,
                     color: Color(0xFF64748B),
                     height: 1.35,
@@ -264,7 +264,7 @@ class _HelplineScreenState extends State<HelplineScreen> {
                         Text(
                           line['hours'] as String,
                           style: const TextStyle(
-                            fontFamily: 'Hind_Siliguri',
+                            
                             fontSize: 10.5,
                             color: Color(0xFF475569),
                             fontWeight: FontWeight.bold,
@@ -285,7 +285,7 @@ class _HelplineScreenState extends State<HelplineScreen> {
                       label: const Text(
                         'কল করুন',
                         style: TextStyle(
-                          fontFamily: 'Hind_Siliguri',
+                          
                           fontSize: 10.5,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,

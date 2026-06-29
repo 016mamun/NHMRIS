@@ -170,7 +170,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
   Widget _buildHeader(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        gradient: AppColors.primaryGradient,
+        color: Color(0xFF6B3FA0),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(28),
           bottomRight: Radius.circular(28),
@@ -185,46 +185,22 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
               GestureDetector(
                 onTap: () => Navigator.pop(context),
                 child: Container(
-                  width: 40,
-                  height: 40,
+                  width: 40, height: 40,
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.2),
+                    color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Center(
-                    child: Icon(
-                      Icons.arrow_back_ios_new,
-                      color: Colors.white,
-                      size: 18,
-                    ),
-                  ),
+                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
               const SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('সাপ্তাহিক বেবি আপডেট', style: AppTextStyles.onPrimaryHeading),
-                  Text(
-                    'শিশুর সাপ্তাহিক বিকাশ ট্র্যাক করুন',
-                    style: AppTextStyles.onPrimaryBody,
-                  ),
-                ],
-              ),
-              const Spacer(),
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.15),
-                  shape: BoxShape.circle,
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.notifications_none_rounded,
-                    color: Colors.white,
-                    size: 20,
-                  ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('সাপ্তাহিক বেবি আপডেট', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
+                    Text('শিশুর সাপ্তাহিক বিকাশ ট্র্যাক করুন', style: const TextStyle(fontSize: 12, color: Colors.white70)),
+                  ],
                 ),
               ),
             ],
@@ -233,6 +209,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
       ),
     );
   }
+
 
   Widget _buildSliderCard() {
     return Container(
@@ -256,7 +233,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
               const Text(
                 'সপ্তাহ নির্বাচন করুন',
                 style: TextStyle(
-                  fontFamily: 'Hind_Siliguri',
+                  
                   fontSize: 13,
                   fontWeight: FontWeight.w700,
                   color: AppColors.textPrimary,
@@ -271,7 +248,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                 child: Text(
                   '${AppConstants.toBengaliNumber(_selectedWeek)} সপ্তাহ',
                   style: const TextStyle(
-                    fontFamily: 'Hind_Siliguri',
+                    
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
                     color: AppColors.primary,
@@ -301,7 +278,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                 Text(
                   '২৪ সপ্তাহ',
                   style: TextStyle(
-                    fontFamily: 'Hind_Siliguri',
+                    
                     fontSize: 10,
                     color: AppColors.textSecondary,
                   ),
@@ -309,7 +286,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                 Text(
                   '৪০ সপ্তাহ',
                   style: TextStyle(
-                    fontFamily: 'Hind_Siliguri',
+                    
                     fontSize: 10,
                     color: AppColors.textSecondary,
                   ),
@@ -351,7 +328,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                     Text(
                       'আপনার বেবি',
                       style: TextStyle(
-                        fontFamily: 'Hind_Siliguri',
+                        
                         fontSize: 20,
                         fontWeight: FontWeight.w800,
                         color: Colors.purple.shade900,
@@ -365,7 +342,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                 Text(
                   '${AppConstants.toBengaliNumber(_selectedWeek)} সপ্তাহ ($trimester)',
                   style: TextStyle(
-                    fontFamily: 'Hind_Siliguri',
+                    
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
                     color: Colors.purple.shade700,
@@ -484,7 +461,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                         child: const Text(
                           'নিরাপদ',
                           style: TextStyle(
-                            fontFamily: 'Hind_Siliguri',
+                            
                             fontSize: 9,
                             fontWeight: FontWeight.w700,
                             color: Color(0xFFE11D48),
@@ -542,7 +519,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
               Text(
                 title,
                 style: const TextStyle(
-                  fontFamily: 'Hind_Siliguri',
+                  
                   fontSize: 10,
                   fontWeight: FontWeight.w600,
                   color: AppColors.textSecondary,
@@ -551,7 +528,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
               Text(
                 value,
                 style: TextStyle(
-                  fontFamily: 'Hind_Siliguri',
+                  
                   fontSize: 12,
                   fontWeight: FontWeight.w700,
                   color: iconColor,
@@ -610,7 +587,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                 title,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontFamily: 'Hind_Siliguri',
+                  
                   fontSize: 10,
                   fontWeight: FontWeight.w700,
                   color: isActive ? Colors.white : AppColors.textSecondary,
@@ -666,7 +643,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                     Text(
                       textContent,
                       style: const TextStyle(
-                        fontFamily: 'Hind_Siliguri',
+                        
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: AppColors.textPrimary,
@@ -715,7 +692,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
               label: const Text(
                 'আরও বিস্তারিত পড়ুন',
                 style: TextStyle(
-                  fontFamily: 'Hind_Siliguri',
+                  
                   fontSize: 13,
                   fontWeight: FontWeight.w700,
                 ),
@@ -796,7 +773,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
           Text(
             label,
             style: const TextStyle(
-              fontFamily: 'Hind_Siliguri',
+              
               fontSize: 14,
               fontWeight: FontWeight.w700,
               color: AppColors.textPrimary,
@@ -806,7 +783,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
           Text(
             value,
             style: const TextStyle(
-              fontFamily: 'Hind_Siliguri',
+              
               fontSize: 13,
               color: AppColors.textSecondary,
               height: 1.3,

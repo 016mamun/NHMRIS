@@ -236,7 +236,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
                         const Text(
                           'শিশুর টিকা সূচি',
                           style: TextStyle(
-                            fontFamily: 'Hind_Siliguri',
+                            
                             fontSize: 28,
                             fontWeight: FontWeight.w800,
                             color: Color(0xFF1E1B4B),
@@ -246,7 +246,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
                         Text(
                           'সময়মতো টিকা দিন, শিশু থাকবে সুরক্ষিত',
                           style: TextStyle(
-                            fontFamily: 'Hind_Siliguri',
+                            
                             fontSize: 13,
                             color: Colors.black.withValues(alpha: 0.6),
                             fontWeight: FontWeight.w600,
@@ -363,7 +363,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
                   child: Text(
                     'সরকারি টিকা (EPI)',
                     style: TextStyle(
-                      fontFamily: 'Hind_Siliguri',
+                      
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
                       color: _selectedTab == 0 ? const Color(0xFFEC407A) : Colors.black87,
@@ -395,7 +395,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
                   child: Text(
                     'বেসরকারি/অতিরিক্ত টিকা',
                     style: TextStyle(
-                      fontFamily: 'Hind_Siliguri',
+                      
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
                       color: _selectedTab == 1 ? const Color(0xFFEC407A) : Colors.black87,
@@ -445,7 +445,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
             child: Text(
               'জাতীয় টিকাদান কর্মসূচি (EPI) অনুযায়ী সরকারি টিকা বিনামূল্যে দেওয়া হয়। বেসরকারি টিকা ঐচ্ছিক, তবে অতিরিক্ত সুরক্ষার জন্য প্রয়োজন হতে পারে।',
               style: TextStyle(
-                fontFamily: 'Hind_Siliguri',
+                
                 fontSize: 12.5,
                 height: 1.4,
                 color: Color(0xFF283593),
@@ -475,7 +475,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
             child: Text(
               headers[index],
               style: const TextStyle(
-                fontFamily: 'Hind_Siliguri',
+                
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF475569),
@@ -507,7 +507,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
           Text(
             row['age'] as String,
             style: const TextStyle(
-              fontFamily: 'Hind_Siliguri',
+              
               fontSize: 10.5,
               fontWeight: FontWeight.bold,
               color: Colors.black87,
@@ -536,7 +536,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
               child: Text(
                 mainText,
                 style: TextStyle(
-                  fontFamily: 'Hind_Siliguri',
+                  
                   fontSize: 11.5,
                   fontWeight: FontWeight.bold,
                   color: Color(row['color'] as int),
@@ -549,7 +549,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
             Text(
               subText,
               style: TextStyle(
-                fontFamily: 'Hind_Siliguri',
+                
                 fontSize: 10,
                 fontWeight: FontWeight.bold,
                 color: Color(row['color'] as int),
@@ -601,7 +601,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
                   Text(
                     row['status'] as String,
                     style: TextStyle(
-                      fontFamily: 'Hind_Siliguri',
+                      
                       fontSize: 10.5,
                       fontWeight: FontWeight.bold,
                       color: isDone ? const Color(0xFF2E7D32) : const Color(0xFF3F51B5),
@@ -614,7 +614,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
             Text(
               row['date'] as String,
               style: const TextStyle(
-                fontFamily: 'Hind_Siliguri',
+                
                 fontSize: 9.5,
                 color: Colors.grey,
                 fontWeight: FontWeight.w500,
@@ -648,7 +648,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
               child: Text(
                 row['ageDetail'] as String,
                 style: const TextStyle(
-                  fontFamily: 'Hind_Siliguri',
+                  
                   fontSize: 11.5,
                   fontWeight: FontWeight.w600,
                   color: Color(0xFF475569),
@@ -665,7 +665,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
             child: Text(
               row['name'] as String,
               style: const TextStyle(
-                fontFamily: 'Hind_Siliguri',
+                
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF1E293B),
@@ -682,7 +682,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
             child: Text(
               row['protection'] as String,
               style: const TextStyle(
-                fontFamily: 'Hind_Siliguri',
+                
                 fontSize: 11,
                 color: Color(0xFF64748B),
                 fontWeight: FontWeight.w500,
@@ -719,7 +719,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
               child: Text(
                 row['age'] as String,
                 style: const TextStyle(
-                  fontFamily: 'Hind_Siliguri',
+                  
                   fontSize: 12.5,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF1E293B),
@@ -736,7 +736,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
             child: Text(
               row['name'] as String,
               style: const TextStyle(
-                fontFamily: 'Hind_Siliguri',
+                
                 fontSize: 12.5,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF0F172A),
@@ -753,7 +753,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
             child: Text(
               row['protection'] as String,
               style: const TextStyle(
-                fontFamily: 'Hind_Siliguri',
+                
                 fontSize: 11.5,
                 color: Color(0xFF64748B),
                 fontWeight: FontWeight.w500,
@@ -771,7 +771,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
               child: Text(
                 row['dose'] as String,
                 style: const TextStyle(
-                  fontFamily: 'Hind_Siliguri',
+                  
                   fontSize: 12.5,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF0F172A),
@@ -789,7 +789,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
               child: Text(
                 row['schedule'] as String,
                 style: const TextStyle(
-                  fontFamily: 'Hind_Siliguri',
+                  
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                   color: Color(0xFF475569),
@@ -833,7 +833,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
                   Text(
                     'সরকারি টিকা (EPI)',
                     style: TextStyle(
-                      fontFamily: 'Hind_Siliguri',
+                      
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF283593),
@@ -908,7 +908,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
                   Text(
                     'বেসরকারি / অতিরিক্ত টিকা (ঐচ্ছিক)',
                     style: TextStyle(
-                      fontFamily: 'Hind_Siliguri',
+                      
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF283593),
@@ -976,7 +976,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
             child: Text(
               'দ্রষ্টব্য: সময়মতো সব টিকা দিন এবং টিকাদান কার্ড সাথে রাখুন। যে কোনো প্রশ্নে আপনার নিকটস্থ স্বাস্থ্যকেন্দ্রে যোগাযোগ করুন।',
               style: TextStyle(
-                fontFamily: 'Hind_Siliguri',
+                
                 fontSize: 12,
                 height: 1.4,
                 color: Color(0xFF9F1239),

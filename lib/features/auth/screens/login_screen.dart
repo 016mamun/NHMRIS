@@ -177,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen>
                                   const Text(
                                     'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
                                     style: TextStyle(
-                                      fontFamily: 'Hind_Siliguri',
+                                      
                                       color: Colors.white,
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
@@ -216,7 +216,7 @@ class _LoginScreenState extends State<LoginScreen>
                             const Text(
                               'গর্ভবতী আয়না',
                               style: TextStyle(
-                                fontFamily: 'Hind_Siliguri',
+                                
                                 fontSize: 38,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
@@ -227,7 +227,7 @@ class _LoginScreenState extends State<LoginScreen>
                             const Text(
                               'নিরাপদ হোক প্রতিটি প্রসব',
                               style: TextStyle(
-                                fontFamily: 'Hind_Siliguri',
+                                
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.white,
@@ -237,7 +237,7 @@ class _LoginScreenState extends State<LoginScreen>
                             const Text(
                               'যত্নে থাকুক মা ও নবজাতক',
                               style: TextStyle(
-                                fontFamily: 'Hind_Siliguri',
+                                
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
@@ -377,7 +377,7 @@ class _LoginScreenState extends State<LoginScreen>
                                         child: Text(
                                           'পাসওয়ার্ড ভুলে গেছেন?',
                                           style: TextStyle(
-                                            fontFamily: 'Hind_Siliguri',
+                                            
                                             fontSize: 12,
                                             color: AppColors.primary,
                                           ),
@@ -413,7 +413,7 @@ class _LoginScreenState extends State<LoginScreen>
                                                 : const Text(
                                                     'লগইন',
                                                     style: TextStyle(
-                                                      fontFamily: 'Hind_Siliguri',
+                                                      
                                                       fontSize: 16,
                                                       fontWeight: FontWeight.bold,
                                                     ),

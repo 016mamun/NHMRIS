@@ -55,7 +55,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 const SizedBox(height: 20),
                 ListTile(
                   leading: const Text('🇧🇩', style: TextStyle(fontSize: 24)),
-                  title: const Text('বাংলা', style: TextStyle(fontFamily: 'Hind_Siliguri', fontWeight: FontWeight.bold)),
+                  title: const Text('বাংলা', style: TextStyle(fontWeight: FontWeight.bold)),
                   trailing: _selectedLanguage == 'বাংলা'
                       ? const Icon(Icons.check_circle, color: AppColors.primary)
                       : null,
@@ -135,7 +135,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   const SizedBox(width: 8),
                   Text(
                     syncTitle,
-                    style: const TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 16, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -151,12 +151,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   const SizedBox(height: 16),
                   Text(
                     '$syncProgressPrefix ${(_syncProgress * 100).toInt()}%',
-                    style: const TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 13, fontWeight: FontWeight.w600),
+                    style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     syncWaitMsg,
-                    style: const TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 11, color: Colors.grey),
+                    style: const TextStyle(fontSize: 11, color: Colors.grey),
                   ),
                 ],
               ),
@@ -183,7 +183,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             const SizedBox(width: 8),
             Text(
               'পাসওয়ার্ড পরিবর্তন করুন'.tr(context),
-              style: const TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 17, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -196,7 +196,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'বর্তমান পাসওয়ার্ড'.tr(context),
-                  labelStyle: const TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 13),
+                  labelStyle: const TextStyle(fontSize: 13),
                 ),
               ),
               const SizedBox(height: 8),
@@ -205,7 +205,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'নতুন পাসওয়ার্ড'.tr(context),
-                  labelStyle: const TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 13),
+                  labelStyle: const TextStyle(fontSize: 13),
                 ),
               ),
               const SizedBox(height: 8),
@@ -214,7 +214,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'নতুন পাসওয়ার্ড নিশ্চিত করুন'.tr(context),
-                  labelStyle: const TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 13),
+                  labelStyle: const TextStyle(fontSize: 13),
                 ),
               ),
             ],
@@ -223,7 +223,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: Text('বাতিল'.tr(context), style: const TextStyle(fontFamily: 'Hind_Siliguri', color: Colors.grey)),
+            child: Text('বাতিল'.tr(context), style: const TextStyle(color: Colors.grey)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -250,7 +250,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 );
               }
             },
-            child: Text('আপডেট করুন'.tr(context), style: const TextStyle(fontFamily: 'Hind_Siliguri', color: Colors.white)),
+            child: Text('আপডেট করুন'.tr(context), style: const TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -269,18 +269,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
             const SizedBox(width: 8),
             Text(
               'অ্যাকাউন্ট মুছে ফেলবেন?'.tr(context),
-              style: const TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 17, fontWeight: FontWeight.bold, color: AppColors.error),
+              style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: AppColors.error),
             ),
           ],
         ),
         content: Text(
           'আপনি কি নিশ্চিত যে আপনার MHRIS অ্যাকাউন্টটি স্থায়ীভাবে ডিলিট করতে চান? আপনার পূর্ববর্তী সমস্ত গর্ভাবস্থা ও ভ্যাকসিনের মেডিকেল রেকর্ড ডাটা স্থায়ীভাবে মুছে যাবে!'.tr(context),
-          style: const TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 13, height: 1.45, color: Colors.black87),
+          style: const TextStyle(fontSize: 13, height: 1.45, color: Colors.black87),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: Text('বাতিল করুন'.tr(context), style: const TextStyle(fontFamily: 'Hind_Siliguri', color: Colors.grey, fontWeight: FontWeight.bold)),
+            child: Text('বাতিল করুন'.tr(context), style: const TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -297,7 +297,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               );
             },
-            child: Text('হ্যাঁ, ডিলিট করুন'.tr(context), style: const TextStyle(fontFamily: 'Hind_Siliguri', color: Colors.white, fontWeight: FontWeight.bold)),
+            child: Text('হ্যাঁ, ডিলিট করুন'.tr(context), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
           ),
         ],
       ),
@@ -309,7 +309,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Text('সেটিংস (Settings)'.tr(context), style: const TextStyle(fontFamily: 'Hind_Siliguri', fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B))),
+        title: Text('সেটিংস (Settings)'.tr(context), style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B))),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
@@ -428,7 +428,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 title: 'অ্যাকাউন্ট মুছে ফেলুন (Delete Account)'.tr(context),
                 subtitle: 'আপনার সমস্ত ডাটা চিরতরে ডিলিট করুন'.tr(context),
                 onTap: _showDeleteAccountDialog,
-                titleStyle: const TextStyle(fontFamily: 'Hind_Siliguri', fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.error),
+                titleStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.error),
               ),
             ]),
             const SizedBox(height: 24),
@@ -480,7 +480,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       child: Text(
         title,
         style: const TextStyle(
-          fontFamily: 'Hind_Siliguri',
+          
           fontSize: 14,
           fontWeight: FontWeight.bold,
           color: Color(0xFF64748B),
@@ -531,7 +531,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         title,
         style: titleStyle ??
             const TextStyle(
-              fontFamily: 'Hind_Siliguri',
+              
               fontSize: 14.5,
               fontWeight: FontWeight.bold,
               color: Color(0xFF1E293B),
@@ -540,7 +540,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       subtitle: Text(
         subtitle,
         style: const TextStyle(
-          fontFamily: 'Hind_Siliguri',
+          
           fontSize: 11,
           color: Color(0xFF64748B),
         ),
@@ -572,7 +572,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       title: Text(
         title,
         style: const TextStyle(
-          fontFamily: 'Hind_Siliguri',
+          
           fontSize: 14.5,
           fontWeight: FontWeight.bold,
           color: Color(0xFF1E293B),
@@ -581,7 +581,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       subtitle: Text(
         subtitle,
         style: const TextStyle(
-          fontFamily: 'Hind_Siliguri',
+          
           fontSize: 11,
           color: Color(0xFF64748B),
         ),

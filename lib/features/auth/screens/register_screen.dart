@@ -156,7 +156,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                 const Text(
                                   'নতুন অ্যাকাউন্ট',
                                   style: TextStyle(
-                                    fontFamily: 'Hind_Siliguri',
+                                    
                                     color: Colors.white,
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -165,7 +165,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                 Text(
                                   'গর্ভবতী আয়না',
                                   style: TextStyle(
-                                    fontFamily: 'Hind_Siliguri',
+                                    
                                     color: Colors.white.withValues(alpha: 0.75),
                                     fontSize: 13,
                                   ),
@@ -355,7 +355,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                                 : const Text(
                                                     'নিবন্ধন সম্পন্ন করুন',
                                                     style: TextStyle(
-                                                      fontFamily: 'Hind_Siliguri',
+                                                      
                                                       fontSize: 16,
                                                       fontWeight: FontWeight.bold,
                                                     ),
@@ -414,7 +414,7 @@ class _RegisterScreenState extends State<RegisterScreen>
         Text(
           label,
           style: const TextStyle(
-            fontFamily: 'Hind_Siliguri',
+            
             fontSize: 13,
             fontWeight: FontWeight.w600,
             color: Color(0xFF1A1030),
