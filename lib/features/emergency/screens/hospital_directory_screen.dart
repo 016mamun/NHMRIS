@@ -1,5 +1,8 @@
+import '../../../core/localization/language_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/app_translations.dart';
 import '../widgets/mock_dialer_widget.dart';
 
 class HospitalDirectoryScreen extends StatefulWidget {
@@ -104,12 +107,12 @@ class _HospitalDirectoryScreenState extends State<HospitalDirectoryScreen> {
         backgroundColor: const Color(0xFF0F172A), // Premium sleek night map look
         title: Row(
           children: [
-            const Icon(Icons.navigation_rounded, color: AppColors.primary),
-            const SizedBox(width: 8),
+            Icon(Icons.navigation_rounded, color: AppColors.primary),
+            SizedBox(width: 8),
             Expanded(
               child: Text(
                 hospitalName,
-                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -137,24 +140,24 @@ class _HospitalDirectoryScreenState extends State<HospitalDirectoryScreen> {
                     painter: MapPainter(),
                   ),
                   // Current location indicator
-                  const Positioned(
+                  Positioned(
                     left: 40,
                     bottom: 40,
                     child: Column(
                       children: [
                         Icon(Icons.my_location, color: Colors.blue, size: 20),
-                        Text('আমার অবস্থান', style: TextStyle(color: Colors.white, fontSize: 8)),
+                        Text('আমার অবস্থান'.tr(context), style: TextStyle(color: Colors.white, fontSize: 8)),
                       ],
                     ),
                   ),
                   // Hospital Location indicator
-                  const Positioned(
+                  Positioned(
                     right: 40,
                     top: 30,
                     child: Column(
                       children: [
                         Icon(Icons.location_on_rounded, color: AppColors.error, size: 24),
-                        Text('হাসপাতাল', style: TextStyle(color: Colors.white, fontSize: 8, fontWeight: FontWeight.bold)),
+                        Text('হাসপাতাল'.tr(context), style: TextStyle(color: Colors.white, fontSize: 8, fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ),
@@ -164,13 +167,13 @@ class _HospitalDirectoryScreenState extends State<HospitalDirectoryScreen> {
                       color: Colors.black.withValues(alpha: 0.6),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(Icons.gps_fixed_rounded, color: AppColors.primary, size: 12),
                         SizedBox(width: 6),
                         Text(
-                          'জিপিএস রুট সক্রিয়',
+                          'জিপিএস রুট সক্রিয়'.tr(context),
                           style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -179,22 +182,22 @@ class _HospitalDirectoryScreenState extends State<HospitalDirectoryScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 16),
-            const Row(
+            SizedBox(height: 16),
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   children: [
                     Icon(Icons.directions_car_rounded, color: Colors.white70, size: 16),
                     SizedBox(width: 6),
-                    Text('দূরত্ব: ৪.৮ কি.মি.', style: TextStyle(color: Colors.white70, fontSize: 12)),
+                    Text('দূরত্ব: ৪.৮ কি.মি.'.tr(context), style: TextStyle(color: Colors.white70, fontSize: 12)),
                   ],
                 ),
                 Row(
                   children: [
                     Icon(Icons.access_time_filled_rounded, color: Colors.white70, size: 16),
                     SizedBox(width: 6),
-                    Text('সময়: ১২ মিনিট', style: TextStyle(color: Colors.white70, fontSize: 12)),
+                    Text('সময়: ১২ মিনিট'.tr(context), style: TextStyle(color: Colors.white70, fontSize: 12)),
                   ],
                 ),
               ],
@@ -208,7 +211,7 @@ class _HospitalDirectoryScreenState extends State<HospitalDirectoryScreen> {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             ),
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('বন্ধ করুন', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            child: Text('বন্ধ করুন'.tr(context), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
           )
         ],
       ),
@@ -217,6 +220,8 @@ class _HospitalDirectoryScreenState extends State<HospitalDirectoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
+    context.watch<LanguageCubit>();
     // Filtered Hospitals
     final filteredHospitals = _hospitals.where((hospital) {
       final matchesSearch = hospital['name'].toString().toLowerCase().contains(_searchQuery.toLowerCase()) ||
@@ -229,11 +234,11 @@ class _HospitalDirectoryScreenState extends State<HospitalDirectoryScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('নিকটস্থ হাসপাতাল ডিরেক্টরি', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B))),
+        title: Text('নিকটস্থ হাসপাতাল ডিরেক্টরি'.tr(context), style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B))),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF1E1B4B)),
+          icon: Icon(Icons.arrow_back, color: Color(0xFF1E1B4B)),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -249,16 +254,16 @@ class _HospitalDirectoryScreenState extends State<HospitalDirectoryScreen> {
                 TextField(
                   onChanged: (val) => setState(() => _searchQuery = val),
                   decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                    prefixIcon: Icon(Icons.search, color: Colors.grey),
                     hintText: 'হাসপাতালের নাম অথবা এলাকা খুঁজুন...',
-                    hintStyle: const TextStyle(fontSize: 13, color: Colors.grey),
+                    hintStyle: TextStyle(fontSize: 13, color: Colors.grey),
                     fillColor: const Color(0xFFF1F5F9),
                     filled: true,
                     contentPadding: const EdgeInsets.symmetric(vertical: 0),
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
                   ),
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12),
 
                 // Category and Division Row
                 Row(
@@ -272,11 +277,11 @@ class _HospitalDirectoryScreenState extends State<HospitalDirectoryScreen> {
                           filled: true,
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Color(0xFFE2E8F0))),
                         ),
-                        items: _categories.map((c) => DropdownMenuItem(value: c, child: Text(c, style: const TextStyle(fontSize: 12.5)))).toList(),
+                        items: _categories.map((c) => DropdownMenuItem(value: c, child: Text(c, style: TextStyle(fontSize: 12.5)))).toList(),
                         onChanged: (val) => setState(() => _selectedCategory = val!),
                       ),
                     ),
-                    const SizedBox(width: 8),
+                    SizedBox(width: 8),
                     Expanded(
                       child: DropdownButtonFormField<String>(
                         value: _selectedDivision,
@@ -286,7 +291,7 @@ class _HospitalDirectoryScreenState extends State<HospitalDirectoryScreen> {
                           filled: true,
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Color(0xFFE2E8F0))),
                         ),
-                        items: _divisions.map((d) => DropdownMenuItem(value: d, child: Text(d, style: const TextStyle(fontSize: 12.5)))).toList(),
+                        items: _divisions.map((d) => DropdownMenuItem(value: d, child: Text(d, style: TextStyle(fontSize: 12.5)))).toList(),
                         onChanged: (val) => setState(() => _selectedDivision = val!),
                       ),
                     ),
@@ -299,14 +304,14 @@ class _HospitalDirectoryScreenState extends State<HospitalDirectoryScreen> {
           // Main Hospital List View
           Expanded(
             child: filteredHospitals.isEmpty
-                ? const Center(
+                ? Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.local_hospital_outlined, size: 64, color: Colors.grey),
                         SizedBox(height: 12),
                         Text(
-                          'উক্ত ফিল্টারে কোনো হাসপাতাল খুঁজে পাওয়া যায়নি।',
+                          'উক্ত ফিল্টারে কোনো হাসপাতাল খুঁজে পাওয়া যায়নি।'.tr(context),
                           style: TextStyle(fontSize: 13, color: Colors.grey),
                         ),
                       ],
@@ -337,10 +342,10 @@ class _HospitalDirectoryScreenState extends State<HospitalDirectoryScreen> {
                                 Expanded(
                                   child: Text(
                                     hosp['name'] as String,
-                                    style: const TextStyle(fontSize: 15.5, fontWeight: FontWeight.bold, color: Color(0xFF0F172A), height: 1.3),
+                                    style: TextStyle(fontSize: 15.5, fontWeight: FontWeight.bold, color: Color(0xFF0F172A), height: 1.3),
                                   ),
                                 ),
-                                const SizedBox(width: 8),
+                                SizedBox(width: 8),
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                   decoration: BoxDecoration(
@@ -359,22 +364,22 @@ class _HospitalDirectoryScreenState extends State<HospitalDirectoryScreen> {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 8),
+                            SizedBox(height: 8),
 
                             // Address Line
                             Row(
                               children: [
-                                const Icon(Icons.location_on_rounded, color: Colors.grey, size: 14),
-                                const SizedBox(width: 6),
+                                Icon(Icons.location_on_rounded, color: Colors.grey, size: 14),
+                                SizedBox(width: 6),
                                 Expanded(
                                   child: Text(
                                     hosp['address'] as String,
-                                    style: const TextStyle(fontSize: 11.5, color: Color(0xFF475569)),
+                                    style: TextStyle(fontSize: 11.5, color: Color(0xFF475569)),
                                   ),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 8),
+                            SizedBox(height: 8),
 
                             // Specialist Doctor Line
                             Container(
@@ -382,18 +387,18 @@ class _HospitalDirectoryScreenState extends State<HospitalDirectoryScreen> {
                               decoration: BoxDecoration(color: const Color(0xFFF8FAFC), borderRadius: BorderRadius.circular(8)),
                               child: Row(
                                 children: [
-                                  const Icon(Icons.medical_services_outlined, color: AppColors.primary, size: 14),
-                                  const SizedBox(width: 6),
+                                  Icon(Icons.medical_services_outlined, color: AppColors.primary, size: 14),
+                                  SizedBox(width: 6),
                                   Expanded(
                                     child: Text(
                                       'অন-কল ডাক্তার: ${hosp['doctors']}',
-                                      style: const TextStyle(fontSize: 11, color: Color(0xFF334155), fontWeight: FontWeight.w600),
+                                      style: TextStyle(fontSize: 11, color: Color(0xFF334155), fontWeight: FontWeight.w600),
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 10),
+                            SizedBox(height: 10),
 
                             // Services wrap
                             Wrap(
@@ -409,12 +414,12 @@ class _HospitalDirectoryScreenState extends State<HospitalDirectoryScreen> {
                                   ),
                                   child: Text(
                                     service,
-                                    style: const TextStyle(fontSize: 9.5, color: Color(0xFF475569), fontWeight: FontWeight.w600),
+                                    style: TextStyle(fontSize: 9.5, color: Color(0xFF475569), fontWeight: FontWeight.w600),
                                   ),
                                 );
                               }).toList(),
                             ),
-                            const SizedBox(height: 16),
+                            SizedBox(height: 16),
 
                             // Action buttons
                             Row(
@@ -429,11 +434,11 @@ class _HospitalDirectoryScreenState extends State<HospitalDirectoryScreen> {
                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                                     ),
                                     onPressed: () => _triggerCall(hosp['name'] as String, hosp['hotline'] as String),
-                                    icon: const Icon(Icons.phone, size: 14, color: Colors.white),
-                                    label: const Text('জরুরি ফোন', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white)),
+                                    icon: Icon(Icons.phone, size: 14, color: Colors.white),
+                                    label: Text('জরুরি ফোন'.tr(context), style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white)),
                                   ),
                                 ),
-                                const SizedBox(width: 8),
+                                SizedBox(width: 8),
 
                                 // Map Directions button
                                 Expanded(
@@ -445,8 +450,8 @@ class _HospitalDirectoryScreenState extends State<HospitalDirectoryScreen> {
                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                                     ),
                                     onPressed: () => _viewDirections(hosp['name'] as String),
-                                    icon: const Icon(Icons.map_outlined, size: 14),
-                                    label: const Text('দিকনির্দেশনা', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                                    icon: Icon(Icons.map_outlined, size: 14),
+                                    label: Text('দিকনির্দেশনা'.tr(context), style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
                                   ),
                                 ),
                               ],

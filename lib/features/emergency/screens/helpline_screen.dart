@@ -1,5 +1,8 @@
+import '../../../core/localization/language_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/app_translations.dart';
 import '../widgets/mock_dialer_widget.dart';
 
 class HelplineScreen extends StatefulWidget {
@@ -91,14 +94,16 @@ class _HelplineScreenState extends State<HelplineScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
+    context.watch<LanguageCubit>();
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('জরুরি যোগাযোগ ও হেল্পলাইন', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B))),
+        title: Text('জরুরি যোগাযোগ ও হেল্পলাইন'.tr(context), style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B))),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF1E1B4B)),
+          icon: Icon(Icons.arrow_back, color: Color(0xFF1E1B4B)),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -108,56 +113,56 @@ class _HelplineScreenState extends State<HelplineScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Subtitle
-            const Text(
-              'গর্ভকালীন বা অন্য যেকোনো জরুরি মুহূর্তে নিচের টোল-ফ্রি বা বিশেষজ্ঞ হেল্পলাইনগুলোতে তাৎক্ষণিক পরামর্শ ও সহায়তার জন্য কল করুন।',
+            Text(
+              'গর্ভকালীন বা অন্য যেকোনো জরুরি মুহূর্তে নিচের টোল-ফ্রি বা বিশেষজ্ঞ হেল্পলাইনগুলোতে তাৎক্ষণিক পরামর্শ ও সহায়তার জন্য কল করুন।'.tr(context),
               style: TextStyle(fontSize: 13, height: 1.4, color: Colors.black54, fontWeight: FontWeight.w600),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
 
             // Section 1: National Services
-            const Row(
+            Row(
               children: [
                 Icon(Icons.stars_rounded, color: AppColors.primary, size: 20),
                 SizedBox(width: 6),
                 Text(
-                  'জাতীয় জরুরি নম্বরসমূহ',
+                  'জাতীয় জরুরি নম্বরসমূহ'.tr(context),
                   style: TextStyle(fontSize: 16.5, fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B)),
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
 
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: _nationalHelplines.length,
-              itemBuilder: (context, index) {
+              itemBuilder: (ctx, index) {
                 final line = _nationalHelplines[index];
-                return _buildHelplineCard(line);
+                return _buildHelplineCard(ctx, line);
               },
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
 
             // Section 2: Maternal Services
-            const Row(
+            Row(
               children: [
                 Icon(Icons.child_friendly_rounded, color: Color(0xFFDB2777), size: 20),
                 SizedBox(width: 6),
                 Text(
-                  'মাতৃত্ব ও প্রসূতি বিশেষজ্ঞ লাইনসমূহ',
+                  'মাতৃত্ব ও প্রসূতি বিশেষজ্ঞ লাইনসমূহ'.tr(context),
                   style: TextStyle(fontSize: 16.5, fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B)),
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
 
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: _maternalHelplines.length,
-              itemBuilder: (context, index) {
+              itemBuilder: (ctx, index) {
                 final line = _maternalHelplines[index];
-                return _buildHelplineCard(line);
+                return _buildHelplineCard(ctx, line);
               },
             ),
           ],
@@ -166,7 +171,7 @@ class _HelplineScreenState extends State<HelplineScreen> {
     );
   }
 
-  Widget _buildHelplineCard(Map<String, dynamic> line) {
+  Widget _buildHelplineCard(BuildContext context, Map<String, dynamic> line) {
     final isFree = line['isFree'] as bool;
     final color = Color(line['color'] as int);
 
@@ -194,7 +199,7 @@ class _HelplineScreenState extends State<HelplineScreen> {
               child: Icon(line['icon'] as IconData, color: color, size: 22),
             ),
           ),
-          const SizedBox(width: 14),
+          SizedBox(width: 14),
 
           // Details Expanded
           Expanded(
@@ -231,27 +236,27 @@ class _HelplineScreenState extends State<HelplineScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 6),
+                SizedBox(height: 6),
                 Text(
                   line['title'] as String,
-                  style: const TextStyle(
+                  style: TextStyle(
                     
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF1E293B),
                   ),
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: 4),
                 Text(
                   line['desc'] as String,
-                  style: const TextStyle(
+                  style: TextStyle(
                     
                     fontSize: 11.5,
                     color: Color(0xFF64748B),
                     height: 1.35,
                   ),
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12),
 
                 // Lower Info row (Hours + Call Button)
                 Row(
@@ -259,11 +264,11 @@ class _HelplineScreenState extends State<HelplineScreen> {
                   children: [
                     Row(
                       children: [
-                        const Icon(Icons.access_time_rounded, color: Colors.grey, size: 12),
-                        const SizedBox(width: 4),
+                        Icon(Icons.access_time_rounded, color: Colors.grey, size: 12),
+                        SizedBox(width: 4),
                         Text(
                           line['hours'] as String,
-                          style: const TextStyle(
+                          style: TextStyle(
                             
                             fontSize: 10.5,
                             color: Color(0xFF475569),
@@ -281,9 +286,9 @@ class _HelplineScreenState extends State<HelplineScreen> {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                       ),
                       onPressed: () => _triggerCall(line['title'] as String, line['number'] as String),
-                      icon: const Icon(Icons.phone, size: 12, color: Colors.white),
-                      label: const Text(
-                        'কল করুন',
+                      icon: Icon(Icons.phone, size: 12, color: Colors.white),
+                      label: Text(
+                        'কল করুন'.tr(context),
                         style: TextStyle(
                           
                           fontSize: 10.5,

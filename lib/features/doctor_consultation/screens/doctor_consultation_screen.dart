@@ -55,7 +55,7 @@ class DoctorConsultationScreen extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.all(16),
               children: [
-                const SizedBox(height: 8),
+                SizedBox(height: 8),
                 // Search Bar
                 Container(
                   decoration: BoxDecoration(
@@ -66,15 +66,15 @@ class DoctorConsultationScreen extends StatelessWidget {
                   child: TextField(
                     decoration: InputDecoration(
                       hintText: 'ডাক্তার বা বিশেষজ্ঞ খুঁজুন...',
-                      prefixIcon: const Icon(Icons.search_rounded, color: AppColors.primary),
+                      prefixIcon: Icon(Icons.search_rounded, color: AppColors.primary),
                       border: InputBorder.none,
                       contentPadding: const EdgeInsets.symmetric(vertical: 14),
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20),
                 Text('উপলব্ধ ডাক্তারগণ', style: AppTextStyles.headingMedium),
-                const SizedBox(height: 12),
+                SizedBox(height: 12),
                 ..._doctors.map((doc) => _DoctorCard(doctor: doc)),
               ],
             ),
@@ -98,6 +98,7 @@ class DoctorConsultationScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
                 onTap: () => Navigator.pop(context),
@@ -107,17 +108,21 @@ class DoctorConsultationScreen extends StatelessWidget {
                     color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
+                  child: Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('ডাক্তার পরামর্শ', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('বিশেষজ্ঞ ডাক্তারের সাথে যোগাযোগ করুন', style: const TextStyle(fontSize: 12, color: Colors.white70)),
-                  ],
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('ডাক্তার পরামর্শ', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
+                      Text('বিশেষজ্ঞ ডাক্তারের সাথে যোগাযোগ করুন', style: TextStyle(fontSize: 12, color: Colors.white70)),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -154,21 +159,21 @@ class _DoctorCard extends StatelessWidget {
                   color: AppColors.doctorBg,
                   shape: BoxShape.circle,
                 ),
-                child: Center(child: Text(doctor['emoji'], style: const TextStyle(fontSize: 28))),
+                child: Center(child: Text(doctor['emoji'], style: TextStyle(fontSize: 28))),
               ),
-              const SizedBox(width: 14),
+              SizedBox(width: 14),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(doctor['name'], style: AppTextStyles.headingSmall),
-                    const SizedBox(height: 2),
+                    SizedBox(height: 2),
                     Text(doctor['specialty'], style: AppTextStyles.bodySmall.copyWith(color: AppColors.doctorIcon)),
-                    const SizedBox(height: 2),
+                    SizedBox(height: 2),
                     Row(
                       children: [
-                        const Icon(Icons.location_on_outlined, size: 12, color: AppColors.textHint),
-                        const SizedBox(width: 2),
+                        Icon(Icons.location_on_outlined, size: 12, color: AppColors.textHint),
+                        SizedBox(width: 2),
                         Expanded(child: Text(doctor['hospital'], style: AppTextStyles.bodySmall, overflow: TextOverflow.ellipsis)),
                       ],
                     ),
@@ -177,19 +182,19 @@ class _DoctorCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: 14),
           const Divider(height: 1),
-          const SizedBox(height: 14),
+          SizedBox(height: 14),
           Row(
             children: [
               // Rating
-              const Icon(Icons.star_rounded, color: Color(0xFFF59E0B), size: 16),
-              const SizedBox(width: 4),
+              Icon(Icons.star_rounded, color: Color(0xFFF59E0B), size: 16),
+              SizedBox(width: 4),
               Text(doctor['rating'], style: AppTextStyles.labelMedium),
-              const SizedBox(width: 16),
+              SizedBox(width: 16),
               // Fee
-              const Icon(Icons.payments_outlined, color: AppColors.success, size: 16),
-              const SizedBox(width: 4),
+              Icon(Icons.payments_outlined, color: AppColors.success, size: 16),
+              SizedBox(width: 4),
               Text('৳${doctor['fee']}', style: AppTextStyles.labelMedium),
               const Spacer(),
               // Status + Button
@@ -231,11 +236,11 @@ class _DoctorCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(width: 40, height: 4, decoration: BoxDecoration(color: AppColors.border, borderRadius: BorderRadius.circular(2))),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Text('অ্যাপয়েন্টমেন্ট', style: AppTextStyles.headingMedium),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
             Text('$name এর সাথে অ্যাপয়েন্টমেন্ট নিতে চান?', style: AppTextStyles.bodyLarge, textAlign: TextAlign.center),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
             SizedBox(width: double.infinity, child: ElevatedButton(
               onPressed: () {
                 Navigator.pop(context);
@@ -248,7 +253,7 @@ class _DoctorCard extends StatelessWidget {
               },
               child: const Text('নিশ্চিত করুন'),
             )),
-            const SizedBox(height: 12),
+            SizedBox(height: 12),
           ],
         ),
       ),

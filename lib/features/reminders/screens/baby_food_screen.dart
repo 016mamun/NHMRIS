@@ -20,9 +20,9 @@ class BabyFoodScreen extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
               children: [
                 _buildAgeBanner(context),
-                const SizedBox(height: 20),
+                SizedBox(height: 20),
                 ..._foodStages.map((s) => _buildStageCard(context, s)),
-                const SizedBox(height: 8),
+                SizedBox(height: 8),
                 _buildFoodRulesCard(context),
               ],
             ),
@@ -85,6 +85,7 @@ class BabyFoodScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
                 onTap: () => Navigator.pop(context),
@@ -94,17 +95,14 @@ class BabyFoodScreen extends StatelessWidget {
                     color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
+                  child: Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('শিশুর খাদ্য তালিকা'.tr(context), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('', style: const TextStyle(fontSize: 12, color: Colors.white70)),
-                  ],
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text('শিশুর খাদ্য তালিকা'.tr(context), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
                 ),
               ),
             ],
@@ -126,7 +124,7 @@ class BabyFoodScreen extends StatelessWidget {
       child: Row(
         children: [
           const Text('🌟', style: TextStyle(fontSize: 28)),
-          const SizedBox(width: 12),
+          SizedBox(width: 12),
           Expanded(
             child: Text(
               'সঠিক পুষ্টি শিশুর মস্তিষ্ক ও শরীরের বিকাশ নিশ্চিত করে। বয়স অনুযায়ী সঠিক খাবার দিন।'.tr(context),
@@ -155,8 +153,8 @@ class BabyFoodScreen extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text(s['emoji'] as String, style: const TextStyle(fontSize: 30)),
-                const SizedBox(width: 12),
+                Text(s['emoji'] as String, style: TextStyle(fontSize: 30)),
+                SizedBox(width: 12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -166,25 +164,25 @@ class BabyFoodScreen extends StatelessWidget {
                         decoration: BoxDecoration(color: color.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(10)),
                         child: Text((s['age'] as String).tr(context), style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: color)),
                       ),
-                      const SizedBox(height: 4),
+                      SizedBox(height: 4),
                       Text((s['title'] as String).tr(context), style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: color)),
                     ],
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: 12),
             ...(s['foods'] as List<String>).map((f) => Padding(
               padding: const EdgeInsets.only(bottom: 5),
               child: Row(
                 children: [
                   Container(width: 5, height: 5, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
-                  const SizedBox(width: 8),
-                  Expanded(child: Text(f.tr(context), style: const TextStyle(fontSize: 13, color: AppColors.textSecondary))),
+                  SizedBox(width: 8),
+                  Expanded(child: Text(f.tr(context), style: TextStyle(fontSize: 13, color: AppColors.textSecondary))),
                 ],
               ),
             )),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
@@ -194,7 +192,7 @@ class BabyFoodScreen extends StatelessWidget {
               child: Row(
                 children: [
                   Icon(Icons.lightbulb_rounded, color: color, size: 16),
-                  const SizedBox(width: 6),
+                  SizedBox(width: 6),
                   Expanded(child: Text((s['tip'] as String).tr(context), style: TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.w600))),
                 ],
               ),
@@ -216,17 +214,17 @@ class BabyFoodScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('✅ সুষম পুষ্টির ৫টি নিয়ম'.tr(context), style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Color(0xFF2E7D32))),
-          const SizedBox(height: 10),
+          Text('✅ সুষম পুষ্টির ৫টি নিয়ম'.tr(context), style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Color(0xFF2E7D32))),
+          SizedBox(height: 10),
           ...['প্রতিবেলা শক্তি (ভাত/রুটি) + প্রোটিন (মাছ/ডাল) + সবজি দিন', 'রঙিন সবজি ও ফল নিয়মিত দিন', 'পর্যাপ্ত পানি ও তরল খাবার দিন', 'বাজারের প্যাকেট খাবার এড়িয়ে চলুন', 'খাবার সময় জোর করবেন না — শিশুর ক্ষুধার সংকেত দেখুন'].map(
             (rule) => Padding(
               padding: const EdgeInsets.only(bottom: 6),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(Icons.check_circle, color: Color(0xFF43A047), size: 16),
-                  const SizedBox(width: 8),
-                  Expanded(child: Text(rule.tr(context), style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, height: 1.4))),
+                  Icon(Icons.check_circle, color: Color(0xFF43A047), size: 16),
+                  SizedBox(width: 8),
+                  Expanded(child: Text(rule.tr(context), style: TextStyle(fontSize: 12, color: AppColors.textSecondary, height: 1.4))),
                 ],
               ),
             ),

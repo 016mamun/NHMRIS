@@ -1,3 +1,4 @@
+import '../../../core/localization/language_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/kick_counter_bloc.dart';
@@ -6,12 +7,15 @@ import '../bloc/kick_counter_state.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../../core/constants/app_constants.dart';
+import '../../../core/localization/app_translations.dart';
 
 class KickCounterScreen extends StatelessWidget {
   const KickCounterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
+    context.watch<LanguageCubit>();
     return BlocProvider(
       create: (_) => KickCounterBloc(),
       child: const _KickCounterView(),
@@ -24,6 +28,8 @@ class _KickCounterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
+    context.watch<LanguageCubit>();
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Column(
@@ -70,7 +76,7 @@ class _KickCounterView extends StatelessWidget {
 
   Widget _buildHeader(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Color(0xFF6B3FA0),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(28),
@@ -82,6 +88,7 @@ class _KickCounterView extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
                 onTap: () => Navigator.pop(context),
@@ -91,17 +98,21 @@ class _KickCounterView extends StatelessWidget {
                     color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
+                  child: Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('কিক কাউন্টার', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('শিশুর নড়াচড়া ট্র্যাক করুন', style: const TextStyle(fontSize: 12, color: Colors.white70)),
-                  ],
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('কিক কাউন্টার'.tr(context), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
+                      Text('শিশুর নড়াচড়া ট্র্যাক করুন'.tr(context), style: TextStyle(fontSize: 12, color: Colors.white70)),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -119,6 +130,8 @@ class _TimerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
+    context.watch<LanguageCubit>();
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(18),
@@ -135,11 +148,11 @@ class _TimerCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text('সময়', style: AppTextStyles.labelSmall),
-          const SizedBox(height: 2),
+          Text('সময়'.tr(context), style: AppTextStyles.labelSmall),
+          SizedBox(height: 2),
           Text(
             state.formattedTime,
-            style: const TextStyle(
+            style: TextStyle(
               
               fontSize: 32,
               fontWeight: FontWeight.w700,
@@ -147,7 +160,7 @@ class _TimerCard extends StatelessWidget {
               letterSpacing: 2,
             ),
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: 4),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
             decoration: BoxDecoration(
@@ -178,6 +191,8 @@ class _KickButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
+    context.watch<LanguageCubit>();
     final isGoal = state.isGoalReached;
     return Column(
       children: [
@@ -209,7 +224,7 @@ class _KickButton extends StatelessWidget {
               children: [
                 Text(
                   AppConstants.toBengaliNumber(state.kickCount),
-                  style: const TextStyle(
+                  style: TextStyle(
                     
                     fontSize: 44,
                     fontWeight: FontWeight.w700,
@@ -218,7 +233,7 @@ class _KickButton extends StatelessWidget {
                 ),
                 Text(
                   isGoal ? '🎉 লক্ষ্য পূরণ!' : 'কিক',
-                  style: const TextStyle(
+                  style: TextStyle(
                     
                     fontSize: 14,
                     color: Colors.white70,
@@ -228,7 +243,7 @@ class _KickButton extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -236,14 +251,14 @@ class _KickButton extends StatelessWidget {
               isGoal
                   ? 'চমৎকার! ১০টি কিক সম্পন্ন হয়েছে।'
                   : 'নড়াচড়া করলে বাটনে চাপ দিন',
-              style: const TextStyle(
+              style: TextStyle(
                 
                 fontSize: 12,
                 color: AppColors.textSecondary,
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(width: 8),
+            SizedBox(width: 8),
             GestureDetector(
               onTap: () =>
                   context.read<KickCounterBloc>().add(const KickCounterReset()),
@@ -253,12 +268,12 @@ class _KickButton extends StatelessWidget {
                   border: Border.all(color: AppColors.primary, width: 1.2),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Row(
+                child: Row(
                   children: [
                     Icon(Icons.refresh_rounded, size: 12, color: AppColors.primary),
                     SizedBox(width: 2),
                     Text(
-                      'রিসেট',
+                      'রিসেট'.tr(context),
                       style: TextStyle(
                         
                         fontSize: 11,
@@ -280,6 +295,8 @@ class _KickButton extends StatelessWidget {
 class _InfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
+    context.watch<LanguageCubit>();
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
@@ -289,15 +306,15 @@ class _InfoCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Icon(
+          Icon(
             Icons.info_outline_rounded,
             color: AppColors.kickCounterIcon,
             size: 18,
           ),
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
           Expanded(
             child: Text(
-              '২৮তম সপ্তাহ থেকে প্রতিদিন শিশুর নড়াচড়া গণনা করুন। ২ ঘণ্টার মধ্যে ১০টি কিক স্বাভাবিক।',
+              '২৮তম সপ্তাহ থেকে প্রতিদিন শিশুর নড়াচড়া গণনা করুন। ২ ঘণ্টার মধ্যে ১০টি কিক স্বাভাবিক।'.tr(context),
               style: AppTextStyles.bodySmall.copyWith(
                 
                 color: AppColors.kickCounterIcon,
@@ -318,6 +335,8 @@ class _WeeklyChartCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
+    context.watch<LanguageCubit>();
     // Mock kick data for the last 6 days, and today's dynamic count
     final List<Map<String, dynamic>> weeklyData = [
       {'day': 'শনি', 'count': 11},
@@ -371,9 +390,9 @@ class _WeeklyChartCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(4),
                     ),
                   ),
-                  const SizedBox(width: 6),
+                  SizedBox(width: 6),
                   Text(
-                    'সাপ্তাহিক কিক রেকর্ড',
+                    'সাপ্তাহিক কিক রেকর্ড'.tr(context),
                     style: AppTextStyles.labelMedium.copyWith(
                       fontWeight: FontWeight.w700,
                     ),
@@ -382,7 +401,7 @@ class _WeeklyChartCard extends StatelessWidget {
               ),
               Text(
                 'আজকের লক্ষ্য: ${AppConstants.toBengaliNumber(state.kickCount)} / ১০',
-                style: const TextStyle(
+                style: TextStyle(
                   
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
@@ -391,7 +410,7 @@ class _WeeklyChartCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8),
 
           // Goal Progress Bar integrated directly on top of the chart!
           ClipRRect(
@@ -403,7 +422,7 @@ class _WeeklyChartCard extends StatelessWidget {
               valueColor: const AlwaysStoppedAnimation(AppColors.primary),
             ),
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: 14),
 
           // Chart Bars
           SizedBox(
@@ -432,7 +451,7 @@ class _WeeklyChartCard extends StatelessWidget {
                         color: isToday ? AppColors.primary : AppColors.textSecondary,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: 4),
                     // Bar
                     AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
@@ -450,7 +469,7 @@ class _WeeklyChartCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(6),
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: 4),
                     // Day Label
                     Text(
                       day,

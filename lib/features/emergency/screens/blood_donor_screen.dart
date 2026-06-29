@@ -1,5 +1,8 @@
+import '../../../core/localization/language_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/app_translations.dart';
 import '../widgets/mock_dialer_widget.dart';
 
 class BloodDonorScreen extends StatefulWidget {
@@ -153,9 +156,9 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
                   decoration: InputDecoration(
                     labelText: label,
                     hintText: 'লিখুন বা তালিকা থেকে নির্বাচন করুন',
-                    labelStyle: const TextStyle(fontSize: 13),
-                    hintStyle: const TextStyle(fontSize: 11, color: Colors.grey),
-                    suffixIcon: const Icon(Icons.arrow_drop_down, color: Colors.grey),
+                    labelStyle: TextStyle(fontSize: 13),
+                    hintStyle: TextStyle(fontSize: 11, color: Colors.grey),
+                    suffixIcon: Icon(Icons.arrow_drop_down, color: Colors.grey),
                   ),
                 );
               },
@@ -164,13 +167,13 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
 
           return AlertDialog(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            title: const Row(
+            title: Row(
               children: [
                 Icon(Icons.volunteer_activism_rounded, color: AppColors.error),
                 SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    'রক্তদাতা হিসেবে যুক্ত হোন',
+                    'রক্তদাতা হিসেবে যুক্ত হোন'.tr(context),
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -184,20 +187,20 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
                     controller: nameController,
                     decoration: const InputDecoration(labelText: 'আপনার নাম', labelStyle: TextStyle(fontSize: 13)),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8),
                   TextField(
                     controller: phoneController,
                     keyboardType: TextInputType.phone,
                     decoration: const InputDecoration(labelText: 'মোবাইল নম্বর', labelStyle: TextStyle(fontSize: 13)),
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12),
                   DropdownButtonFormField<String>(
                     value: tempGroup,
                     decoration: const InputDecoration(labelText: 'রক্তের গ্রুপ', labelStyle: TextStyle(fontSize: 13)),
                     items: _bloodGroups.where((g) => g != 'সব গ্রুপ').map((g) => DropdownMenuItem(value: g, child: Text(g))).toList(),
                     onChanged: (val) => setDialogState(() => tempGroup = val!),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8),
                   TextField(
                     controller: lastDonationController,
                     decoration: const InputDecoration(
@@ -207,20 +210,20 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
                       hintStyle: TextStyle(fontSize: 12, color: Colors.grey),
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12),
                   buildAutoComplete('বিভাগ', divisions, (c) => divCtrl = c, () {
                     setDialogState(() {
                       distCtrl?.clear();
                       thanaCtrl?.clear();
                     });
                   }),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12),
                   buildAutoComplete('জেলা', districts, (c) => distCtrl = c, () {
                     setDialogState(() {
                       thanaCtrl?.clear();
                     });
                   }),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12),
                   buildAutoComplete('থানা / এলাকা', thanas, (c) => thanaCtrl = c, () {
                     setDialogState(() {});
                   }),
@@ -230,7 +233,7 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(ctx),
-                child: const Text('বাতিল', style: TextStyle(color: Colors.grey)),
+                child: Text('বাতিল'.tr(context), style: TextStyle(color: Colors.grey)),
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: AppColors.error, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
@@ -253,21 +256,21 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
                     Navigator.pop(ctx);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: const Text('রক্তদাতা হিসেবে সফলভাবে নিবন্ধন সম্পন্ন হয়েছে!', style: TextStyle(fontFamily: 'Hind_Siliguri')),
+                        content: Text('রক্তদাতা হিসেবে সফলভাবে নিবন্ধন সম্পন্ন হয়েছে!'.tr(context), style: TextStyle(fontFamily: 'Hind_Siliguri')),
                         backgroundColor: AppColors.success,
                         behavior: SnackBarBehavior.floating,
                       ),
                     );
                   } else {
                      ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('দয়া করে সব তথ্য সঠিকভাবে পূরণ করুন।', style: TextStyle(fontFamily: 'Hind_Siliguri')),
+                      SnackBar(
+                        content: Text('দয়া করে সব তথ্য সঠিকভাবে পূরণ করুন।'.tr(context), style: TextStyle(fontFamily: 'Hind_Siliguri')),
                         backgroundColor: AppColors.error,
                       ),
                     );
                   }
                 },
-                child: const Text('নিবন্ধন করুন', style: TextStyle(color: Colors.white)),
+                child: Text('নিবন্ধন করুন'.tr(context), style: TextStyle(color: Colors.white)),
               ),
             ],
           );
@@ -289,13 +292,13 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: const Row(
+        title: Row(
           children: [
             Icon(Icons.add_alert_rounded, color: AppColors.error),
             SizedBox(width: 8),
             Expanded(
               child: Text(
-                'রক্তের জরুরি অনুরোধ তৈরি করুন',
+                'রক্তের জরুরি অনুরোধ তৈরি করুন'.tr(context),
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
@@ -309,24 +312,24 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
                 controller: patientController,
                 decoration: const InputDecoration(labelText: 'রোগীর নাম', labelStyle: TextStyle(fontSize: 13)),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               DropdownButtonFormField<String>(
                 value: tempGroup,
                 decoration: const InputDecoration(labelText: 'প্রয়োজনীয় রক্তের গ্রুপ', labelStyle: TextStyle(fontSize: 13)),
                 items: _bloodGroups.where((g) => g != 'সব গ্রুপ').map((g) => DropdownMenuItem(value: g, child: Text(g))).toList(),
                 onChanged: (val) => tempGroup = val!,
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               TextField(
                 controller: hospitalController,
                 decoration: const InputDecoration(labelText: 'হাসপাতালের নাম', labelStyle: TextStyle(fontSize: 13)),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               TextField(
                 controller: reasonController,
                 decoration: const InputDecoration(labelText: 'অসুখের কারণ/বিবরণ', labelStyle: TextStyle(fontSize: 13)),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               TextField(
                 controller: dateController,
                 decoration: const InputDecoration(
@@ -336,12 +339,12 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
                   hintStyle: TextStyle(fontSize: 12, color: Colors.grey)
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               TextField(
                 controller: contactController,
                 decoration: const InputDecoration(labelText: 'যোগাযোগের ব্যক্তি (সম্পর্ক)', labelStyle: TextStyle(fontSize: 13)),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               TextField(
                 controller: phoneController,
                 keyboardType: TextInputType.phone,
@@ -353,7 +356,7 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('বাতিল', style: TextStyle(color: Colors.grey)),
+            child: Text('বাতিল'.tr(context), style: TextStyle(color: Colors.grey)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: AppColors.error, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
@@ -374,14 +377,14 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
                 Navigator.pop(ctx);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: const Text('রক্তের জরুরি অনুরোধটি সফলভাবে পোস্ট করা হয়েছে!', style: TextStyle(fontFamily: 'Hind_Siliguri')),
+                    content: Text('রক্তের জরুরি অনুরোধটি সফলভাবে পোস্ট করা হয়েছে!'.tr(context), style: TextStyle(fontFamily: 'Hind_Siliguri')),
                     backgroundColor: AppColors.error,
                     behavior: SnackBarBehavior.floating,
                   ),
                 );
               }
             },
-            child: const Text('অনুরোধ করুন', style: TextStyle(color: Colors.white)),
+            child: Text('অনুরোধ করুন'.tr(context), style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -390,6 +393,8 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
+    context.watch<LanguageCubit>();
     // Filtered Donors
     final filteredDonors = _donors.where((donor) {
       final matchesGroup = _selectedBloodGroup == 'সব গ্রুপ' || donor['group'] == _selectedBloodGroup;
@@ -400,16 +405,16 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('জরুরি রক্তের গ্রুপ ও দাতা', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B))),
+        title: Text('জরুরি রক্তের গ্রুপ ও দাতা'.tr(context), style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B))),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF1E1B4B)),
+          icon: Icon(Icons.arrow_back, color: Color(0xFF1E1B4B)),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.volunteer_activism_rounded, color: AppColors.error),
+            icon: Icon(Icons.volunteer_activism_rounded, color: AppColors.error),
             tooltip: 'রক্তদাতা নিবন্ধন',
             onPressed: _registerDonor,
           )
@@ -424,24 +429,30 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Row(
-                  children: [
-                    Icon(Icons.add_alert_rounded, color: AppColors.error, size: 22),
-                    SizedBox(width: 6),
-                    Text(
-                      'জরুরি রক্তের অনুরোধ',
-                      style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B)),
-                    ),
-                  ],
+                Expanded(
+                  child: Row(
+                    children: [
+                      Icon(Icons.add_alert_rounded, color: AppColors.error, size: 22),
+                      SizedBox(width: 6),
+                      Expanded(
+                        child: Text(
+                          'জরুরি রক্তের অনুরোধ'.tr(context),
+                          style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B)),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 TextButton.icon(
                   onPressed: _requestBlood,
-                  icon: const Icon(Icons.add, size: 16, color: AppColors.error),
-                  label: const Text('নতুন অনুরোধ', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.error, fontSize: 13)),
+                  icon: Icon(Icons.add, size: 16, color: AppColors.error),
+                  label: Text('নতুন অনুরোধ'.tr(context), style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.error, fontSize: 13)),
                 ),
               ],
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
 
             // Requests Carousel/List
             SizedBox(
@@ -471,16 +482,16 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
                               children: [
                                 Container(
                                   padding: const EdgeInsets.all(6),
-                                  decoration: const BoxDecoration(color: AppColors.error, shape: BoxShape.circle),
+                                  decoration: BoxDecoration(color: AppColors.error, shape: BoxShape.circle),
                                   child: Text(
                                     req['group'] as String,
-                                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 12),
+                                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 12),
                                   ),
                                 ),
-                                const SizedBox(width: 8),
+                                SizedBox(width: 8),
                                 Text(
                                   req['patient'] as String,
-                                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFF9F1239)),
+                                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFF9F1239)),
                                 ),
                               ],
                             ),
@@ -489,22 +500,22 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
                               decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
                               child: Text(
                                 req['date'] as String,
-                                style: const TextStyle(fontSize: 9.5, fontWeight: FontWeight.bold, color: AppColors.error),
+                                style: TextStyle(fontSize: 9.5, fontWeight: FontWeight.bold, color: AppColors.error),
                               ),
                             )
                           ],
                         ),
-                        const SizedBox(height: 6),
+                        SizedBox(height: 6),
                         Text(
                           'হাসপাতাল: ${req['hospital']}',
-                          style: const TextStyle(fontSize: 11.5, color: Color(0xFF475569), fontWeight: FontWeight.w600),
+                          style: TextStyle(fontSize: 11.5, color: Color(0xFF475569), fontWeight: FontWeight.w600),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        const SizedBox(height: 2),
+                        SizedBox(height: 2),
                         Text(
                           'কারণ: ${req['reason']} (${req['amount']})',
-                          style: const TextStyle(fontSize: 11, color: Color(0xFF64748B)),
+                          style: TextStyle(fontSize: 11, color: Color(0xFF64748B)),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -514,7 +525,7 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
                           children: [
                             Text(
                               'যোগাযোগ: ${req['contact']}',
-                              style: const TextStyle(fontSize: 10.5, color: Colors.black54, fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 10.5, color: Colors.black54, fontWeight: FontWeight.bold),
                             ),
                             ElevatedButton.icon(
                               style: ElevatedButton.styleFrom(
@@ -525,8 +536,8 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                               ),
                               onPressed: () => _triggerCall(req['contact'] as String, req['phone'] as String),
-                              icon: const Icon(Icons.phone, size: 12, color: Colors.white),
-                              label: const Text('কল দিন', style: TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.bold)),
+                              icon: Icon(Icons.phone, size: 12, color: Colors.white),
+                              label: Text('কল দিন'.tr(context), style: TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.bold)),
                             )
                           ],
                         )
@@ -536,14 +547,14 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
                 },
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
 
             // Search Panel
-            const Text(
-              'রক্তদাতা খুঁজুন',
+            Text(
+              'রক্তদাতা খুঁজুন'.tr(context),
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B)),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
@@ -562,13 +573,13 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
                         contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         border: InputBorder.none,
                       ),
-                      items: _bloodGroups.map((group) => DropdownMenuItem(value: group, child: Text(group, style: const TextStyle(fontSize: 13)))).toList(),
+                      items: _bloodGroups.map((group) => DropdownMenuItem(value: group, child: Text(group, style: TextStyle(fontSize: 13)))).toList(),
                       onChanged: (val) => setState(() => _selectedBloodGroup = val!),
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  SizedBox(width: 8),
                   Container(width: 1, height: 40, color: Colors.grey.shade300),
-                  const SizedBox(width: 8),
+                  SizedBox(width: 8),
                   Expanded(
                     child: DropdownButtonFormField<String>(
                       value: _selectedDistrict,
@@ -578,14 +589,14 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
                         contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         border: InputBorder.none,
                       ),
-                      items: _districts.map((district) => DropdownMenuItem(value: district, child: Text(district, style: const TextStyle(fontSize: 13)))).toList(),
+                      items: _districts.map((district) => DropdownMenuItem(value: district, child: Text(district, style: TextStyle(fontSize: 13)))).toList(),
                       onChanged: (val) => setState(() => _selectedDistrict = val!),
                     ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16),
 
             // Donors List
             Row(
@@ -593,31 +604,31 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
               children: [
                 Text(
                   'উপযুক্ত রক্তদাতাগণ (${filteredDonors.length} জন)',
-                  style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF475569)),
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF475569)),
                 ),
                 GestureDetector(
                   onTap: _registerDonor,
-                  child: const Row(
+                  child: Row(
                     children: [
                       Icon(Icons.add, size: 14, color: AppColors.error),
-                      Text('রক্তদাতা হন', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.error)),
+                      Text('রক্তদাতা হন'.tr(context), style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.error)),
                     ],
                   ),
                 )
               ],
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
 
             if (filteredDonors.isEmpty)
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(vertical: 32),
-                child: const Column(
+                child: Column(
                   children: [
                     Icon(Icons.search_off_rounded, size: 48, color: Colors.grey),
                     SizedBox(height: 10),
                     Text(
-                      'উক্ত গ্রুপ বা জেলায় কোনো রক্তদাতা খুঁজে পাওয়া যায়নি।',
+                      'উক্ত গ্রুপ বা জেলায় কোনো রক্তদাতা খুঁজে পাওয়া যায়নি।'.tr(context),
                       style: TextStyle(fontSize: 12, color: Colors.grey),
                       textAlign: TextAlign.center,
                     ),
@@ -654,59 +665,67 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
                             child: Stack(
                               alignment: Alignment.center,
                               children: [
-                                const Icon(Icons.water_drop_rounded, color: AppColors.error, size: 38),
+                                Icon(Icons.water_drop_rounded, color: AppColors.error, size: 38),
                                 Padding(
                                   padding: const EdgeInsets.only(top: 8),
                                   child: Text(
                                     donor['group'] as String,
-                                    style: const TextStyle(fontWeight: FontWeight.w900, color: Colors.white, fontSize: 10),
+                                    style: TextStyle(fontWeight: FontWeight.w900, color: Colors.white, fontSize: 10),
                                   ),
                                 ),
                               ],
                             ),
                           ),
                         ),
-                        const SizedBox(width: 12),
+                        SizedBox(width: 12),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 donor['name'] as String,
-                                style: const TextStyle(fontSize: 14.5, fontWeight: FontWeight.bold, color: Color(0xFF1E293B)),
+                                style: TextStyle(fontSize: 14.5, fontWeight: FontWeight.bold, color: Color(0xFF1E293B)),
                               ),
-                              const SizedBox(height: 4),
+                              SizedBox(height: 4),
                               Row(
                                 children: [
-                                  const Icon(Icons.location_on_rounded, color: Colors.grey, size: 12),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    '${donor['area']}, ${donor['district']}',
-                                    style: const TextStyle(fontSize: 11.5, color: Color(0xFF64748B)),
+                                  Icon(Icons.location_on_rounded, color: Colors.grey, size: 12),
+                                  SizedBox(width: 4),
+                                  Expanded(
+                                    child: Text(
+                                      '${donor['area']}, ${donor['district']}',
+                                      style: TextStyle(fontSize: 11.5, color: Color(0xFF64748B)),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 2),
+                              SizedBox(height: 2),
                               Row(
                                 children: [
-                                  const Icon(Icons.history_rounded, color: Colors.grey, size: 12),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    'সর্বশেষ দান: ${donor['lastDonation']}',
-                                    style: const TextStyle(fontSize: 11, color: Color(0xFF64748B)),
+                                  Icon(Icons.history_rounded, color: Colors.grey, size: 12),
+                                  SizedBox(width: 4),
+                                  Expanded(
+                                    child: Text(
+                                      'সর্বশেষ দান: ${donor['lastDonation']}',
+                                      style: TextStyle(fontSize: 11, color: Color(0xFF64748B)),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
-                                  const SizedBox(width: 6),
+                                  SizedBox(width: 6),
                                   if (donor['suitable'] as bool)
                                     Container(
                                       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                                       decoration: BoxDecoration(color: const Color(0xFFE8F5E9), borderRadius: BorderRadius.circular(8)),
-                                      child: const Text('উপযুক্ত', style: TextStyle(fontSize: 8.5, fontWeight: FontWeight.bold, color: Color(0xFF2E7D32))),
+                                      child: Text('উপযুক্ত'.tr(context), style: TextStyle(fontSize: 8.5, fontWeight: FontWeight.bold, color: Color(0xFF2E7D32))),
                                     )
                                   else
                                     Container(
                                       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                                       decoration: BoxDecoration(color: const Color(0xFFFFEBEE), borderRadius: BorderRadius.circular(8)),
-                                      child: const Text('অনুপযুক্ত', style: TextStyle(fontSize: 8.5, fontWeight: FontWeight.bold, color: Color(0xFFC62828))),
+                                      child: Text('অনুপযুক্ত'.tr(context), style: TextStyle(fontSize: 8.5, fontWeight: FontWeight.bold, color: Color(0xFFC62828))),
                                     ),
                                 ],
                               ),
@@ -718,7 +737,7 @@ class _BloodDonorScreenState extends State<BloodDonorScreen> {
                             backgroundColor: AppColors.success.withValues(alpha: 0.1),
                             shape: const CircleBorder(),
                           ),
-                          icon: const Icon(Icons.phone, color: AppColors.success, size: 20),
+                          icon: Icon(Icons.phone, color: AppColors.success, size: 20),
                           onPressed: () => _triggerCall(donor['name'] as String, donor['phone'] as String),
                         )
                       ],

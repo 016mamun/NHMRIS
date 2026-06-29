@@ -38,7 +38,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF1E1B4B)),
+          icon: Icon(Icons.arrow_back, color: Color(0xFF1E1B4B)),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -69,21 +69,21 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                       shape: BoxShape.circle,
                       boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 4))],
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Icon(Icons.favorite_rounded, color: AppColors.primary, size: 36),
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16),
                   const Text(
                     'MHRIS',
                     style: TextStyle(fontSize: 26, fontWeight: FontWeight.w900, color: Color(0xFF1E1B4B), letterSpacing: 1.2),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4),
                   const Text(
                     'মাতৃ ও শিশু স্বাস্থ্য রেকর্ড তথ্য ব্যবস্থা',
                     style: TextStyle(fontSize: 14.5, fontWeight: FontWeight.bold, color: Color(0xFF475569)),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
@@ -95,11 +95,11 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
 
             // Our Mission
             _buildSectionHeader('আমাদের লক্ষ্য ও উদ্দেশ্য', Icons.emoji_objects_outlined, AppColors.primary),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16),
@@ -113,11 +113,11 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                 style: TextStyle(fontSize: 13, height: 1.5, color: Color(0xFF475569)),
               ),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
 
             // Key Modules
             _buildSectionHeader('মূল ড্যাশবোর্ড মডিউলসমূহ', Icons.widgets_outlined, const Color(0xFF0D9488)),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             GridView.count(
               crossAxisCount: 2,
               shrinkWrap: true,
@@ -134,11 +134,11 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                 _buildModuleItem(Icons.local_hospital_rounded, 'হাসপাতাল ডিরেক্টরি'),
               ],
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
 
             // Partnership Badges
             _buildSectionHeader('সহযোগিতা ও পার্টনারশিপ', Icons.handshake_outlined, const Color(0xFF4F46E5)),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -157,11 +157,11 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
 
             // Developers Credit
             _buildSectionHeader('ডেভেলপার ক্রেডিট ও সহায়তা', Icons.code_rounded, Colors.black87),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16),
@@ -176,14 +176,14 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                     'MHRIS টেকনিক্যাল টিম',
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4),
                   Text(
                     'বাংলাদেশ হেলথ আইটি ডেভেলপমেন্ট টিম দ্বারা পরিকল্পিত ও সফটওয়্যার ডিজাইন করা হয়েছে।',
                     style: TextStyle(fontSize: 11.5, color: Colors.grey.shade400, height: 1.4),
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12),
                   const Divider(color: Colors.white24),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -212,11 +212,11 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
 
             // Feedback Portal
             _buildSectionHeader('আপনার মতামত জানান', Icons.rate_review_outlined, AppColors.primary),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -237,7 +237,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                       filled: true,
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -256,14 +256,14 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
 
                   // Stateful Feedbacks Feed
                   if (_feedbacks.isNotEmpty) ...[
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16),
                     const Divider(),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8),
                     const Align(
                       alignment: Alignment.centerLeft,
                       child: Text('আমার পাঠানো মতামতসমূহ:', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black54)),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8),
                     ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -275,7 +275,7 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
                           decoration: BoxDecoration(color: const Color(0xFFF1F5F9), borderRadius: BorderRadius.circular(10)),
                           child: Text(
                             _feedbacks[index],
-                            style: const TextStyle(fontSize: 11.5, color: Colors.black87),
+                            style: TextStyle(fontSize: 11.5, color: Colors.black87),
                           ),
                         );
                       },
@@ -294,10 +294,10 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
     return Row(
       children: [
         Icon(icon, color: color, size: 20),
-        const SizedBox(width: 8),
+        SizedBox(width: 8),
         Text(
           title,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B)),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B)),
         ),
       ],
     );
@@ -314,11 +314,11 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
       child: Row(
         children: [
           Icon(icon, color: AppColors.primary, size: 18),
-          const SizedBox(width: 6),
+          SizedBox(width: 6),
           Expanded(
             child: Text(
               title,
-              style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: Color(0xFF1E293B)),
+              style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: Color(0xFF1E293B)),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
@@ -333,10 +333,10 @@ class _AboutAppScreenState extends State<AboutAppScreen> {
       child: Column(
         children: [
           Icon(icon, color: color, size: 24),
-          const SizedBox(height: 6),
+          SizedBox(height: 6),
           Text(
             label,
-            style: const TextStyle(fontSize: 8.5, color: Color(0xFF475569), fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 8.5, color: Color(0xFF475569), fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,

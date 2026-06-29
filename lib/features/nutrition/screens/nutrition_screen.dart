@@ -36,12 +36,12 @@ class _NutritionScreenState extends State<NutritionScreen> {
                   // ── Top Nutrition Advice Banner ───────────────────────────────────
                   _buildNutritionAdviceBanner(),
 
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20),
 
                   // ── Category Circles Row ──────────────────────────────────────────
                   _buildCategoriesRow(context),
 
-                  const SizedBox(height: 24),
+                  SizedBox(height: 24),
 
                   // ── Section Title: আজকের খাবারের পরিকল্পনা ────────────────────────
                   Row(
@@ -54,7 +54,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                           borderRadius: BorderRadius.circular(4),
                         ),
                       ),
-                      const SizedBox(width: 8),
+                      SizedBox(width: 8),
                       Text(
                         'আজকের খাবারের পরিকল্পনা'.tr(context),
                         style: TextStyle(
@@ -66,12 +66,12 @@ class _NutritionScreenState extends State<NutritionScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12),
 
                   // ── Meal Plan List ────────────────────────────────────────────────
                   _buildMealPlanList(context),
 
-                  const SizedBox(height: 24),
+                  SizedBox(height: 24),
 
                   // ── Bottom Card: Interactive Water Reminder ───────────────────────
                   _buildWaterReminderCard(context),
@@ -98,6 +98,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
                 onTap: () => Navigator.pop(context),
@@ -107,17 +108,21 @@ class _NutritionScreenState extends State<NutritionScreen> {
                     color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
+                  child: Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('পুষ্টি ও যত্ন গাইড'.tr(context), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('সুস্থ মা ও শিশুর পুষ্টিকর খাদ্যাভ্যাস'.tr(context), style: const TextStyle(fontSize: 12, color: Colors.white70)),
-                  ],
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('পুষ্টি ও যত্ন গাইড', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
+                      Text('সুস্থ মা ও শিশুর পুষ্টিকর খাদ্যাভ্যাস', style: TextStyle(fontSize: 12, color: Colors.white70)),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -169,8 +174,8 @@ class _NutritionScreenState extends State<NutritionScreen> {
                         color: Colors.green.shade900,
                       ),
                     ),
-                    const SizedBox(width: 6),
-                    const Icon(
+                    SizedBox(width: 6),
+                    Icon(
                       Icons.spa_rounded,
                       color: Colors.green,
                       size: 20,
@@ -186,7 +191,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                     color: Colors.green.shade900,
                   ),
                 ),
-                const SizedBox(height: 6),
+                SizedBox(height: 6),
                 Text(
                   'প্রতিদিনের খাদ্যতালিকায় সবুজ শাকসবজি, ফল ও ডাল রাখুন।'.tr(context),
                   style: TextStyle(
@@ -200,7 +205,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
               ],
             ),
           ),
-          const SizedBox(width: 12),
+          SizedBox(width: 12),
           // Large Salad Bowl graphic representation
           Container(
             width: 90,
@@ -215,7 +220,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                 ),
               ],
             ),
-            child: const Center(
+            child: Center(
               child: Text(
                 '🥗',
                 style: TextStyle(fontSize: 48),
@@ -293,11 +298,11 @@ class _NutritionScreenState extends State<NutritionScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8),
                 Text(
                   (cat['title'] as String).tr(context),
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                     
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
@@ -370,11 +375,11 @@ class _NutritionScreenState extends State<NutritionScreen> {
                 child: Center(
                   child: Text(
                     meal['icon'] as String,
-                    style: const TextStyle(fontSize: 24),
+                    style: TextStyle(fontSize: 24),
                   ),
                 ),
               ),
-              const SizedBox(width: 14),
+              SizedBox(width: 14),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -388,10 +393,9 @@ class _NutritionScreenState extends State<NutritionScreen> {
                         color: color,
                       ),
                     ),
-                    const SizedBox(height: 2),
+                    SizedBox(height: 2),
                     Text(
-                      (meal['desc'] as String).tr(context),
-                      style: const TextStyle(
+                      (meal['desc'] as String), style: TextStyle(
                         
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -408,8 +412,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
-                  (meal['time'] as String).tr(context),
-                  style: const TextStyle(
+                  (meal['time'] as String), style: TextStyle(
                     
                     fontSize: 10,
                     fontWeight: FontWeight.w600,
@@ -450,15 +453,14 @@ class _NutritionScreenState extends State<NutritionScreen> {
             children: [
               Row(
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.water_drop_rounded,
                     color: Color(0xFF0EA5E9),
                     size: 20,
                   ),
                   SizedBox(width: 6),
                   Text(
-                    'পানি রিমাইন্ডার'.tr(context),
-                    style: const TextStyle(
+                    'পানি রিমাইন্ডার', style: TextStyle(
                       
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
@@ -469,7 +471,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
               ),
               Text(
                 '${AppConstants.toBengaliNumber(_waterGlasses)}${' / ৮ গ্লাস'.tr(context)}',
-                style: const TextStyle(
+                style: TextStyle(
                   
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
@@ -478,7 +480,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16),
           // Interactive Glasses
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -527,7 +529,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
               );
             }),
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12),
           Text(
             'প্রতিটি গ্লাসে ট্যাপ করে আপনার আজকের পানি পানের হিসাব রাখুন'.tr(context),
             textAlign: TextAlign.center,
@@ -611,14 +613,14 @@ class _NutritionScreenState extends State<NutritionScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
               Text(
                 title.tr(context),
                 style: AppTextStyles.headingMedium.copyWith(color: AppColors.primary),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
               content,
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -640,18 +642,16 @@ class _NutritionScreenState extends State<NutritionScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            title.tr(context),
-            style: const TextStyle(
+            title, style: TextStyle(
               
               fontSize: 14,
               fontWeight: FontWeight.w700,
               color: AppColors.textPrimary,
             ),
           ),
-          const SizedBox(height: 2),
+          SizedBox(height: 2),
           Text(
-            desc.tr(context),
-            style: const TextStyle(
+            desc, style: TextStyle(
               
               fontSize: 13,
               color: AppColors.textSecondary,

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/localization/language_cubit.dart';
+import '../../../core/localization/app_translations.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../models/pregnancy_registration_model.dart';
@@ -145,23 +148,23 @@ class _PregnancyRegistrationScreenState
             Container(
               width: 80, height: 80,
               decoration: BoxDecoration(color: AppColors.success.withValues(alpha: 0.1), shape: BoxShape.circle),
-              child: const Icon(Icons.check_circle_rounded, color: AppColors.success, size: 48),
+              child: Icon(Icons.check_circle_rounded, color: AppColors.success, size: 48),
             ),
-            const SizedBox(height: 24),
-            Text('সফলভাবে সংরক্ষিত হয়েছে!', style: AppTextStyles.headingMedium, textAlign: TextAlign.center),
-            const SizedBox(height: 12),
-            const Text(
-              'গর্ভবতীর সম্পূর্ণ তথ্য, সেবা কার্ড ও প্রসবোত্তর তথ্য সফলভাবে যুক্ত হয়েছে।',
+            SizedBox(height: 24),
+            Text('সফলভাবে সংরক্ষিত হয়েছে!'.tr(context), style: AppTextStyles.headingMedium, textAlign: TextAlign.center),
+            SizedBox(height: 12),
+            Text(
+              'গর্ভবতীর সম্পূর্ণ তথ্য, সেবা কার্ড ও প্রসবোত্তর তথ্য সফলভাবে যুক্ত হয়েছে।'.tr(context),
               textAlign: TextAlign.center,
               style: TextStyle(color: AppColors.textSecondary),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () { Navigator.pop(context); Navigator.pop(context); },
                 style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
-                child: const Text('ঠিক আছে', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+                child: Text('ঠিক আছে'.tr(context), style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
               ),
             ),
           ],
@@ -172,6 +175,7 @@ class _PregnancyRegistrationScreenState
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Column(
@@ -201,7 +205,7 @@ class _PregnancyRegistrationScreenState
   // ─── Header ───────────────────────────────────────────────────────────────
   Widget _buildHeader() {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Color(0xFF6B3FA0),
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(28), bottomRight: Radius.circular(28)),
       ),
@@ -218,15 +222,16 @@ class _PregnancyRegistrationScreenState
                     child: Container(
                       width: 40, height: 40,
                       decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(12)),
-                      child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
+                      child: Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                     ),
                   ),
-                  const SizedBox(width: 12),
+                  SizedBox(width: 12),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('গর্ভবতীর তথ্য ফরম ও সেবা কার্ড', style: AppTextStyles.onPrimaryHeading),
+                        Text('গর্ভবতীর তথ্য ফরম ও সেবা কার্ড'.tr(context), style: AppTextStyles.onPrimaryHeading),
                         Text(_stepTitles[_currentStep], style: AppTextStyles.onPrimaryBody),
                       ],
                     ),
@@ -235,11 +240,11 @@ class _PregnancyRegistrationScreenState
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                     decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(20)),
                     child: Text('${_currentStep + 1}/$_totalSteps',
-                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
               Row(
                 children: List.generate(_totalSteps, (i) {
                   final done = i < _currentStep;
@@ -284,10 +289,10 @@ class _PregnancyRegistrationScreenState
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                     side: const BorderSide(color: AppColors.primary),
                   ),
-                  child: const Text('পূর্ববর্তী', style: TextStyle(color: AppColors.primary, fontSize: 15, fontWeight: FontWeight.w600)),
+                  child: Text('পূর্ববর্তী'.tr(context), style: TextStyle(color: AppColors.primary, fontSize: 15, fontWeight: FontWeight.w600)),
                 ),
               ),
-            if (_currentStep > 0) const SizedBox(width: 12),
+            if (_currentStep > 0) SizedBox(width: 12),
             Expanded(
               flex: 2,
               child: ElevatedButton(
@@ -300,7 +305,7 @@ class _PregnancyRegistrationScreenState
                 ),
                 child: Text(
                   _currentStep == _totalSteps - 1 ? 'সংরক্ষণ করুন' : 'পরবর্তী ধাপ',
-                  style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
+                  style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
                 ),
               ),
             ),
@@ -325,7 +330,7 @@ class _PregnancyRegistrationScreenState
             ),
             child: Icon(icon, color: color ?? AppColors.primary, size: 20),
           ),
-          const SizedBox(width: 12),
+          SizedBox(width: 12),
           Expanded(child: Text(title, style: AppTextStyles.headingMedium)),
         ],
       ),
@@ -334,12 +339,12 @@ class _PregnancyRegistrationScreenState
 
   Widget _label(String text) => Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(text, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+    child: Text(text, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
   );
 
   InputDecoration _inputDeco(String hint, {IconData? icon}) => InputDecoration(
     hintText: hint,
-    hintStyle: const TextStyle(color: AppColors.textSecondary, fontSize: 13),
+    hintStyle: TextStyle(color: AppColors.textSecondary, fontSize: 13),
     prefixIcon: icon != null ? Icon(icon, color: AppColors.primary.withValues(alpha: 0.45), size: 20) : null,
     filled: true,
     fillColor: AppColors.surface,
@@ -354,11 +359,12 @@ class _PregnancyRegistrationScreenState
       padding: const EdgeInsets.only(bottom: 14),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _label(label),
           TextFormField(
             keyboardType: type,
-            style: const TextStyle(fontSize: 14),
+            style: TextStyle(fontSize: 14),
             decoration: _inputDeco(hint, icon: icon),
           ),
         ],
@@ -371,12 +377,13 @@ class _PregnancyRegistrationScreenState
       padding: const EdgeInsets.only(bottom: 14),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _label(label),
           DropdownButtonFormField<String>(
             decoration: _inputDeco(hint, icon: icon),
             isExpanded: true,
-            items: items.map((e) => DropdownMenuItem(value: e, child: Text(e, style: const TextStyle(fontSize: 13)))).toList(),
+            items: items.map((e) => DropdownMenuItem(value: e, child: Text(e, style: TextStyle(fontSize: 13)))).toList(),
             onChanged: (val) {},
           ),
         ],
@@ -395,7 +402,7 @@ class _PregnancyRegistrationScreenState
       child: CheckboxListTile(
         value: value,
         onChanged: (v) { setState(() => onChanged(v)); },
-        title: Text(label, style: const TextStyle(fontSize: 13, color: AppColors.textPrimary)),
+        title: Text(label, style: TextStyle(fontSize: 13, color: AppColors.textPrimary)),
         activeColor: AppColors.primary,
         checkColor: Colors.white,
         controlAffinity: ListTileControlAffinity.leading,
@@ -407,7 +414,7 @@ class _PregnancyRegistrationScreenState
 
   Widget _subHeading(String text) => Padding(
     padding: const EdgeInsets.only(top: 12, bottom: 8),
-    child: Text(text, style: const TextStyle(
+    child: Text(text, style: TextStyle(
       fontWeight: FontWeight.w700,
       fontSize: 13, color: AppColors.primary,
     )),
@@ -415,6 +422,7 @@ class _PregnancyRegistrationScreenState
 
   Widget _inlineRow(List<Widget> children) => Row(
     crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
     children: children.map((c) => Expanded(child: Padding(padding: const EdgeInsets.only(right: 8), child: c))).toList(),
   );
 
@@ -424,6 +432,7 @@ class _PregnancyRegistrationScreenState
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _sectionTitle('গর্ভবতীর প্রাথমিক তথ্য', Icons.pregnant_woman_rounded),
 
@@ -440,13 +449,13 @@ class _PregnancyRegistrationScreenState
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.add_a_photo_outlined, color: AppColors.primary.withValues(alpha: 0.5), size: 36),
-                  const SizedBox(height: 6),
-                  const Text('ছবি', style: TextStyle(color: AppColors.primary, fontSize: 13)),
+                  SizedBox(height: 6),
+                  Text('ছবি'.tr(context), style: TextStyle(color: AppColors.primary, fontSize: 13)),
                 ],
               ),
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16),
 
           _inputField('০১. গর্ভবতীর নাম', 'পুরো নাম লিখুন', icon: Icons.person_outline),
           _inlineRow([
@@ -476,6 +485,7 @@ class _PregnancyRegistrationScreenState
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _sectionTitle('স্বামীর তথ্য', Icons.person_rounded),
           _inputField('১৩. স্বামীর নাম', 'পুরো নাম লিখুন', icon: Icons.person_outline),
@@ -512,6 +522,7 @@ class _PregnancyRegistrationScreenState
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _sectionTitle('গর্ভাবস্থা ও প্রসব ইতিহাস', Icons.history_rounded),
           _inlineRow([
@@ -563,6 +574,7 @@ class _PregnancyRegistrationScreenState
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _sectionTitle('গর্ভকালীন সেবা কার্ড', Icons.credit_card_rounded, color: const Color(0xFFD32F2F)),
           _inlineRow([
@@ -576,8 +588,8 @@ class _PregnancyRegistrationScreenState
           _buildObstetricTable(),
           TextButton.icon(
             onPressed: () => setState(() => _addObstetricRow()),
-            icon: const Icon(Icons.add_circle_outline, color: AppColors.primary),
-            label: const Text('নতুন সারি যুক্ত করুন', style: TextStyle(color: AppColors.primary)),
+            icon: Icon(Icons.add_circle_outline, color: AppColors.primary),
+            label: Text('নতুন সারি যুক্ত করুন'.tr(context), style: TextStyle(color: AppColors.primary)),
           ),
 
           const Divider(height: 24),
@@ -628,6 +640,7 @@ class _PregnancyRegistrationScreenState
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _sectionTitle('প্রসবের তথ্যাবলী', Icons.baby_changing_station_rounded, color: const Color(0xFFD32F2F)),
           _inlineRow([
@@ -676,6 +689,7 @@ class _PregnancyRegistrationScreenState
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _sectionTitle('প্রসবোত্তর পরীক্ষা', Icons.medical_services_outlined, color: const Color(0xFFD32F2F)),
           _buildPostpartumTable(),
@@ -724,7 +738,7 @@ class _PregnancyRegistrationScreenState
             child: Row(
               children: headers.map((h) => Expanded(
                 child: Text(h, textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
               )).toList(),
             ),
           ),
@@ -750,7 +764,7 @@ class _PregnancyRegistrationScreenState
             padding: const EdgeInsets.symmetric(horizontal: 2),
             child: TextFormField(
               controller: row[k],
-              style: const TextStyle(fontSize: 11),
+              style: TextStyle(fontSize: 11),
               decoration: InputDecoration(
                 isDense: true,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
@@ -789,7 +803,7 @@ class _PregnancyRegistrationScreenState
               children: headers.asMap().entries.map((e) => Expanded(
                 flex: e.key == 0 ? 2 : 1,
                 child: Text(e.value, textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+                  style: TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
               )).toList(),
             ),
           ),
@@ -808,14 +822,14 @@ class _PregnancyRegistrationScreenState
                 children: [
                   Expanded(flex: 2, child: Padding(
                     padding: const EdgeInsets.only(left: 4),
-                    child: Text(label, style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+                    child: Text(label, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
                   )),
                   ...List.generate(5, (i) => Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2),
                       child: TextFormField(
                         controller: controllers[i],
-                        style: const TextStyle(fontSize: 10),
+                        style: TextStyle(fontSize: 10),
                         decoration: InputDecoration(
                           isDense: true,
                           contentPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),

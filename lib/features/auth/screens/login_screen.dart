@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen>
                 SnackBar(
                   content: Text(
                     state.message,
-                    style: const TextStyle(fontFamily: 'Hind_Siliguri'),
+                    style: TextStyle(fontFamily: 'Hind_Siliguri'),
                   ),
                   backgroundColor: AppColors.error,
                   behavior: SnackBarBehavior.floating,
@@ -135,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen>
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Column(
                     children: [
-                      const SizedBox(height: 32),
+                      SizedBox(height: 32),
 
                       // Logo section with animation
                       ScaleTransition(
@@ -162,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen>
                                       color: Colors.white.withValues(alpha: 0.2),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
-                                    child: const Center(
+                                    child: Center(
                                       child: Text(
                                         'Govt',
                                         style: TextStyle(
@@ -173,7 +173,7 @@ class _LoginScreenState extends State<LoginScreen>
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(width: 8),
+                                  SizedBox(width: 8),
                                   const Text(
                                     'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
                                     style: TextStyle(
@@ -186,7 +186,7 @@ class _LoginScreenState extends State<LoginScreen>
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 20),
+                            SizedBox(height: 20),
                             // App logo
                             Container(
                               width: 80,
@@ -206,13 +206,13 @@ class _LoginScreenState extends State<LoginScreen>
                                   ),
                                 ],
                               ),
-                              child: const Icon(
+                              child: Icon(
                                 Icons.favorite_rounded,
                                 color: Colors.white,
                                 size: 42,
                               ),
                             ),
-                            const SizedBox(height: 12),
+                            SizedBox(height: 12),
                             const Text(
                               'গর্ভবতী আয়না',
                               style: TextStyle(
@@ -223,7 +223,7 @@ class _LoginScreenState extends State<LoginScreen>
                                 height: 1.1,
                               ),
                             ),
-                            const SizedBox(height: 6),
+                            SizedBox(height: 6),
                             const Text(
                               'নিরাপদ হোক প্রতিটি প্রসব',
                               style: TextStyle(
@@ -233,7 +233,7 @@ class _LoginScreenState extends State<LoginScreen>
                                 color: Colors.white,
                               ),
                             ),
-                            const SizedBox(height: 2),
+                            SizedBox(height: 2),
                             const Text(
                               'যত্নে থাকুক মা ও নবজাতক',
                               style: TextStyle(
@@ -247,7 +247,7 @@ class _LoginScreenState extends State<LoginScreen>
                         ),
                       ),
 
-                      const SizedBox(height: 36),
+                      SizedBox(height: 36),
 
                       // Login card
                       FadeTransition(
@@ -287,13 +287,13 @@ class _LoginScreenState extends State<LoginScreen>
                                             color: AppColors.primarySurface,
                                             borderRadius: BorderRadius.circular(12),
                                           ),
-                                          child: const Icon(
+                                          child: Icon(
                                             Icons.login_rounded,
                                             color: AppColors.primary,
                                             size: 22,
                                           ),
                                         ),
-                                        const SizedBox(width: 12),
+                                        SizedBox(width: 12),
                                         Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
@@ -309,7 +309,7 @@ class _LoginScreenState extends State<LoginScreen>
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(height: 28),
+                                    SizedBox(height: 28),
 
                                     // Phone field
                                     TextFormField(
@@ -325,7 +325,7 @@ class _LoginScreenState extends State<LoginScreen>
                                             color: AppColors.primarySurface,
                                             borderRadius: BorderRadius.circular(8),
                                           ),
-                                          child: const Icon(
+                                          child: Icon(
                                             Icons.phone_outlined,
                                             size: 18,
                                             color: AppColors.primary,
@@ -334,7 +334,7 @@ class _LoginScreenState extends State<LoginScreen>
                                       ),
                                       validator: (v) => null,
                                     ),
-                                    const SizedBox(height: 16),
+                                    SizedBox(height: 16),
 
                                     // Password field
                                     TextFormField(
@@ -349,7 +349,7 @@ class _LoginScreenState extends State<LoginScreen>
                                             color: AppColors.primarySurface,
                                             borderRadius: BorderRadius.circular(8),
                                           ),
-                                          child: const Icon(
+                                          child: Icon(
                                             Icons.lock_outline,
                                             size: 18,
                                             color: AppColors.primary,
@@ -369,7 +369,7 @@ class _LoginScreenState extends State<LoginScreen>
                                       validator: (v) => null,
                                     ),
 
-                                    const SizedBox(height: 8),
+                                    SizedBox(height: 8),
                                     Align(
                                       alignment: Alignment.centerRight,
                                       child: TextButton(
@@ -385,7 +385,7 @@ class _LoginScreenState extends State<LoginScreen>
                                       ),
                                     ),
 
-                                    const SizedBox(height: 12),
+                                    SizedBox(height: 12),
 
                                     // Login button
                                     BlocBuilder<AuthBloc, AuthState>(
@@ -402,7 +402,7 @@ class _LoginScreenState extends State<LoginScreen>
                                               ),
                                             ),
                                             child: isLoading
-                                                ? const SizedBox(
+                                                ? SizedBox(
                                                     width: 24,
                                                     height: 24,
                                                     child: CircularProgressIndicator(
@@ -423,7 +423,7 @@ class _LoginScreenState extends State<LoginScreen>
                                       },
                                     ),
 
-                                    const SizedBox(height: 20),
+                                    SizedBox(height: 20),
 
                                     // Divider
                                     Row(
@@ -440,7 +440,7 @@ class _LoginScreenState extends State<LoginScreen>
                                       ],
                                     ),
 
-                                    const SizedBox(height: 16),
+                                    SizedBox(height: 16),
 
                                     // Register link
                                     Row(
@@ -477,7 +477,7 @@ class _LoginScreenState extends State<LoginScreen>
                         ),
                       ),
 
-                      const SizedBox(height: 32),
+                      SizedBox(height: 32),
                     ],
                   ),
                 ),

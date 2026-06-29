@@ -77,7 +77,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                 SnackBar(
                   content: Text(
                     state.message,
-                    style: const TextStyle(fontFamily: 'Hind_Siliguri'),
+                    style: TextStyle(fontFamily: 'Hind_Siliguri'),
                   ),
                   backgroundColor: AppColors.error,
                   behavior: SnackBarBehavior.floating,
@@ -125,7 +125,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                     opacity: _fadeAnim,
                     child: Column(
                       children: [
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16),
 
                         // Header with back button
                         Row(
@@ -142,14 +142,14 @@ class _RegisterScreenState extends State<RegisterScreen>
                                     color: Colors.white.withValues(alpha: 0.3),
                                   ),
                                 ),
-                                child: const Icon(
+                                child: Icon(
                                   Icons.arrow_back_ios_new,
                                   color: Colors.white,
                                   size: 18,
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 14),
+                            SizedBox(width: 14),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -180,12 +180,12 @@ class _RegisterScreenState extends State<RegisterScreen>
                                 color: Colors.white.withValues(alpha: 0.15),
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: const Icon(Icons.favorite_rounded, color: Colors.white, size: 22),
+                              child: Icon(Icons.favorite_rounded, color: Colors.white, size: 22),
                             ),
                           ],
                         ),
 
-                        const SizedBox(height: 30),
+                        SizedBox(height: 30),
 
                         // Registration card
                         SlideTransition(
@@ -224,13 +224,13 @@ class _RegisterScreenState extends State<RegisterScreen>
                                             color: AppColors.primarySurface,
                                             borderRadius: BorderRadius.circular(12),
                                           ),
-                                          child: const Icon(
+                                          child: Icon(
                                             Icons.person_add_rounded,
                                             color: AppColors.primary,
                                             size: 22,
                                           ),
                                         ),
-                                        const SizedBox(width: 12),
+                                        SizedBox(width: 12),
                                         Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
@@ -247,11 +247,11 @@ class _RegisterScreenState extends State<RegisterScreen>
                                       ],
                                     ),
 
-                                    const SizedBox(height: 28),
+                                    SizedBox(height: 28),
 
                                     // Name field
                                     _buildFieldLabel('পূর্ণ নাম', Icons.person_outline),
-                                    const SizedBox(height: 8),
+                                    SizedBox(height: 8),
                                     TextFormField(
                                       controller: _nameCtrl,
                                       decoration: const InputDecoration(
@@ -263,11 +263,11 @@ class _RegisterScreenState extends State<RegisterScreen>
                                         return null;
                                       },
                                     ),
-                                    const SizedBox(height: 16),
+                                    SizedBox(height: 16),
 
                                     // Phone field
                                     _buildFieldLabel('মোবাইল নম্বর', Icons.phone_outlined),
-                                    const SizedBox(height: 8),
+                                    SizedBox(height: 8),
                                     TextFormField(
                                       controller: _phoneCtrl,
                                       keyboardType: TextInputType.phone,
@@ -280,17 +280,17 @@ class _RegisterScreenState extends State<RegisterScreen>
                                         return null;
                                       },
                                     ),
-                                    const SizedBox(height: 16),
+                                    SizedBox(height: 16),
 
                                     // Password field
                                     _buildFieldLabel('পাসওয়ার্ড', Icons.lock_outline),
-                                    const SizedBox(height: 8),
+                                    SizedBox(height: 8),
                                     TextFormField(
                                       controller: _passCtrl,
                                       obscureText: _obscurePass,
                                       decoration: InputDecoration(
                                         hintText: 'কমপক্ষে ৬ অক্ষর',
-                                        prefixIcon: const Icon(Icons.lock_outline, size: 20),
+                                        prefixIcon: Icon(Icons.lock_outline, size: 20),
                                         suffixIcon: IconButton(
                                           icon: Icon(
                                             _obscurePass
@@ -307,11 +307,11 @@ class _RegisterScreenState extends State<RegisterScreen>
                                         return null;
                                       },
                                     ),
-                                    const SizedBox(height: 16),
+                                    SizedBox(height: 16),
 
                                     // Pregnancy weeks field
                                     _buildFieldLabel('গর্ভাবস্থার সপ্তাহ', Icons.calendar_today_outlined),
-                                    const SizedBox(height: 8),
+                                    SizedBox(height: 8),
                                     TextFormField(
                                       controller: _weeksCtrl,
                                       keyboardType: TextInputType.number,
@@ -327,7 +327,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                       },
                                     ),
 
-                                    const SizedBox(height: 28),
+                                    SizedBox(height: 28),
 
                                     // Register button
                                     BlocBuilder<AuthBloc, AuthState>(
@@ -344,7 +344,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                               ),
                                             ),
                                             child: isLoading
-                                                ? const SizedBox(
+                                                ? SizedBox(
                                                     width: 24,
                                                     height: 24,
                                                     child: CircularProgressIndicator(
@@ -364,7 +364,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                         );
                                       },
                                     ),
-                                    const SizedBox(height: 20),
+                                    SizedBox(height: 20),
 
                                     // Login link
                                     Row(
@@ -393,7 +393,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                           ),
                         ),
 
-                        const SizedBox(height: 32),
+                        SizedBox(height: 32),
                       ],
                     ),
                   ),
@@ -410,10 +410,10 @@ class _RegisterScreenState extends State<RegisterScreen>
     return Row(
       children: [
         Icon(icon, size: 14, color: AppColors.primary),
-        const SizedBox(width: 6),
+        SizedBox(width: 6),
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             
             fontSize: 13,
             fontWeight: FontWeight.w600,

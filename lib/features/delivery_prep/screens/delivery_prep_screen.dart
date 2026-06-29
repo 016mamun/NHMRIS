@@ -93,6 +93,7 @@ class _DeliveryPrepScreenState extends State<DeliveryPrepScreen>
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
                 onTap: () => Navigator.pop(context),
@@ -102,17 +103,21 @@ class _DeliveryPrepScreenState extends State<DeliveryPrepScreen>
                     color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
+                  child: Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('ডেলিভারির প্রস্তুতি'.tr(context), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('সময়মতো প্রস্তুত থাকুন'.tr(context), style: const TextStyle(fontSize: 12, color: Colors.white70)),
-                  ],
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('ডেলিভারির প্রস্তুতি', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
+                      Text('সময়মতো প্রস্তুত থাকুন', style: TextStyle(fontSize: 12, color: Colors.white70)),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -138,7 +143,7 @@ class _DeliveryPrepScreenState extends State<DeliveryPrepScreen>
             Text('প্রস্তুতির অগ্রগতি'.tr(context), style: AppTextStyles.headingSmall),
             Text('$_checkedCount/${_checklist.length}', style: AppTextStyles.labelMedium.copyWith(color: AppColors.deliveryIcon)),
           ]),
-          const SizedBox(height: 10),
+          SizedBox(height: 10),
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: LinearProgressIndicator(
@@ -154,7 +159,7 @@ class _DeliveryPrepScreenState extends State<DeliveryPrepScreen>
         child: ListView.separated(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
           itemCount: _checklist.length,
-          separatorBuilder: (_, __) => const SizedBox(height: 8),
+          separatorBuilder: (_, __) => SizedBox(height: 8),
           itemBuilder: (_, i) {
             final item = _checklist[i];
             final done = item['checked'] as bool;
@@ -175,9 +180,9 @@ class _DeliveryPrepScreenState extends State<DeliveryPrepScreen>
                       color: done ? AppColors.success : Colors.transparent, shape: BoxShape.circle,
                       border: Border.all(color: done ? AppColors.success : AppColors.border, width: 2),
                     ),
-                    child: done ? const Center(child: Icon(Icons.check, color: Colors.white, size: 15)) : null,
+                    child: done ? Center(child: Icon(Icons.check, color: Colors.white, size: 15)) : null,
                   ),
-                  const SizedBox(width: 12),
+                  SizedBox(width: 12),
                   Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     Text(
                       (item['item'] as String).tr(context),
@@ -201,7 +206,7 @@ class _DeliveryPrepScreenState extends State<DeliveryPrepScreen>
     return ListView.separated(
       padding: const EdgeInsets.all(16),
       itemCount: _laborSigns.length,
-      separatorBuilder: (_, __) => const SizedBox(height: 12),
+      separatorBuilder: (_, __) => SizedBox(height: 12),
       itemBuilder: (_, i) {
         final s = _laborSigns[i];
         final urgent = s['urgent'] as bool;
@@ -218,17 +223,17 @@ class _DeliveryPrepScreenState extends State<DeliveryPrepScreen>
               decoration: BoxDecoration(color: color.withValues(alpha: 0.12), shape: BoxShape.circle),
               child: Center(child: Icon(urgent ? Icons.warning_amber_rounded : Icons.info_outline_rounded, color: color)),
             ),
-            const SizedBox(width: 14),
+            SizedBox(width: 14),
             Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(children: [
                 Text((s['sign'] as String).tr(context), style: AppTextStyles.headingSmall.copyWith(color: color)),
-                if (urgent) ...[const SizedBox(width: 6), Container(
+                if (urgent) ...[SizedBox(width: 6), Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   decoration: BoxDecoration(color: AppColors.error, borderRadius: BorderRadius.circular(20)),
-                  child: Text('জরুরি'.tr(context), style: const TextStyle(fontSize: 10, color: Colors.white)),
+                  child: Text('জরুরি', style: TextStyle(fontSize: 10, color: Colors.white)),
                 )],
               ]),
-              const SizedBox(height: 4),
+              SizedBox(height: 4),
               Text((s['desc'] as String).tr(context), style: AppTextStyles.bodyMedium),
             ])),
           ]),

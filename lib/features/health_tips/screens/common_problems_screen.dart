@@ -1,5 +1,8 @@
+import '../../../core/localization/language_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/app_translations.dart';
 
 class CommonProblemsScreen extends StatelessWidget {
   const CommonProblemsScreen({super.key});
@@ -63,6 +66,8 @@ class CommonProblemsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
+    context.watch<LanguageCubit>();
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Column(
@@ -72,7 +77,7 @@ class CommonProblemsScreen extends StatelessWidget {
             child: ListView.builder(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
               itemCount: _problems.length,
-              itemBuilder: (_, i) => _buildCard(_problems[i]),
+              itemBuilder: (ctx, i) => _buildCard(ctx, _problems[i]),
             ),
           ),
         ],
@@ -82,7 +87,7 @@ class CommonProblemsScreen extends StatelessWidget {
 
   Widget _buildHeader(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Color(0xFF6B3FA0),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(28),
@@ -94,6 +99,7 @@ class CommonProblemsScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
                 onTap: () => Navigator.pop(context),
@@ -103,17 +109,21 @@ class CommonProblemsScreen extends StatelessWidget {
                     color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
+                  child: Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('সাধারণ সমস্যা ও সমাধান', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('গর্ভাবস্থায় সাধারণ সমস্যা ও করণীয়', style: const TextStyle(fontSize: 12, color: Colors.white70)),
-                  ],
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('সাধারণ সমস্যা ও সমাধান'.tr(context), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
+                      Text('গর্ভাবস্থায় সাধারণ সমস্যা ও করণীয়'.tr(context), style: TextStyle(fontSize: 12, color: Colors.white70)),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -123,7 +133,7 @@ class CommonProblemsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCard(Map<String, dynamic> p) {
+  Widget _buildCard(BuildContext context, Map<String, dynamic> p) {
     final color = p['color'] as Color;
     final isWarn = p['warn'] as bool;
     return Container(
@@ -147,8 +157,8 @@ class CommonProblemsScreen extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text(p['emoji'] as String, style: const TextStyle(fontSize: 28)),
-                const SizedBox(width: 10),
+                Text(p['emoji'] as String, style: TextStyle(fontSize: 28)),
+                SizedBox(width: 10),
                 Expanded(
                   child: Text(
                     p['title'] as String,
@@ -168,7 +178,7 @@ class CommonProblemsScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
-                      'সতর্কতা',
+                      'সতর্কতা'.tr(context),
                       style: TextStyle(
                         
                         fontSize: 11,
@@ -180,10 +190,10 @@ class CommonProblemsScreen extends StatelessWidget {
               ],
             ),
             if ((p['cause'] as String).isNotEmpty) ...[
-              const SizedBox(height: 10),
+              SizedBox(height: 10),
               _buildInfoRow('কারণ:', p['cause'] as String),
             ],
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
             _buildInfoRow(isWarn ? '' : 'সমাধান:', p['solution'] as String),
           ],
         ),
@@ -200,7 +210,7 @@ class CommonProblemsScreen extends StatelessWidget {
             padding: const EdgeInsets.only(right: 6, top: 1),
             child: Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 
                 fontSize: 13,
                 fontWeight: FontWeight.w700,
@@ -211,7 +221,7 @@ class CommonProblemsScreen extends StatelessWidget {
         Expanded(
           child: Text(
             text,
-            style: const TextStyle(
+            style: TextStyle(
               
               fontSize: 13,
               color: AppColors.textSecondary,

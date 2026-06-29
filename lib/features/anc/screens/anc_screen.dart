@@ -156,12 +156,12 @@ class _ANCScreenState extends State<ANCScreen> {
                         // Custom Stepper Indicator
                         _buildStepper(context),
 
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16),
 
                         // Main Content Card
                         _buildMainCard(context, currentStep),
 
-                        const SizedBox(height: 24),
+                        SizedBox(height: 24),
 
                         // Action Button
                         SizedBox(
@@ -182,8 +182,7 @@ class _ANCScreenState extends State<ANCScreen> {
                                 Text(
                                   (_activeStep == _steps.length - 1
                                       ? 'ঠিক আছে'
-                                      : 'পরবর্তী ধাপ').tr(context),
-                                  style: const TextStyle(
+                                      : 'পরবর্তী ধাপ'), style: TextStyle(
                                     
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
@@ -191,8 +190,8 @@ class _ANCScreenState extends State<ANCScreen> {
                                   ),
                                 ),
                                 if (_activeStep < _steps.length - 1) ...[
-                                  const SizedBox(width: 8),
-                                  const Icon(
+                                  SizedBox(width: 8),
+                                  Icon(
                                     Icons.arrow_forward_ios,
                                     size: 16,
                                     color: Colors.white,
@@ -237,16 +236,16 @@ class _ANCScreenState extends State<ANCScreen> {
                     color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
+                  child: Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('এএনসি (গর্ভকালীন সেবা)'.tr(context), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('আপনার গর্ভকালীন স্বাস্থ্যের ৪টি গুরুত্বপূর্ণ ধাপ'.tr(context), style: const TextStyle(fontSize: 12, color: Colors.white70)),
+                    Text('এএনসি (গর্ভকালীন সেবা)', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
+                    Text('আপনার গর্ভকালীন স্বাস্থ্যের ৪টি গুরুত্বপূর্ণ ধাপ', style: TextStyle(fontSize: 12, color: Colors.white70)),
                   ],
                 ),
               ),
@@ -334,7 +333,7 @@ class _ANCScreenState extends State<ANCScreen> {
             }
           }),
         ),
-        const SizedBox(height: 8),
+        SizedBox(height: 8),
         Text(
           'আপনার গর্ভাবস্থার যত্নের ৪টি গুরুত্বপূর্ণ ধাপ'.tr(context),
           style: TextStyle(
@@ -395,8 +394,7 @@ class _ANCScreenState extends State<ANCScreen> {
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: Text(
-                        step.trimester.tr(context),
-                        style: const TextStyle(
+                        step.trimester, style: TextStyle(
                           
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
@@ -404,17 +402,16 @@ class _ANCScreenState extends State<ANCScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10),
                     Text(
-                      step.title.tr(context),
-                      style: const TextStyle(
+                      step.title, style: TextStyle(
                         
                         fontSize: 24,
                         fontWeight: FontWeight.w800,
                         color: AppColors.primaryDark,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: 4),
                     Text(
                       step.duration.tr(context),
                       style: TextStyle(
@@ -431,7 +428,7 @@ class _ANCScreenState extends State<ANCScreen> {
           ),
         ),
 
-        const SizedBox(height: 20),
+        SizedBox(height: 20),
 
         // ── Goal Section ────────────────────────────────────────────────────
         Container(
@@ -460,10 +457,9 @@ class _ANCScreenState extends State<ANCScreen> {
                   color: AppColors.primary,
                 ),
               ),
-              const SizedBox(height: 6),
+              SizedBox(height: 6),
               Text(
-                step.goal.tr(context),
-                style: const TextStyle(
+                step.goal, style: TextStyle(
                   
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
@@ -475,7 +471,7 @@ class _ANCScreenState extends State<ANCScreen> {
           ),
         ),
 
-        const SizedBox(height: 20),
+        SizedBox(height: 20),
 
         // ── Activities Section ──────────────────────────────────────────────
         Padding(
@@ -524,11 +520,10 @@ class _ANCScreenState extends State<ANCScreen> {
               size: 20,
             ),
           ),
-          const SizedBox(width: 12),
+          SizedBox(width: 12),
           Expanded(
             child: Text(
-              activity.title.tr(context),
-              style: const TextStyle(
+              activity.title, style: TextStyle(
                 
                 fontSize: 14,
                 fontWeight: FontWeight.w500,

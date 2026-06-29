@@ -1,5 +1,8 @@
+import '../../../core/localization/language_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/app_translations.dart';
 
 class GorvokalinShebaScreen extends StatefulWidget {
   const GorvokalinShebaScreen({super.key});
@@ -92,6 +95,8 @@ class _GorvokalinShebaScreenState extends State<GorvokalinShebaScreen>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
+    context.watch<LanguageCubit>();
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Column(
@@ -116,7 +121,7 @@ class _GorvokalinShebaScreenState extends State<GorvokalinShebaScreen>
 
   Widget _buildHeader(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Color(0xFF6B3FA0),
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(28), bottomRight: Radius.circular(28)),
       ),
@@ -131,20 +136,20 @@ class _GorvokalinShebaScreenState extends State<GorvokalinShebaScreen>
                 child: Container(
                   width: 40, height: 40,
                   decoration: BoxDecoration(color: Colors.white.withOpacity(0.2), borderRadius: BorderRadius.circular(12)),
-                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
+                  child: Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text('গর্ভকালীন সেবা ও করণীয়', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('নিয়মিত যত্ন ও স্বাস্থ্যকর অভ্যাস', style: TextStyle(fontSize: 12, color: Colors.white70)),
+                  children: [
+                    Text('গর্ভকালীন সেবা ও করণীয়'.tr(context), style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Colors.white)),
+                    Text('নিয়মিত যত্ন ও স্বাস্থ্যকর অভ্যাস'.tr(context), style: TextStyle(fontSize: 12, color: Colors.white70)),
                   ],
                 ),
               ),
-              const Text('🤱', style: TextStyle(fontSize: 28)),
+              Text('🤱'.tr(context), style: TextStyle(fontSize: 28)),
             ],
           ),
         ),
@@ -162,13 +167,13 @@ class _GorvokalinShebaScreenState extends State<GorvokalinShebaScreen>
         unselectedLabelColor: Colors.grey.shade500,
         indicatorColor: AppColors.primary,
         indicatorWeight: 3,
-        labelStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
-        unselectedLabelStyle: const TextStyle(fontSize: 12),
-        tabs: const [
-          Tab(text: 'প্রতিদিনের কাজ'),
-          Tab(text: 'ANC সময়সূচী'),
-          Tab(text: 'খাদ্য গাইড'),
-          Tab(text: 'ব্যায়াম ও সুস্থতা'),
+        labelStyle: TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
+        unselectedLabelStyle: TextStyle(fontSize: 12),
+        tabs: [
+          Tab(text: 'প্রতিদিনের কাজ'.tr(context)),
+          Tab(text: 'ANC সময়সূচী'.tr(context)),
+          Tab(text: 'খাদ্য গাইড'.tr(context)),
+          Tab(text: 'ব্যায়াম ও সুস্থতা'.tr(context)),
         ],
       ),
     );
@@ -179,7 +184,7 @@ class _GorvokalinShebaScreenState extends State<GorvokalinShebaScreen>
       padding: const EdgeInsets.all(16),
       children: [
         _progressBanner(),
-        const SizedBox(height: 14),
+        SizedBox(height: 14),
         ..._dailyTasks.asMap().entries.map((e) => _todoRow(e.value, e.key)).toList(),
       ],
     );
@@ -197,21 +202,21 @@ class _GorvokalinShebaScreenState extends State<GorvokalinShebaScreen>
         children: [
           Row(
             children: [
-              const Text('✅', style: TextStyle(fontSize: 24)),
-              const SizedBox(width: 10),
+              Text('✅'.tr(context), style: TextStyle(fontSize: 24)),
+              SizedBox(width: 10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('আজকের স্বাস্থ্য লক্ষ্যমাত্রা', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white)),
-                    Text('$_completedTasks/${_dailyTasks.length} টি সম্পন্ন', style: const TextStyle(fontSize: 12, color: Colors.white70)),
+                    Text('আজকের স্বাস্থ্য লক্ষ্যমাত্রা'.tr(context), style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white)),
+                    Text('$_completedTasks/${_dailyTasks.length} টি সম্পন্ন', style: TextStyle(fontSize: 12, color: Colors.white70)),
                   ],
                 ),
               ),
-              Text('${((_completedTasks / _dailyTasks.length) * 100).round()}%', style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
+              Text('${((_completedTasks / _dailyTasks.length) * 100).round()}%', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
             ],
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12),
           LinearProgressIndicator(
             value: _completedTasks / _dailyTasks.length,
             backgroundColor: Colors.white24,
@@ -237,8 +242,8 @@ class _GorvokalinShebaScreenState extends State<GorvokalinShebaScreen>
       ),
       child: Row(
         children: [
-          Text(task['icon'] as String, style: const TextStyle(fontSize: 22)),
-          const SizedBox(width: 12),
+          Text(task['icon'] as String, style: TextStyle(fontSize: 22)),
+          SizedBox(width: 12),
           Expanded(
             child: Text(task['task'] as String, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: done ? const Color(0xFF43A047) : AppColors.textPrimary, decoration: done ? TextDecoration.lineThrough : null)),
           ),
@@ -248,7 +253,7 @@ class _GorvokalinShebaScreenState extends State<GorvokalinShebaScreen>
               duration: const Duration(milliseconds: 200),
               width: 28, height: 28,
               decoration: BoxDecoration(color: done ? const Color(0xFF43A047) : Colors.white, borderRadius: BorderRadius.circular(8), border: Border.all(color: done ? const Color(0xFF43A047) : Colors.grey.shade400)),
-              child: done ? const Icon(Icons.check, color: Colors.white, size: 16) : null,
+              child: done ? Icon(Icons.check, color: Colors.white, size: 16) : null,
             ),
           ),
         ],
@@ -261,7 +266,7 @@ class _GorvokalinShebaScreenState extends State<GorvokalinShebaScreen>
       padding: const EdgeInsets.all(16),
       children: [
         _infoCard('গর্ভাবস্থায় কমপক্ষে ৪ বার ANC চেকআপ করা অপরিহার্য।', const Color(0xFF00897B)),
-        const SizedBox(height: 14),
+        SizedBox(height: 14),
         ..._ancSchedule.map((visit) => _ancCard(visit)).toList(),
       ],
     );
@@ -287,7 +292,7 @@ class _GorvokalinShebaScreenState extends State<GorvokalinShebaScreen>
             decoration: BoxDecoration(color: color.withOpacity(0.12), shape: BoxShape.circle),
             child: Icon(done ? Icons.check_circle_rounded : Icons.calendar_today_rounded, color: color, size: 22),
           ),
-          const SizedBox(width: 12),
+          SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -303,7 +308,7 @@ class _GorvokalinShebaScreenState extends State<GorvokalinShebaScreen>
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8),
                 Wrap(
                   spacing: 6,
                   runSpacing: 6,
@@ -325,12 +330,12 @@ class _GorvokalinShebaScreenState extends State<GorvokalinShebaScreen>
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        const Text('✅ খাওয়া উচিত', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF43A047))),
-        const SizedBox(height: 10),
+        Text('✅ খাওয়া উচিত'.tr(context), style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF43A047))),
+        SizedBox(height: 10),
         ..._eatList.map((item) => _foodCard(item)).toList(),
-        const SizedBox(height: 14),
-        const Text('❌ এড়িয়ে চলুন', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFFE53935))),
-        const SizedBox(height: 10),
+        SizedBox(height: 14),
+        Text('❌ এড়িয়ে চলুন'.tr(context), style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFFE53935))),
+        SizedBox(height: 10),
         Container(
           decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(18), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 8, offset: const Offset(0, 2))]),
           child: Column(
@@ -345,15 +350,15 @@ class _GorvokalinShebaScreenState extends State<GorvokalinShebaScreen>
                         Container(
                           width: 32, height: 32,
                           decoration: BoxDecoration(color: const Color(0xFFFFEBEE), shape: BoxShape.circle),
-                          child: const Icon(Icons.close_rounded, color: Color(0xFFE53935), size: 18),
+                          child: Icon(Icons.close_rounded, color: Color(0xFFE53935), size: 18),
                         ),
-                        const SizedBox(width: 12),
+                        SizedBox(width: 12),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(e.value['item'] as String, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
-                              Text(e.value['reason'] as String, style: const TextStyle(fontSize: 11, color: AppColors.textSecondary)),
+                              Text(e.value['item'] as String, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+                              Text(e.value['reason'] as String, style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
                             ],
                           ),
                         ),
@@ -382,17 +387,17 @@ class _GorvokalinShebaScreenState extends State<GorvokalinShebaScreen>
       ),
       child: Row(
         children: [
-          Text(item['emoji'] as String, style: const TextStyle(fontSize: 28)),
-          const SizedBox(width: 12),
+          Text(item['emoji'] as String, style: TextStyle(fontSize: 28)),
+          SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(item['category'] as String, style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: color)),
-                const SizedBox(height: 2),
-                Text(item['items'] as String, style: const TextStyle(fontSize: 12, color: AppColors.textPrimary, fontWeight: FontWeight.w500)),
-                const SizedBox(height: 2),
-                Text(item['benefit'] as String, style: const TextStyle(fontSize: 11, color: AppColors.textSecondary)),
+                SizedBox(height: 2),
+                Text(item['items'] as String, style: TextStyle(fontSize: 12, color: AppColors.textPrimary, fontWeight: FontWeight.w500)),
+                SizedBox(height: 2),
+                Text(item['benefit'] as String, style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
               ],
             ),
           ),
@@ -406,9 +411,9 @@ class _GorvokalinShebaScreenState extends State<GorvokalinShebaScreen>
       padding: const EdgeInsets.all(16),
       children: [
         _infoCard('যেকোনো ব্যায়াম শুরুর আগে ডাক্তারের পরামর্শ নিন।', const Color(0xFFFB8C00)),
-        const SizedBox(height: 14),
+        SizedBox(height: 14),
         ..._exercises.map((ex) => _exerciseCard(ex)).toList(),
-        const SizedBox(height: 14),
+        SizedBox(height: 14),
         _meditationCard(),
       ],
     );
@@ -429,22 +434,22 @@ class _GorvokalinShebaScreenState extends State<GorvokalinShebaScreen>
           Container(
             width: 56, height: 56,
             decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(16)),
-            child: Center(child: Text(ex['emoji'] as String, style: const TextStyle(fontSize: 28))),
+            child: Center(child: Text(ex['emoji'] as String, style: TextStyle(fontSize: 28))),
           ),
-          const SizedBox(width: 14),
+          SizedBox(width: 14),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(ex['name'] as String, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-                const SizedBox(height: 2),
+                Text(ex['name'] as String, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                SizedBox(height: 2),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
                   child: Text(ex['duration'] as String, style: TextStyle(fontSize: 11, color: color, fontWeight: FontWeight.w600)),
                 ),
-                const SizedBox(height: 4),
-                Text(ex['benefit'] as String, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, height: 1.4)),
+                SizedBox(height: 4),
+                Text(ex['benefit'] as String, style: TextStyle(fontSize: 12, color: AppColors.textSecondary, height: 1.4)),
               ],
             ),
           ),
@@ -465,10 +470,10 @@ class _GorvokalinShebaScreenState extends State<GorvokalinShebaScreen>
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text('🧘‍♀️ মেডিটেশন ও মানসিক শান্তি', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white)),
+              children: [
+                Text('🧘‍♀️ মেডিটেশন ও মানসিক শান্তি'.tr(context), style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white)),
                 SizedBox(height: 8),
-                Text('প্রতিদিন ১০ মিনিট গভীর শ্বাস-প্রশ্বাস বা মেডিটেশন করুন। মানসিক চাপ কমলে শিশু ও মা উভয়েরই উপকার হয়।', style: TextStyle(fontSize: 12, color: Colors.white70, height: 1.5)),
+                Text('প্রতিদিন ১০ মিনিট গভীর শ্বাস-প্রশ্বাস বা মেডিটেশন করুন। মানসিক চাপ কমলে শিশু ও মা উভয়েরই উপকার হয়।'.tr(context), style: TextStyle(fontSize: 12, color: Colors.white70, height: 1.5)),
               ],
             ),
           ),
@@ -484,8 +489,8 @@ class _GorvokalinShebaScreenState extends State<GorvokalinShebaScreen>
       child: Row(
         children: [
           Icon(Icons.info_outline_rounded, color: color, size: 20),
-          const SizedBox(width: 10),
-          Expanded(child: Text(text, style: const TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.4))),
+          SizedBox(width: 10),
+          Expanded(child: Text(text, style: TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.4))),
         ],
       ),
     );

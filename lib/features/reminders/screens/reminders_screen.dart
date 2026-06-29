@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/localization/language_cubit.dart';
+import '../../../core/localization/app_translations.dart';
 import '../../../core/theme/app_colors.dart';
 
 class RemindersScreen extends StatefulWidget {
@@ -135,6 +138,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Column(
@@ -161,7 +165,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
   Widget _buildHeader(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -201,7 +205,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
                           )
                         ],
                       ),
-                      child: const Icon(Icons.arrow_back, color: Color(0xFF1E1B4B)),
+                      child: Icon(Icons.arrow_back, color: Color(0xFF1E1B4B)),
                     ),
                   ),
                   Container(
@@ -217,7 +221,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
                         )
                       ],
                     ),
-                    child: const Icon(Icons.notifications_none_rounded, color: Color(0xFF1E1B4B)),
+                    child: Icon(Icons.notifications_none_rounded, color: Color(0xFF1E1B4B)),
                   ),
                 ],
               ),
@@ -233,8 +237,8 @@ class _RemindersScreenState extends State<RemindersScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'শিশুর টিকা সূচি',
+                        Text(
+                          'শিশুর টিকা সূচি'.tr(context),
                           style: TextStyle(
                             
                             fontSize: 28,
@@ -242,9 +246,9 @@ class _RemindersScreenState extends State<RemindersScreen> {
                             color: Color(0xFF1E1B4B),
                           ),
                         ),
-                        const SizedBox(height: 8),
+                        SizedBox(height: 8),
                         Text(
-                          'সময়মতো টিকা দিন, শিশু থাকবে সুরক্ষিত',
+                          'সময়মতো টিকা দিন, শিশু থাকবে সুরক্ষিত'.tr(context),
                           style: TextStyle(
                             
                             fontSize: 13,
@@ -299,7 +303,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
                           left: -5,
                           child: Container(
                             padding: const EdgeInsets.all(4),
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: Colors.white,
                               shape: BoxShape.circle,
                               boxShadow: [
@@ -311,11 +315,11 @@ class _RemindersScreenState extends State<RemindersScreen> {
                             ),
                             child: Container(
                               padding: const EdgeInsets.all(6),
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                 color: Color(0xFF9E8EFF),
                                 shape: BoxShape.circle,
                               ),
-                              child: const Icon(Icons.shield_rounded, color: Colors.white, size: 18),
+                              child: Icon(Icons.shield_rounded, color: Colors.white, size: 18),
                             ),
                           ),
                         ),
@@ -361,7 +365,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
                 ),
                 child: Center(
                   child: Text(
-                    'সরকারি টিকা (EPI)',
+                    'সরকারি টিকা (EPI)'.tr(context),
                     style: TextStyle(
                       
                       fontSize: 14,
@@ -393,7 +397,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
                 ),
                 child: Center(
                   child: Text(
-                    'বেসরকারি/অতিরিক্ত টিকা',
+                    'বেসরকারি/অতিরিক্ত টিকা'.tr(context),
                     style: TextStyle(
                       
                       fontSize: 14,
@@ -425,13 +429,13 @@ class _RemindersScreenState extends State<RemindersScreen> {
           Container(
             width: 24,
             height: 24,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: Color(0xFF5C6BC0),
               shape: BoxShape.circle,
             ),
-            child: const Center(
+            child: Center(
               child: Text(
-                'i',
+                'i'.tr(context),
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -440,10 +444,10 @@ class _RemindersScreenState extends State<RemindersScreen> {
               ),
             ),
           ),
-          const SizedBox(width: 10),
-          const Expanded(
+          SizedBox(width: 10),
+          Expanded(
             child: Text(
-              'জাতীয় টিকাদান কর্মসূচি (EPI) অনুযায়ী সরকারি টিকা বিনামূল্যে দেওয়া হয়। বেসরকারি টিকা ঐচ্ছিক, তবে অতিরিক্ত সুরক্ষার জন্য প্রয়োজন হতে পারে।',
+              'জাতীয় টিকাদান কর্মসূচি (EPI) অনুযায়ী সরকারি টিকা বিনামূল্যে দেওয়া হয়। বেসরকারি টিকা ঐচ্ছিক, তবে অতিরিক্ত সুরক্ষার জন্য প্রয়োজন হতে পারে।'.tr(context),
               style: TextStyle(
                 
                 fontSize: 12.5,
@@ -460,7 +464,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
 
   TableRow _buildTableHeaderRow(List<String> headers, List<TextAlign> alignments) {
     return TableRow(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Color(0xFFF1F5F9),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(12),
@@ -474,7 +478,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
             child: Text(
               headers[index],
-              style: const TextStyle(
+              style: TextStyle(
                 
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
@@ -503,10 +507,10 @@ class _RemindersScreenState extends State<RemindersScreen> {
             ),
             child: Icon(Icons.child_care_rounded, color: Color(row['color'] as int), size: 18),
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: 4),
           Text(
             row['age'] as String,
-            style: const TextStyle(
+            style: TextStyle(
               
               fontSize: 10.5,
               fontWeight: FontWeight.bold,
@@ -545,7 +549,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
             ),
           ),
           if (subText.isNotEmpty) ...[
-            const SizedBox(height: 4),
+            SizedBox(height: 4),
             Text(
               subText,
               style: TextStyle(
@@ -597,7 +601,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
                     color: isDone ? const Color(0xFF2E7D32) : const Color(0xFF3F51B5),
                     size: 11,
                   ),
-                  const SizedBox(width: 4),
+                  SizedBox(width: 4),
                   Text(
                     row['status'] as String,
                     style: TextStyle(
@@ -610,10 +614,10 @@ class _RemindersScreenState extends State<RemindersScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 4),
+            SizedBox(height: 4),
             Text(
               row['date'] as String,
-              style: const TextStyle(
+              style: TextStyle(
                 
                 fontSize: 9.5,
                 color: Colors.grey,
@@ -627,7 +631,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
     );
 
     return TableRow(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(color: Color(0xFFE2E8F0), width: 1),
         ),
@@ -647,7 +651,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
             child: Center(
               child: Text(
                 row['ageDetail'] as String,
-                style: const TextStyle(
+                style: TextStyle(
                   
                   fontSize: 11.5,
                   fontWeight: FontWeight.w600,
@@ -664,7 +668,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
             child: Text(
               row['name'] as String,
-              style: const TextStyle(
+              style: TextStyle(
                 
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
@@ -681,7 +685,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
             child: Text(
               row['protection'] as String,
-              style: const TextStyle(
+              style: TextStyle(
                 
                 fontSize: 11,
                 color: Color(0xFF64748B),
@@ -705,7 +709,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
 
   TableRow _buildPrivateTableRow(Map<String, dynamic> row, int index) {
     return TableRow(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(color: Color(0xFFE2E8F0), width: 1),
         ),
@@ -718,7 +722,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
             child: Center(
               child: Text(
                 row['age'] as String,
-                style: const TextStyle(
+                style: TextStyle(
                   
                   fontSize: 12.5,
                   fontWeight: FontWeight.bold,
@@ -735,7 +739,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
             child: Text(
               row['name'] as String,
-              style: const TextStyle(
+              style: TextStyle(
                 
                 fontSize: 12.5,
                 fontWeight: FontWeight.bold,
@@ -752,7 +756,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
             child: Text(
               row['protection'] as String,
-              style: const TextStyle(
+              style: TextStyle(
                 
                 fontSize: 11.5,
                 color: Color(0xFF64748B),
@@ -770,7 +774,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
             child: Center(
               child: Text(
                 row['dose'] as String,
-                style: const TextStyle(
+                style: TextStyle(
                   
                   fontSize: 12.5,
                   fontWeight: FontWeight.bold,
@@ -788,7 +792,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
             child: Center(
               child: Text(
                 row['schedule'] as String,
-                style: const TextStyle(
+                style: TextStyle(
                   
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
@@ -824,14 +828,14 @@ class _RemindersScreenState extends State<RemindersScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Card Title (Fixed)
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(16),
               child: Row(
                 children: [
                   Icon(Icons.account_balance_rounded, color: Color(0xFF5C6BC0), size: 20),
                   SizedBox(width: 8),
                   Text(
-                    'সরকারি টিকা (EPI)',
+                    'সরকারি টিকা (EPI)'.tr(context),
                     style: TextStyle(
                       
                       fontSize: 16,
@@ -866,7 +870,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
                       children: [
                         _buildTableHeaderRow(
                           ['বয়স', 'সময়', 'টিকার নাম', 'রোগের বিরুদ্ধে সুরক্ষা', 'অবস্থা'],
-                          const [TextAlign.center, TextAlign.center, TextAlign.center, TextAlign.center, TextAlign.center],
+                          [TextAlign.center, TextAlign.center, TextAlign.center, TextAlign.center, TextAlign.center],
                         ),
                         ..._epiVaccines.asMap().entries.map((entry) {
                           return _buildEPITableRow(entry.value, entry.key);
@@ -899,14 +903,14 @@ class _RemindersScreenState extends State<RemindersScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Card Title (Fixed)
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(16),
               child: Row(
                 children: [
                   Icon(Icons.security_rounded, color: Color(0xFF5C6BC0), size: 20),
                   SizedBox(width: 8),
                   Text(
-                    'বেসরকারি / অতিরিক্ত টিকা (ঐচ্ছিক)',
+                    'বেসরকারি / অতিরিক্ত টিকা (ঐচ্ছিক)'.tr(context),
                     style: TextStyle(
                       
                       fontSize: 16,
@@ -941,7 +945,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
                       children: [
                         _buildTableHeaderRow(
                           ['বয়স', 'টিকার নাম', 'রোগের বিরুদ্ধে সুরক্ষা', 'ডোজ', 'নির্ধারিত সময়'],
-                          const [TextAlign.center, TextAlign.center, TextAlign.center, TextAlign.center, TextAlign.center],
+                          [TextAlign.center, TextAlign.center, TextAlign.center, TextAlign.center, TextAlign.center],
                         ),
                         ..._privateVaccines.asMap().entries.map((entry) {
                           return _buildPrivateTableRow(entry.value, entry.key);
@@ -967,14 +971,14 @@ class _RemindersScreenState extends State<RemindersScreen> {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: const Color(0xFFFFE4E6)),
       ),
-      child: const Row(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(Icons.error_outline_rounded, color: Color(0xFFE11D48), size: 20),
           SizedBox(width: 10),
           Expanded(
             child: Text(
-              'দ্রষ্টব্য: সময়মতো সব টিকা দিন এবং টিকাদান কার্ড সাথে রাখুন। যে কোনো প্রশ্নে আপনার নিকটস্থ স্বাস্থ্যকেন্দ্রে যোগাযোগ করুন।',
+              'দ্রষ্টব্য: সময়মতো সব টিকা দিন এবং টিকাদান কার্ড সাথে রাখুন। যে কোনো প্রশ্নে আপনার নিকটস্থ স্বাস্থ্যকেন্দ্রে যোগাযোগ করুন।'.tr(context),
               style: TextStyle(
                 
                 fontSize: 12,

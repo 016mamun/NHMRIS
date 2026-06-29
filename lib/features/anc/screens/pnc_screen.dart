@@ -1,11 +1,16 @@
+import '../../../core/localization/language_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/app_translations.dart';
 
 class PncScreen extends StatelessWidget {
   const PncScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
+    context.watch<LanguageCubit>();
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Column(
@@ -15,21 +20,21 @@ class PncScreen extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
               children: [
-                _buildBanner(),
-                const SizedBox(height: 20),
-                _buildSectionTitle('প্রসব পরবর্তী চেকআপ সূচি'),
-                const SizedBox(height: 10),
+                _buildBanner(context),
+                SizedBox(height: 20),
+                _buildSectionTitle('প্রসব পরবর্তী চেকআপ সূচি'.tr(context)),
+                SizedBox(height: 10),
                 ..._checkups.map((c) => _buildCheckupCard(c)),
-                const SizedBox(height: 20),
-                _buildSectionTitle('মায়ের যত্ন'),
-                const SizedBox(height: 10),
+                SizedBox(height: 20),
+                _buildSectionTitle('মায়ের যত্ন'.tr(context)),
+                SizedBox(height: 10),
                 ..._motherCare.map((c) => _buildInfoCard(c)),
-                const SizedBox(height: 20),
-                _buildSectionTitle('বুকের দুধ খাওয়ানো'),
-                const SizedBox(height: 10),
+                SizedBox(height: 20),
+                _buildSectionTitle('বুকের দুধ খাওয়ানো'.tr(context)),
+                SizedBox(height: 10),
                 ..._breastfeeding.map((c) => _buildInfoCard(c)),
-                const SizedBox(height: 20),
-                _buildWarnCard(),
+                SizedBox(height: 20),
+                _buildWarnCard(context),
               ],
             ),
           ),
@@ -61,7 +66,7 @@ class PncScreen extends StatelessWidget {
 
   Widget _buildHeader(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Color(0xFF6B3FA0),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(28),
@@ -82,16 +87,16 @@ class PncScreen extends StatelessWidget {
                     color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
+                  child: Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('প্রসব পরবর্তী (PNC) সেবা', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('', style: const TextStyle(fontSize: 12, color: Colors.white70)),
+                    Text('প্রসব পরবর্তী (PNC) সেবা'.tr(context), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
+                    Text('', style: TextStyle(fontSize: 12, color: Colors.white70)),
                   ],
                 ),
               ),
@@ -103,7 +108,7 @@ class PncScreen extends StatelessWidget {
   }
 
 
-  Widget _buildBanner() {
+  Widget _buildBanner(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
@@ -115,21 +120,21 @@ class PncScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: const Color(0xFFEC407A).withValues(alpha: 0.2)),
       ),
-      child: const Row(
+      child: Row(
         children: [
-          Text('👩‍👶', style: TextStyle(fontSize: 40)),
+          Text('👩‍👶'.tr(context), style: TextStyle(fontSize: 40)),
           SizedBox(width: 14),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'প্রসবের পরের যত্ন',
+                  'প্রসবের পরের যত্ন'.tr(context),
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Color(0xFFAD1457)),
                 ),
                 SizedBox(height: 4),
                 Text(
-                  'প্রসবের পর প্রথম ৬ সপ্তাহ মা ও শিশু উভয়ের জন্যই অত্যন্ত গুরুত্বপূর্ণ সময়।',
+                  'প্রসবের পর প্রথম ৬ সপ্তাহ মা ও শিশু উভয়ের জন্যই অত্যন্ত গুরুত্বপূর্ণ সময়।'.tr(context),
                   style: TextStyle(fontSize: 13, color: Color(0xFFAD1457), height: 1.4),
                 ),
               ],
@@ -144,8 +149,8 @@ class PncScreen extends StatelessWidget {
     return Row(
       children: [
         Container(width: 4, height: 18, decoration: BoxDecoration(color: const Color(0xFFEC407A), borderRadius: BorderRadius.circular(3))),
-        const SizedBox(width: 8),
-        Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+        SizedBox(width: 8),
+        Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
       ],
     );
   }
@@ -166,14 +171,14 @@ class PncScreen extends StatelessWidget {
             color: (c['urgent'] as bool) ? const Color(0xFFFF8F00) : Colors.green,
             size: 22,
           ),
-          const SizedBox(width: 12),
+          SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(c['day'] as String, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
-                const SizedBox(height: 2),
-                Text(c['desc'] as String, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, height: 1.4)),
+                Text(c['day'] as String, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+                SizedBox(height: 2),
+                Text(c['desc'] as String, style: TextStyle(fontSize: 12, color: AppColors.textSecondary, height: 1.4)),
               ],
             ),
           ),
@@ -195,15 +200,15 @@ class PncScreen extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(c['emoji'] as String, style: const TextStyle(fontSize: 26)),
-          const SizedBox(width: 12),
+          Text(c['emoji'] as String, style: TextStyle(fontSize: 26)),
+          SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(c['title'] as String, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Color(0xFFAD1457))),
-                const SizedBox(height: 4),
-                Text(c['desc'] as String, style: const TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.5)),
+                Text(c['title'] as String, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Color(0xFFAD1457))),
+                SizedBox(height: 4),
+                Text(c['desc'] as String, style: TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.5)),
               ],
             ),
           ),
@@ -212,7 +217,7 @@ class PncScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildWarnCard() {
+  Widget _buildWarnCard(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -223,22 +228,22 @@ class PncScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
               Icon(Icons.warning_amber_rounded, color: Color(0xFFE53935), size: 20),
               SizedBox(width: 8),
-              Text('এই লক্ষণগুলো দেখলে দ্রুত ডাক্তার দেখান', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Color(0xFFE53935))),
+              Text('এই লক্ষণগুলো দেখলে দ্রুত ডাক্তার দেখান'.tr(context), style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Color(0xFFE53935))),
             ],
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: 10),
           ...['অতিরিক্ত রক্তপাত', 'উচ্চ জ্বর (৩৮°C+)', 'প্রস্রাবে জ্বালা বা রক্ত', 'ক্ষতস্থান ফুলে যাওয়া বা পুঁজ', 'মারাত্মক মাথাব্যথা'].map((s) =>
             Padding(
               padding: const EdgeInsets.only(bottom: 4),
               child: Row(
                 children: [
-                  const Icon(Icons.circle, color: Color(0xFFE53935), size: 6),
-                  const SizedBox(width: 8),
-                  Text(s, style: const TextStyle(fontSize: 13, color: AppColors.textPrimary)),
+                  Icon(Icons.circle, color: Color(0xFFE53935), size: 6),
+                  SizedBox(width: 8),
+                  Text(s, style: TextStyle(fontSize: 13, color: AppColors.textPrimary)),
                 ],
               ),
             ),

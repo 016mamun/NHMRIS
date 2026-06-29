@@ -27,7 +27,7 @@ class ComingSoonPage extends StatelessWidget {
                         color: AppColors.primary.withOpacity(0.1),
                         shape: BoxShape.circle,
                       ),
-                      child: const Center(
+                      child: Center(
                         child: Icon(
                           Icons.rocket_launch_rounded,
                           size: 64,
@@ -35,7 +35,7 @@ class ComingSoonPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 32),
+                    SizedBox(height: 32),
                     const Text(
                       'শিগগিরই আসছে!',
                       style: TextStyle(
@@ -45,7 +45,7 @@ class ComingSoonPage extends StatelessWidget {
                         color: AppColors.primary,
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16),
                     Text(
                       'এই ফিচারটির কাজ চলমান রয়েছে।\nখুব শিগগিরই এটি আপনার ব্যবহারের জন্য উন্মুক্ত করা হবে।',
                       textAlign: TextAlign.center,
@@ -56,7 +56,7 @@ class ComingSoonPage extends StatelessWidget {
                         height: 1.5,
                       ),
                     ),
-                    const SizedBox(height: 48),
+                    SizedBox(height: 48),
                     SizedBox(
                       width: double.infinity,
                       height: 54,
@@ -113,14 +113,14 @@ class ComingSoonPage extends StatelessWidget {
                     color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
+                  child: Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
                 child: Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     
                     fontSize: 20,
                     fontWeight: FontWeight.w700,

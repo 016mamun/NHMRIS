@@ -87,7 +87,7 @@ class _MockDialerWidgetState extends State<MockDialerWidget> with SingleTickerPr
           children: [
             // Slide indicator
             Container(width: 40, height: 4, decoration: BoxDecoration(color: Colors.grey.shade700, borderRadius: BorderRadius.circular(2))),
-            const SizedBox(height: 36),
+            SizedBox(height: 36),
 
             // Pulsing Call Avatar or Icon
             AnimatedBuilder(
@@ -118,12 +118,12 @@ class _MockDialerWidgetState extends State<MockDialerWidget> with SingleTickerPr
                 );
               },
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
 
             // Caller Details
             Text(
               widget.name,
-              style: const TextStyle(
+              style: TextStyle(
                 
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
@@ -131,7 +131,7 @@ class _MockDialerWidgetState extends State<MockDialerWidget> with SingleTickerPr
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 6),
+            SizedBox(height: 6),
             Text(
               widget.phone,
               style: TextStyle(
@@ -140,7 +140,7 @@ class _MockDialerWidgetState extends State<MockDialerWidget> with SingleTickerPr
                 letterSpacing: 1.2,
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16),
 
             // Calling status / Ticking Timer
             Text(
@@ -152,7 +152,7 @@ class _MockDialerWidgetState extends State<MockDialerWidget> with SingleTickerPr
                 fontWeight: FontWeight.w600,
               ),
             ),
-            const SizedBox(height: 48),
+            SizedBox(height: 48),
 
             // Dialer Buttons Panel
             Row(
@@ -171,7 +171,7 @@ class _MockDialerWidgetState extends State<MockDialerWidget> with SingleTickerPr
                       icon: Icon(_isMuted ? Icons.mic_off_rounded : Icons.mic_rounded),
                       onPressed: () => setState(() => _isMuted = !_isMuted),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8),
                     const Text(
                       'মিউট',
                       style: TextStyle(fontSize: 12, color: Colors.white70),
@@ -189,10 +189,10 @@ class _MockDialerWidgetState extends State<MockDialerWidget> with SingleTickerPr
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.all(16),
                       ),
-                      icon: const Icon(Icons.call_end_rounded),
+                      icon: Icon(Icons.call_end_rounded),
                       onPressed: () => Navigator.pop(context),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8),
                     const Text(
                       'কাটুন',
                       style: TextStyle(fontSize: 12, color: Colors.white70),
@@ -213,7 +213,7 @@ class _MockDialerWidgetState extends State<MockDialerWidget> with SingleTickerPr
                       icon: Icon(_isSpeakerOn ? Icons.volume_up_rounded : Icons.volume_down_rounded),
                       onPressed: () => setState(() => _isSpeakerOn = !_isSpeakerOn),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8),
                     const Text(
                       'লাউড স্পিকার',
                       style: TextStyle(fontSize: 12, color: Colors.white70),
@@ -222,7 +222,7 @@ class _MockDialerWidgetState extends State<MockDialerWidget> with SingleTickerPr
                 ),
               ],
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
           ],
         ),
       ),

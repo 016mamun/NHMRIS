@@ -37,7 +37,7 @@ class HeaderBannerWidget extends StatelessWidget {
                   '${'হ্যালো, '.tr(context)}${user.name.split(' ').first}!',
                   style: AppTextStyles.onPrimaryDisplay,
                 ),
-                const SizedBox(height: 6),
+                SizedBox(height: 6),
                 Text(
                   'আজ আপনি দারুণ করছেন। চলুন আজকের আপডেটগুলো দেখে নিই।'.tr(context),
                   style: AppTextStyles.onPrimaryBody,
@@ -45,7 +45,7 @@ class HeaderBannerWidget extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(width: 16),
+          SizedBox(width: 16),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
@@ -62,15 +62,14 @@ class HeaderBannerWidget extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: weeks,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
                         ),
                       ),
                       TextSpan(
-                        text: ' সপ্তাহ'.tr(context),
-                        style: const TextStyle(
+                        text: ' সপ্তাহ', style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w400,
                           color: Colors.white,
@@ -79,10 +78,9 @@ class HeaderBannerWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: 4),
                 Text(
-                  user.trimester.tr(context),
-                  style: const TextStyle(
+                  user.trimester, style: TextStyle(
                     fontSize: 11,
                     color: Colors.white70,
                   ),

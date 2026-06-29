@@ -1,6 +1,9 @@
+import '../../../core/localization/language_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/app_translations.dart';
 
 class BmiCalculatorScreen extends StatefulWidget {
   const BmiCalculatorScreen({super.key});
@@ -23,7 +26,7 @@ class _BmiCalculatorScreenState extends State<BmiCalculatorScreen> {
     if (h == null || w == null || h <= 0 || w <= 0) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('সঠিক তথ্য দিন', style: TextStyle(fontFamily: 'Hind_Siliguri')),
+          content: Text('সঠিক তথ্য দিন'.tr(context), style: TextStyle(fontFamily: 'Hind_Siliguri')),
           backgroundColor: AppColors.error,
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -64,6 +67,8 @@ class _BmiCalculatorScreenState extends State<BmiCalculatorScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
+    context.watch<LanguageCubit>();
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Column(
@@ -75,15 +80,15 @@ class _BmiCalculatorScreenState extends State<BmiCalculatorScreen> {
               child: Column(
                 children: [
                   _buildToggle(),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20),
                   _buildInputCard(),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20),
                   if (_bmi != null) ...[
                     _buildResultCard(),
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20),
                   ],
                   _buildBmiChart(),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20),
                   if (_isPregnant) _buildPregnancyNote(),
                 ],
               ),
@@ -96,7 +101,7 @@ class _BmiCalculatorScreenState extends State<BmiCalculatorScreen> {
 
   Widget _buildHeader(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Color(0xFF6B3FA0),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(28),
@@ -108,6 +113,7 @@ class _BmiCalculatorScreenState extends State<BmiCalculatorScreen> {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
                 onTap: () => Navigator.pop(context),
@@ -117,17 +123,21 @@ class _BmiCalculatorScreenState extends State<BmiCalculatorScreen> {
                     color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
+                  child: Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('BMI Calculator', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('শরীরের ভর সূচক নির্ণয়', style: const TextStyle(fontSize: 12, color: Colors.white70)),
-                  ],
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('BMI Calculator'.tr(context), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
+                      Text('শরীরের ভর সূচক নির্ণয়'.tr(context), style: TextStyle(fontSize: 12, color: Colors.white70)),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -158,7 +168,7 @@ class _BmiCalculatorScreenState extends State<BmiCalculatorScreen> {
                   color: !_isPregnant ? const Color(0xFF1E88E5) : Colors.transparent,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Text('সাধারণ BMI', textAlign: TextAlign.center, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: !_isPregnant ? Colors.white : Colors.grey.shade600)),
+                child: Text('সাধারণ BMI'.tr(context), textAlign: TextAlign.center, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: !_isPregnant ? Colors.white : Colors.grey.shade600)),
               ),
             ),
           ),
@@ -172,7 +182,7 @@ class _BmiCalculatorScreenState extends State<BmiCalculatorScreen> {
                   color: _isPregnant ? const Color(0xFFEC407A) : Colors.transparent,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Text('গর্ভকালীন BMI', textAlign: TextAlign.center, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: _isPregnant ? Colors.white : Colors.grey.shade600)),
+                child: Text('গর্ভকালীন BMI'.tr(context), textAlign: TextAlign.center, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: _isPregnant ? Colors.white : Colors.grey.shade600)),
               ),
             ),
           ),
@@ -193,9 +203,9 @@ class _BmiCalculatorScreenState extends State<BmiCalculatorScreen> {
       child: Column(
         children: [
           _buildInput('উচ্চতা (সেমি)', 'যেমন: 158', _heightCtrl, Icons.height_rounded),
-          const SizedBox(height: 16),
+          SizedBox(height: 16),
           _buildInput(_isPregnant ? 'বর্তমান ওজন (কেজি)' : 'ওজন (কেজি)', 'যেমন: 55', _weightCtrl, Icons.monitor_weight_rounded),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
@@ -206,7 +216,7 @@ class _BmiCalculatorScreenState extends State<BmiCalculatorScreen> {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                 padding: const EdgeInsets.symmetric(vertical: 14),
               ),
-              child: const Text('BMI হিসাব করুন', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700)),
+              child: Text('BMI হিসাব করুন'.tr(context), style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700)),
             ),
           ),
         ],
@@ -218,15 +228,15 @@ class _BmiCalculatorScreenState extends State<BmiCalculatorScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
-        const SizedBox(height: 8),
+        Text(label, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+        SizedBox(height: 8),
         TextField(
           controller: ctrl,
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
           inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[\d.]'))],
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
+            hintStyle: TextStyle(fontSize: 13, color: AppColors.textSecondary),
             prefixIcon: Icon(icon, color: const Color(0xFF1E88E5), size: 20),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide(color: AppColors.border.withValues(alpha: 0.3))),
             enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide(color: AppColors.border.withValues(alpha: 0.3))),
@@ -259,8 +269,8 @@ class _BmiCalculatorScreenState extends State<BmiCalculatorScreen> {
             decoration: BoxDecoration(color: _categoryColor.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(20)),
             child: Text(_category, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: _categoryColor)),
           ),
-          const SizedBox(height: 8),
-          Text('আপনার BMI স্কোর', style: const TextStyle(fontSize: 13, color: AppColors.textSecondary)),
+          SizedBox(height: 8),
+          Text('আপনার BMI স্কোর'.tr(context), style: TextStyle(fontSize: 13, color: AppColors.textSecondary)),
         ],
       ),
     );
@@ -284,15 +294,15 @@ class _BmiCalculatorScreenState extends State<BmiCalculatorScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('BMI রেফারেন্স চার্ট', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
-          const SizedBox(height: 12),
+          Text('BMI রেফারেন্স চার্ট'.tr(context), style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+          SizedBox(height: 12),
           ...ranges.map((r) => Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: Row(
               children: [
                 Container(width: 12, height: 12, decoration: BoxDecoration(color: r['color'] as Color, shape: BoxShape.circle)),
-                const SizedBox(width: 10),
-                Expanded(child: Text(r['label'] as String, style: const TextStyle(fontSize: 13, color: AppColors.textPrimary))),
+                SizedBox(width: 10),
+                Expanded(child: Text(r['label'] as String, style: TextStyle(fontSize: 13, color: AppColors.textPrimary))),
                 Text(r['range'] as String, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: r['color'] as Color)),
               ],
             ),
@@ -310,18 +320,18 @@ class _BmiCalculatorScreenState extends State<BmiCalculatorScreen> {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: const Color(0xFFEC407A).withValues(alpha: 0.3)),
       ),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Text('🤰', style: TextStyle(fontSize: 20)),
+              Text('🤰'.tr(context), style: TextStyle(fontSize: 20)),
               SizedBox(width: 8),
-              Text('গর্ভাবস্থায় ওজন বৃদ্ধির গাইড', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Color(0xFFAD1457))),
+              Text('গর্ভাবস্থায় ওজন বৃদ্ধির গাইড'.tr(context), style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Color(0xFFAD1457))),
             ],
           ),
           SizedBox(height: 10),
-          Text('• স্বাভাবিক BMI থাকলে: ১১.৫–১৬ কেজি বাড়া উচিত\n• কম ওজন থাকলে: ১২.৫–১৮ কেজি বাড়া উচিত\n• অতিরিক্ত ওজন থাকলে: ৭–১১.৫ কেজি বাড়া উচিত\n\nসঠিক ওজন ব্যবস্থাপনার জন্য ডাক্তারের পরামর্শ নিন।',
+          Text('• স্বাভাবিক BMI থাকলে: ১১.৫–১৬ কেজি বাড়া উচিত\n• কম ওজন থাকলে: ১২.৫–১৮ কেজি বাড়া উচিত\n• অতিরিক্ত ওজন থাকলে: ৭–১১.৫ কেজি বাড়া উচিত\n\nসঠিক ওজন ব্যবস্থাপনার জন্য ডাক্তারের পরামর্শ নিন।'.tr(context),
             style: TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.6),
           ),
         ],

@@ -80,6 +80,7 @@ class _NewbornCareScreenState extends State<NewbornCareScreen>
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
                 onTap: () => Navigator.pop(context),
@@ -89,17 +90,14 @@ class _NewbornCareScreenState extends State<NewbornCareScreen>
                     color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
+                  child: Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('নবজাতকের যত্ন ও পুষ্টি'.tr(context), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('', style: const TextStyle(fontSize: 12, color: Colors.white70)),
-                  ],
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text('নবজাতকের যত্ন ও পুষ্টি'.tr(context), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
                 ),
               ),
             ],
@@ -133,15 +131,15 @@ class _NewbornCareScreenState extends State<NewbornCareScreen>
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(item['emoji'] as String, style: const TextStyle(fontSize: 28)),
-            const SizedBox(width: 12),
+            Text(item['emoji'] as String, style: TextStyle(fontSize: 28)),
+            SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text((item['title'] as String).tr(context), style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: item['color'] as Color)),
-                  const SizedBox(height: 4),
-                  Text((item['desc'] as String).tr(context), style: const TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.5)),
+                  SizedBox(height: 4),
+                  Text((item['desc'] as String).tr(context), style: TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.5)),
                 ],
               ),
             ),
@@ -156,9 +154,9 @@ class _NewbornCareScreenState extends State<NewbornCareScreen>
       padding: const EdgeInsets.all(16),
       children: [
         _greenCard(context, '🤱 প্রথম ৬ মাস', 'শুধুমাত্র বুকের দুধ\n\nবুকের দুধ শিশুর সকল পুষ্টির চাহিদা পূরণ করে — পানি, ভিটামিন, মিনারেল সবকিছু। কোনো অতিরিক্ত পানি বা খাবার দেবেন না।'),
-        const SizedBox(height: 12),
+        SizedBox(height: 12),
         _greenCard(context, '🥣 ৬ মাস পর থেকে', 'বুকের দুধের পাশাপাশি পরিপূরক খাবার\n\n• খিচুড়ি (চাল + ডাল + সবজি + তেল)\n• নরম ভাত\n• ফল: কলা, পেঁপে, আম\n• দিনে ২–৩ বার ছোট ছোট পরিমাণে'),
-        const SizedBox(height: 12),
+        SizedBox(height: 12),
         _greenCard(context, '⚠️ কী এড়াবেন', '• ১ বছরের আগে গরুর দুধ নয়\n• মধু নয় (botulism ঝুঁকি)\n• বাজারের প্যাকেট খাবার এড়িয়ে চলুন\n• অতিরিক্ত লবণ ও চিনি নয়'),
       ],
     );
@@ -175,9 +173,9 @@ class _NewbornCareScreenState extends State<NewbornCareScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title.tr(context), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Color(0xFF2E7D32))),
-          const SizedBox(height: 8),
-          Text(body.tr(context), style: const TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.6)),
+          Text(title.tr(context), style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Color(0xFF2E7D32))),
+          SizedBox(height: 8),
+          Text(body.tr(context), style: TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.6)),
         ],
       ),
     );
@@ -211,26 +209,26 @@ class _NewbornCareScreenState extends State<NewbornCareScreen>
             children: [
               Row(
                 children: [
-                  const Icon(Icons.emergency_rounded, color: Color(0xFFE53935), size: 24),
-                  const SizedBox(width: 8),
+                  Icon(Icons.emergency_rounded, color: Color(0xFFE53935), size: 24),
+                  SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       'এই লক্ষণগুলো দেখলে তাৎক্ষণিক হাসপাতালে যান'.tr(context),
-                      style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Color(0xFFE53935)),
+                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Color(0xFFE53935)),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 14),
+              SizedBox(height: 14),
               ...dangers.map((d) => Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(Icons.warning_rounded, color: Color(0xFFE53935), size: 16),
-                    const SizedBox(width: 8),
+                    Icon(Icons.warning_rounded, color: Color(0xFFE53935), size: 16),
+                    SizedBox(width: 8),
                     Expanded(
-                      child: Text(d.tr(context), style: const TextStyle(fontSize: 13, color: AppColors.textPrimary, height: 1.4)),
+                      child: Text(d.tr(context), style: TextStyle(fontSize: 13, color: AppColors.textPrimary, height: 1.4)),
                     ),
                   ],
                 ),
@@ -246,7 +244,7 @@ class _NewbornCareScreenState extends State<NewbornCareScreen>
                 child: Text(
                   '📞 জরুরি হেল্পলাইন: ১৬০০০'.tr(context),
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Colors.white),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Colors.white),
                 ),
               ),
             ],

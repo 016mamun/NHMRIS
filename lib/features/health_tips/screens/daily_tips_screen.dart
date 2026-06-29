@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/localization/language_cubit.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
+import '../../../core/localization/app_translations.dart';
 
 class DailyTipsScreen extends StatefulWidget {
   const DailyTipsScreen({super.key});
@@ -126,6 +129,7 @@ class _DailyTipsScreenState extends State<DailyTipsScreen>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Column(
@@ -138,7 +142,7 @@ class _DailyTipsScreenState extends State<DailyTipsScreen>
               child: ListView.builder(
                 padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
                 itemCount: _filteredTips.length,
-                itemBuilder: (_, i) => _buildTipCard(_filteredTips[i]),
+                itemBuilder: (_, i) => _buildTipCard(context, _filteredTips[i]),
               ),
             ),
           ),
@@ -161,6 +165,8 @@ class _DailyTipsScreenState extends State<DailyTipsScreen>
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
                 onTap: () => Navigator.pop(context),
@@ -170,17 +176,14 @@ class _DailyTipsScreenState extends State<DailyTipsScreen>
                     color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
+                  child: Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('প্রতিদিনের স্বাস্থ্য টিপস', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('', style: const TextStyle(fontSize: 12, color: Colors.white70)),
-                  ],
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text('প্রতিদিনের স্বাস্থ্য টিপস', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
                 ),
               ),
             ],
@@ -222,9 +225,9 @@ class _DailyTipsScreenState extends State<DailyTipsScreen>
                     size: 14,
                     color: selected ? Colors.white : Colors.grey.shade600,
                   ),
-                  const SizedBox(width: 5),
+                  SizedBox(width: 5),
                   Text(
-                    _categories[i]['label'] as String,
+                    (_categories[i]['label'] as String).tr(context),
                     style: TextStyle(
                       
                       fontSize: 13,
@@ -241,7 +244,7 @@ class _DailyTipsScreenState extends State<DailyTipsScreen>
     );
   }
 
-  Widget _buildTipCard(Map<String, dynamic> tip) {
+  Widget _buildTipCard(BuildContext context, Map<String, dynamic> tip) {
     return Container(
       margin: const EdgeInsets.only(bottom: 14),
       decoration: BoxDecoration(
@@ -263,8 +266,8 @@ class _DailyTipsScreenState extends State<DailyTipsScreen>
           children: [
             Row(
               children: [
-                Text(tip['emoji'] as String, style: const TextStyle(fontSize: 32)),
-                const SizedBox(width: 12),
+                Text(tip['emoji'] as String, style: TextStyle(fontSize: 32)),
+                SizedBox(width: 12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -276,7 +279,7 @@ class _DailyTipsScreenState extends State<DailyTipsScreen>
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
-                          tip['tag'] as String,
+                          (tip['tag'] as String).tr(context),
                           style: TextStyle(
                             
                             fontSize: 11,
@@ -285,10 +288,9 @@ class _DailyTipsScreenState extends State<DailyTipsScreen>
                           ),
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      SizedBox(height: 4),
                       Text(
-                        tip['title'] as String,
-                        style: const TextStyle(
+                        (tip['title'] as String), style: TextStyle(
                           
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
@@ -300,10 +302,9 @@ class _DailyTipsScreenState extends State<DailyTipsScreen>
                 ),
               ],
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: 12),
             Text(
-              tip['body'] as String,
-              style: const TextStyle(
+              (tip['body'] as String), style: TextStyle(
                 
                 fontSize: 14,
                 color: AppColors.textSecondary,

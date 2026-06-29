@@ -240,7 +240,7 @@ class _SplashScreenState extends State<_SplashScreen>
                                 ),
                               ],
                             ),
-                            child: const Center(
+                            child: Center(
                               child: Icon(
                                 Icons.favorite_rounded,
                                 color: Colors.white,
@@ -250,7 +250,7 @@ class _SplashScreenState extends State<_SplashScreen>
                           ),
                         ),
                       ),
-                      const SizedBox(height: 32),
+                      SizedBox(height: 32),
 
                       // Title with slide animation
                       AnimatedBuilder(
@@ -280,7 +280,7 @@ class _SplashScreenState extends State<_SplashScreen>
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 16),
+                            SizedBox(height: 16),
                             Text(
                               'গর্ভবতী আয়না',
                               style: GoogleFonts.hindSiliguri(
@@ -290,7 +290,7 @@ class _SplashScreenState extends State<_SplashScreen>
                                 height: 1.2,
                               ),
                             ),
-                            const SizedBox(height: 10),
+                            SizedBox(height: 10),
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 24),
                               child: Text(
@@ -304,7 +304,7 @@ class _SplashScreenState extends State<_SplashScreen>
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 12),
+                            SizedBox(height: 12),
                             Text(
                               'NHMRIS · মাতৃ ও শিশু স্বাস্থ্য তথ্য ব্যবস্থাপনা',
                               style: GoogleFonts.hindSiliguri(
@@ -316,7 +316,7 @@ class _SplashScreenState extends State<_SplashScreen>
                         ),
                       ),
 
-                      const SizedBox(height: 64),
+                      SizedBox(height: 64),
 
                       // Loading indicator
                       Column(
@@ -329,7 +329,7 @@ class _SplashScreenState extends State<_SplashScreen>
                               valueColor: AlwaysStoppedAnimation(Colors.white.withValues(alpha: 0.8)),
                             ),
                           ),
-                          const SizedBox(height: 16),
+                          SizedBox(height: 16),
                           Text(
                             'লোড হচ্ছে...',
                             style: GoogleFonts.hindSiliguri(
@@ -361,7 +361,7 @@ class _SplashScreenState extends State<_SplashScreen>
                           color: Colors.white.withValues(alpha: 0.5),
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      SizedBox(height: 4),
                       Text(
                         'Version 1.0.0',
                         textAlign: TextAlign.center,

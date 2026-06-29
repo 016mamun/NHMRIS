@@ -151,23 +151,28 @@ class _BabarKoronioScreenState extends State<BabarKoronioScreen>
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
                 onTap: () => Navigator.pop(context),
                 child: Container(
                   width: 40, height: 40,
                   decoration: BoxDecoration(color: Colors.white.withOpacity(0.2), borderRadius: BorderRadius.circular(12)),
-                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
+                  child: Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('বাবার করণীয়'.tr(context), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('বাবার দায়িত্ব ও কর্তব্য'.tr(context), style: const TextStyle(fontSize: 12, color: Colors.white70)),
-                  ],
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('বাবার করণীয়', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
+                      Text('বাবার দায়িত্ব ও কর্তব্য', style: TextStyle(fontSize: 12, color: Colors.white70)),
+                    ],
+                  ),
                 ),
               ),
               const Text('👨', style: TextStyle(fontSize: 28)),
@@ -205,7 +210,7 @@ class _BabarKoronioScreenState extends State<BabarKoronioScreen>
       padding: const EdgeInsets.all(16),
       children: [
         _infoCard(context, 'গর্ভাবস্থায় একজন বাবার সক্রিয় সহযোগিতা মায়ের মানসিক সুস্থতায় সবচেয়ে বড় ভূমিকা রাখে।', const Color(0xFF7C3AED)),
-        const SizedBox(height: 14),
+        SizedBox(height: 14),
         ..._supportTips.map((tip) => _supportCard(context, tip)).toList(),
       ],
     );
@@ -216,7 +221,7 @@ class _BabarKoronioScreenState extends State<BabarKoronioScreen>
       padding: const EdgeInsets.all(16),
       children: [
         _progressSummaryCard(context),
-        const SizedBox(height: 14),
+        SizedBox(height: 14),
         ..._checklist.asMap().entries.map((e) => _checklistRow(context, e.value, e.key)).toList(),
       ],
     );
@@ -227,7 +232,7 @@ class _BabarKoronioScreenState extends State<BabarKoronioScreen>
       padding: const EdgeInsets.all(16),
       children: [
         _infoCard(context, 'গর্ভাবস্থায় হরমোন পরিবর্তনে মায়ের আচরণ বদলে যেতে পারে। এটি তার দোষ নয় — বোঝার চেষ্টা করুন।', const Color(0xFFEC407A)),
-        const SizedBox(height: 14),
+        SizedBox(height: 14),
         ..._empathyTips.map((tip) => _empathyCard(context, tip)).toList(),
       ],
     );
@@ -238,12 +243,12 @@ class _BabarKoronioScreenState extends State<BabarKoronioScreen>
       padding: const EdgeInsets.all(16),
       children: [
         _infoCard(context, 'সন্তানের জীবনের প্রথম দিনগুলোতে বাবার উপস্থিতি শিশুর মানসিক বিকাশে অত্যন্ত গুরুত্বপূর্ণ।', const Color(0xFF43A047)),
-        const SizedBox(height: 14),
+        SizedBox(height: 14),
         ...List.generate(2, (row) {
           return Row(
             children: [
               Expanded(child: _parentingCard(context, _parentingGuide[row * 2])),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(child: _parentingCard(context, _parentingGuide[row * 2 + 1])),
             ],
           );
@@ -265,10 +270,10 @@ class _BabarKoronioScreenState extends State<BabarKoronioScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('জরুরি প্রস্তুতি'.tr(context), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
-                const SizedBox(height: 4),
-                Text('$_completedCount/${_checklist.length} টি সম্পন্ন হয়েছে'.tr(context), style: const TextStyle(fontSize: 13, color: Colors.white70)),
-                const SizedBox(height: 12),
+                Text('জরুরি প্রস্তুতি', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
+                SizedBox(height: 4),
+                Text('$_completedCount/${_checklist.length} টি সম্পন্ন হয়েছে', style: TextStyle(fontSize: 13, color: Colors.white70)),
+                SizedBox(height: 12),
                 LinearProgressIndicator(
                   value: _completedCount / _checklist.length,
                   backgroundColor: Colors.white24,
@@ -279,12 +284,12 @@ class _BabarKoronioScreenState extends State<BabarKoronioScreen>
               ],
             ),
           ),
-          const SizedBox(width: 16),
+          SizedBox(width: 16),
           Container(
             width: 60, height: 60,
             decoration: BoxDecoration(color: Colors.white.withOpacity(0.15), shape: BoxShape.circle),
             child: Center(
-              child: Text('$_completedCount/${_checklist.length}', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
+              child: Text('$_completedCount/${_checklist.length}', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
             ),
           ),
         ],
@@ -310,13 +315,13 @@ class _BabarKoronioScreenState extends State<BabarKoronioScreen>
             decoration: BoxDecoration(color: done ? const Color(0xFF43A047).withOpacity(0.1) : AppColors.primary.withOpacity(0.08), borderRadius: BorderRadius.circular(10)),
             child: Icon(item['icon'] as IconData, color: done ? const Color(0xFF43A047) : AppColors.primary, size: 20),
           ),
-          const SizedBox(width: 12),
+          SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text((item['task'] as String).tr(context), style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: done ? const Color(0xFF43A047) : AppColors.textPrimary, decoration: done ? TextDecoration.lineThrough : null)),
-                Text((item['desc'] as String).tr(context), style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                Text((item['desc'] as String), style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
               ],
             ),
           ),
@@ -325,7 +330,7 @@ class _BabarKoronioScreenState extends State<BabarKoronioScreen>
             child: Container(
               width: 28, height: 28,
               decoration: BoxDecoration(color: done ? const Color(0xFF43A047) : Colors.white, borderRadius: BorderRadius.circular(8), border: Border.all(color: done ? const Color(0xFF43A047) : Colors.grey.shade400)),
-              child: done ? const Icon(Icons.check, color: Colors.white, size: 16) : null,
+              child: done ? Icon(Icons.check, color: Colors.white, size: 16) : null,
             ),
           ),
         ],
@@ -345,15 +350,15 @@ class _BabarKoronioScreenState extends State<BabarKoronioScreen>
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(tip['emoji'] as String, style: const TextStyle(fontSize: 30)),
-          const SizedBox(width: 12),
+          Text(tip['emoji'] as String, style: TextStyle(fontSize: 30)),
+          SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text((tip['title'] as String).tr(context), style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: tip['color'] as Color)),
-                const SizedBox(height: 4),
-                Text((tip['desc'] as String).tr(context), style: const TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.5)),
+                SizedBox(height: 4),
+                Text((tip['desc'] as String), style: TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.5)),
               ],
             ),
           ),
@@ -374,15 +379,15 @@ class _BabarKoronioScreenState extends State<BabarKoronioScreen>
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(tip['emoji'] as String, style: const TextStyle(fontSize: 26)),
-          const SizedBox(width: 12),
+          Text(tip['emoji'] as String, style: TextStyle(fontSize: 26)),
+          SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text((tip['situation'] as String).tr(context), style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-                const SizedBox(height: 6),
-                Text((tip['advice'] as String).tr(context), style: const TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.5)),
+                Text((tip['situation'] as String), style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                SizedBox(height: 6),
+                Text((tip['advice'] as String), style: TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.5)),
               ],
             ),
           ),
@@ -408,10 +413,10 @@ class _BabarKoronioScreenState extends State<BabarKoronioScreen>
             decoration: BoxDecoration(color: (item['color'] as Color).withOpacity(0.1), borderRadius: BorderRadius.circular(12)),
             child: Icon(item['icon'] as IconData, color: item['color'] as Color, size: 26),
           ),
-          const SizedBox(height: 10),
-          Text((item['title'] as String).tr(context), style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-          const SizedBox(height: 6),
-          Text((item['desc'] as String).tr(context), style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, height: 1.4)),
+          SizedBox(height: 10),
+          Text((item['title'] as String), style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+          SizedBox(height: 6),
+          Text((item['desc'] as String), style: TextStyle(fontSize: 12, color: AppColors.textSecondary, height: 1.4)),
         ],
       ),
     );
@@ -424,8 +429,8 @@ class _BabarKoronioScreenState extends State<BabarKoronioScreen>
       child: Row(
         children: [
           Icon(Icons.info_outline_rounded, color: color, size: 20),
-          const SizedBox(width: 10),
-          Expanded(child: Text(text.tr(context), style: const TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.5))),
+          SizedBox(width: 10),
+          Expanded(child: Text(text, style: TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.5))),
         ],
       ),
     );

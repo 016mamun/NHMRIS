@@ -1,6 +1,9 @@
+import '../../../core/localization/language_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/app_translations.dart';
 
 class GmpChartScreen extends StatefulWidget {
   const GmpChartScreen({super.key});
@@ -29,7 +32,7 @@ class _GmpChartScreenState extends State<GmpChartScreen> {
     if (w == null || w <= 0) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('সঠিক ওজন দিন', style: TextStyle(fontFamily: 'Hind_Siliguri')),
+          content: Text('সঠিক ওজন দিন'.tr(context), style: TextStyle(fontFamily: 'Hind_Siliguri')),
           backgroundColor: AppColors.error,
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -78,6 +81,8 @@ class _GmpChartScreenState extends State<GmpChartScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
+    context.watch<LanguageCubit>();
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Column(
@@ -88,15 +93,15 @@ class _GmpChartScreenState extends State<GmpChartScreen> {
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
               children: [
                 _buildGenderToggle(),
-                const SizedBox(height: 16),
+                SizedBox(height: 16),
                 _buildInputCard(),
-                const SizedBox(height: 16),
+                SizedBox(height: 16),
                 if (_status != null) _buildCurrentResultCard(),
                 if (_entries.isNotEmpty) ...[
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16),
                   _buildHistoryCard(),
                 ],
-                const SizedBox(height: 16),
+                SizedBox(height: 16),
                 _buildRefTable(),
               ],
             ),
@@ -108,7 +113,7 @@ class _GmpChartScreenState extends State<GmpChartScreen> {
 
   Widget _buildHeader(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Color(0xFF6B3FA0),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(28),
@@ -120,6 +125,7 @@ class _GmpChartScreenState extends State<GmpChartScreen> {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
                 onTap: () => Navigator.pop(context),
@@ -129,17 +135,21 @@ class _GmpChartScreenState extends State<GmpChartScreen> {
                     color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
+                  child: Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('GMP চার্ট', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('Growth Monitoring Programme — শিশুর বৃদ্ধি পর্যবেক্ষণ', style: const TextStyle(fontSize: 12, color: Colors.white70)),
-                  ],
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('GMP চার্ট'.tr(context), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
+                      Text('Growth Monitoring Programme — শিশুর বৃদ্ধি পর্যবেক্ষণ'.tr(context), style: TextStyle(fontSize: 12, color: Colors.white70)),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -195,8 +205,8 @@ class _GmpChartScreenState extends State<GmpChartScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('শিশুর বয়স (মাস)', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
-          const SizedBox(height: 8),
+          Text('শিশুর বয়স (মাস)'.tr(context), style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+          SizedBox(height: 8),
           SliderTheme(
             data: SliderTheme.of(context).copyWith(
               activeTrackColor: const Color(0xFF00897B),
@@ -214,19 +224,19 @@ class _GmpChartScreenState extends State<GmpChartScreen> {
           Center(child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
             decoration: BoxDecoration(color: const Color(0xFFE0F2F1), borderRadius: BorderRadius.circular(10)),
-            child: Text('${_ageMonths} মাস', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Color(0xFF00695C))),
+            child: Text('${_ageMonths} মাস', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Color(0xFF00695C))),
           )),
-          const SizedBox(height: 16),
-          const Text('বর্তমান ওজন (কেজি)', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
-          const SizedBox(height: 8),
+          SizedBox(height: 16),
+          Text('বর্তমান ওজন (কেজি)'.tr(context), style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+          SizedBox(height: 8),
           TextField(
             controller: _weightCtrl,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
             inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[\d.]'))],
             decoration: InputDecoration(
               hintText: 'যেমন: 7.5',
-              hintStyle: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
-              prefixIcon: const Icon(Icons.monitor_weight_rounded, color: Color(0xFF00897B), size: 20),
+              hintStyle: TextStyle(fontSize: 13, color: AppColors.textSecondary),
+              prefixIcon: Icon(Icons.monitor_weight_rounded, color: Color(0xFF00897B), size: 20),
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide(color: AppColors.border.withValues(alpha: 0.3))),
               enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide(color: AppColors.border.withValues(alpha: 0.3))),
               focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: const BorderSide(color: Color(0xFF00897B), width: 1.5)),
@@ -235,13 +245,13 @@ class _GmpChartScreenState extends State<GmpChartScreen> {
               contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton.icon(
               onPressed: _addEntry,
-              icon: const Icon(Icons.bar_chart_rounded),
-              label: const Text('বৃদ্ধি পর্যবেক্ষণ করুন', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700)),
+              icon: Icon(Icons.bar_chart_rounded),
+              label: Text('বৃদ্ধি পর্যবেক্ষণ করুন'.tr(context), style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF00897B),
                 foregroundColor: Colors.white,
@@ -268,12 +278,12 @@ class _GmpChartScreenState extends State<GmpChartScreen> {
       child: Column(
         children: [
           Text('$_statusEmoji $_status', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: _statusColor)),
-          const SizedBox(height: 8),
-          Text('প্রত্যাশিত ওজন: ${expected.toStringAsFixed(1)} কেজি', style: const TextStyle(fontSize: 14, color: AppColors.textSecondary)),
+          SizedBox(height: 8),
+          Text('প্রত্যাশিত ওজন: ${expected.toStringAsFixed(1)} কেজি', style: TextStyle(fontSize: 14, color: AppColors.textSecondary)),
           if (_status == 'মাঝারি অপুষ্টি' || _status == 'মারাত্মক অপুষ্টি')
             Padding(
               padding: const EdgeInsets.only(top: 10),
-              child: Text('⚠️ দ্রুত স্বাস্থ্যকর্মীর পরামর্শ নিন।', style: TextStyle(fontSize: 13, color: _statusColor, fontWeight: FontWeight.w700)),
+              child: Text('⚠️ দ্রুত স্বাস্থ্যকর্মীর পরামর্শ নিন।'.tr(context), style: TextStyle(fontSize: 13, color: _statusColor, fontWeight: FontWeight.w700)),
             ),
         ],
       ),
@@ -291,8 +301,8 @@ class _GmpChartScreenState extends State<GmpChartScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('পর্যবেক্ষণের ইতিহাস', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
-          const SizedBox(height: 12),
+          Text('পর্যবেক্ষণের ইতিহাস'.tr(context), style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+          SizedBox(height: 12),
           ..._entries.take(5).map((e) => Container(
             margin: const EdgeInsets.only(bottom: 8),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -302,14 +312,14 @@ class _GmpChartScreenState extends State<GmpChartScreen> {
             ),
             child: Row(
               children: [
-                Text(e['emoji'] as String, style: const TextStyle(fontSize: 18)),
-                const SizedBox(width: 8),
+                Text(e['emoji'] as String, style: TextStyle(fontSize: 18)),
+                SizedBox(width: 8),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('${e['month']} মাস — ${(e['weight'] as double).toStringAsFixed(1)} কেজি', style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
-                      Text('প্রত্যাশিত: ${(e['expected'] as double).toStringAsFixed(1)} কেজি', style: const TextStyle(fontSize: 11, color: AppColors.textSecondary)),
+                      Text('${e['month']} মাস — ${(e['weight'] as double).toStringAsFixed(1)} কেজি', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+                      Text('প্রত্যাশিত: ${(e['expected'] as double).toStringAsFixed(1)} কেজি', style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
                     ],
                   ),
                 ),
@@ -340,19 +350,19 @@ class _GmpChartScreenState extends State<GmpChartScreen> {
         children: [
           Text(
             'WHO রেফারেন্স চার্ট (${_gender == 'female' ? 'মেয়ে' : 'ছেলে'})',
-            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12),
           Table(
             border: TableBorder.all(color: AppColors.border.withValues(alpha: 0.3), borderRadius: BorderRadius.circular(8)),
             children: [
-              const TableRow(decoration: BoxDecoration(color: Color(0xFFE0F2F1)), children: [
-                Padding(padding: EdgeInsets.all(8), child: Text('বয়স (মাস)', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Color(0xFF00695C)))),
-                Padding(padding: EdgeInsets.all(8), child: Text('গড় ওজন (কেজি)', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Color(0xFF00695C)))),
+              TableRow(decoration: BoxDecoration(color: Color(0xFFE0F2F1)), children: [
+                Padding(padding: EdgeInsets.all(8), child: Text('বয়স (মাস)'.tr(context), style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Color(0xFF00695C)))),
+                Padding(padding: EdgeInsets.all(8), child: Text('গড় ওজন (কেজি)'.tr(context), style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Color(0xFF00695C)))),
               ]),
               ...List.generate(13, (i) => i * 2).map((m) => TableRow(children: [
-                Padding(padding: const EdgeInsets.all(8), child: Text('$m', style: const TextStyle(fontSize: 12, color: AppColors.textPrimary))),
-                Padding(padding: const EdgeInsets.all(8), child: Text(ref[m].toStringAsFixed(1), style: const TextStyle(fontSize: 12, color: AppColors.textPrimary))),
+                Padding(padding: const EdgeInsets.all(8), child: Text('$m', style: TextStyle(fontSize: 12, color: AppColors.textPrimary))),
+                Padding(padding: const EdgeInsets.all(8), child: Text(ref[m].toStringAsFixed(1), style: TextStyle(fontSize: 12, color: AppColors.textPrimary))),
               ])),
             ],
           ),

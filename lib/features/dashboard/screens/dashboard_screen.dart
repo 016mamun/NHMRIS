@@ -114,7 +114,7 @@ class _DashboardScreenState extends State<DashboardScreen>
         body: BlocBuilder<DashboardBloc, DashboardState>(
           builder: (context, state) {
             if (state is DashboardLoading) {
-              return const Center(
+              return Center(
                 child: CircularProgressIndicator(color: AppColors.primary),
               );
             }
@@ -353,7 +353,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                           onTap: () => _navigateToScreen(const GmpChartScreen()),
                         ),
 
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16),
                       ],
                     ),
                   ),
@@ -388,11 +388,11 @@ class _DashboardScreenState extends State<DashboardScreen>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildNavItem(0, Icons.home_rounded, 'হোম'.tr(context)),
-              _buildNavItem(1, Icons.medical_services_rounded, 'পরামর্শ'.tr(context)),
-              _buildNavItem(2, Icons.track_changes_rounded, 'ট্র্যাকার'.tr(context)),
-              _buildNavItem(3, Icons.local_hospital_rounded, 'হাসপাতাল'.tr(context)),
-              _buildNavItem(4, Icons.menu_rounded, 'আরও'.tr(context)),
+              Expanded(child: _buildNavItem(0, Icons.home_rounded, 'হোম'.tr(context))),
+              Expanded(child: _buildNavItem(1, Icons.medical_services_rounded, 'পরামর্শ'.tr(context))),
+              Expanded(child: _buildNavItem(2, Icons.track_changes_rounded, 'ট্র্যাকার'.tr(context))),
+              Expanded(child: _buildNavItem(3, Icons.local_hospital_rounded, 'হাসপাতাল'.tr(context))),
+              Expanded(child: _buildNavItem(4, Icons.menu_rounded, 'আরও'.tr(context))),
             ],
           ),
         ),
@@ -432,7 +432,7 @@ class _DashboardScreenState extends State<DashboardScreen>
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(icon, color: color, size: 24),
-            const SizedBox(height: 4),
+            SizedBox(height: 4),
             Text(
               label,
               style: TextStyle(
@@ -441,6 +441,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                 color: color,
               ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
           ],
         ),
@@ -522,7 +524,7 @@ class _DashboardScreenState extends State<DashboardScreen>
             ),
           ),
         ),
-        const SizedBox(width: 8),
+        SizedBox(width: 8),
         // App Title
         Expanded(
           child: Column(
@@ -562,7 +564,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                     children: [
                       Text(
                         name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
@@ -577,13 +579,13 @@ class _DashboardScreenState extends State<DashboardScreen>
                       ),
                     ],
                   ),
-                  const SizedBox(width: 8),
+                  SizedBox(width: 8),
                   CircleAvatar(
                     radius: 18,
                     backgroundColor: AppColors.primaryDark,
                     child: Text(
                       initials,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: Colors.white,
                         fontSize: 13,
                         fontWeight: FontWeight.w700,
@@ -629,9 +631,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                 color: Colors.white.withValues(alpha: 0.2),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.format_quote_rounded, color: Colors.white, size: 24),
+              child: Icon(Icons.format_quote_rounded, color: Colors.white, size: 24),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -646,7 +648,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                       height: 1.5,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4),
                   Row(
                     children: [
                       Text(
@@ -710,16 +712,16 @@ class _DashboardScreenState extends State<DashboardScreen>
                       ),
                       borderRadius: BorderRadius.circular(14),
                     ),
-                    child: const Icon(Icons.pregnant_woman_rounded, color: Colors.white, size: 26),
+                    child: Icon(Icons.pregnant_woman_rounded, color: Colors.white, size: 26),
                   ),
-                  const SizedBox(width: 12),
+                  SizedBox(width: 12),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           '$weeks${'তম সপ্তাহ চলছে'.tr(context)}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -745,7 +747,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                     ),
                     child: Text(
                       '${(40 - weeks)} ${'সপ্তাহ বাকি'.tr(context)}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         
                         fontSize: 11,
                         fontWeight: FontWeight.w600,
@@ -755,7 +757,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   ),
                 ],
               ),
-              const SizedBox(height: 14),
+              SizedBox(height: 14),
               // Progress Bar
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -773,7 +775,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                       ),
                       Text(
                         '${(progress * 100).toInt()}%',
-                        style: const TextStyle(
+                        style: TextStyle(
                           
                           fontSize: 11,
                           fontWeight: FontWeight.bold,
@@ -782,7 +784,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                       ),
                     ],
                   ),
-                  const SizedBox(height: 6),
+                  SizedBox(height: 6),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(6),
                     child: LinearProgressIndicator(
@@ -792,7 +794,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                       valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
                     ),
                   ),
-                  const SizedBox(height: 6),
+                  SizedBox(height: 6),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -834,7 +836,7 @@ class _DashboardScreenState extends State<DashboardScreen>
         children: [
 
           Icon(icon, color: color, size: 18),
-          const SizedBox(width: 6),
+          SizedBox(width: 6),
           Text(
             title,
             style: TextStyle(
@@ -857,7 +859,7 @@ class _DashboardScreenState extends State<DashboardScreen>
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(child: left),
-            const SizedBox(width: 10),
+            SizedBox(width: 10),
             Expanded(child: right),
           ],
         ),
@@ -873,9 +875,9 @@ class _DashboardScreenState extends State<DashboardScreen>
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(child: a),
-            const SizedBox(width: 8),
+            SizedBox(width: 8),
             Expanded(child: b),
-            const SizedBox(width: 8),
+            SizedBox(width: 8),
             Expanded(child: c),
           ],
         ),
@@ -918,13 +920,13 @@ class _DashboardScreenState extends State<DashboardScreen>
               ),
               child: Icon(icon, color: color, size: 24),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             Text(
               title,
               textAlign: TextAlign.center,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
+              style: TextStyle(
                 
                 fontSize: 13,
                 fontWeight: FontWeight.bold,
@@ -932,7 +934,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                 height: 1.3,
               ),
             ),
-            const SizedBox(height: 4),
+            SizedBox(height: 4),
             Text(
               subtitle,
               textAlign: TextAlign.center,
@@ -999,7 +1001,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                       ),
                       child: Text(
                         badge,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
                           fontSize: 8,
                           fontWeight: FontWeight.bold,
@@ -1009,13 +1011,13 @@ class _DashboardScreenState extends State<DashboardScreen>
                   ),
               ],
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
             Text(
               title,
               textAlign: TextAlign.center,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
+              style: TextStyle(
                 
                 fontSize: 11,
                 fontWeight: FontWeight.bold,
@@ -1064,7 +1066,7 @@ class _DashboardScreenState extends State<DashboardScreen>
               ),
               child: Icon(icon, color: color, size: 26),
             ),
-            const SizedBox(width: 14),
+            SizedBox(width: 14),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1073,14 +1075,14 @@ class _DashboardScreenState extends State<DashboardScreen>
                     title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    style: TextStyle(
                       
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF1A1030),
                     ),
                   ),
-                  const SizedBox(height: 3),
+                  SizedBox(height: 3),
                   Text(
                     subtitle,
                     style: TextStyle(
@@ -1126,8 +1128,8 @@ class _DashboardScreenState extends State<DashboardScreen>
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.favorite_rounded, color: Colors.white, size: 48),
-              const SizedBox(height: 16),
+              Icon(Icons.favorite_rounded, color: Colors.white, size: 48),
+              SizedBox(height: 16),
               const Text(
                 'গর্ভবতী আয়না',
                 style: TextStyle(
@@ -1137,7 +1139,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               const Text(
                 '"নিরাপদ হোক প্রতিটি প্রসব, যত্নে থাকুক মা ও নবজাতক"',
                 textAlign: TextAlign.center,
@@ -1149,7 +1151,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   height: 1.6,
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               Text(
                 'NHMRIS - National Health Management & Reporting Information System',
                 textAlign: TextAlign.center,
@@ -1160,7 +1162,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   height: 1.5,
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -1185,7 +1187,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       SnackBar(
         content: Text(
           '$feature শীঘ্রই আসছে...',
-          style: const TextStyle(fontFamily: 'Hind_Siliguri'),
+          style: TextStyle(fontFamily: 'Hind_Siliguri'),
         ),
         backgroundColor: AppColors.primary,
         behavior: SnackBarBehavior.floating,
@@ -1221,46 +1223,46 @@ class _DashboardScreenState extends State<DashboardScreen>
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20),
                   CircleAvatar(
                     radius: 36,
                     backgroundColor: AppColors.primarySurface,
                     child: Text(
                       initials,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primary,
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12),
                   Text(name, style: AppTextStyles.headingMedium),
                   Text(user?.phone ?? '', style: AppTextStyles.bodyMedium),
-                  const SizedBox(height: 24),
+                  SizedBox(height: 24),
                   const Divider(),
                   ListTile(
-                    leading: const Icon(Icons.person_outline, color: AppColors.primary),
+                    leading: Icon(Icons.person_outline, color: AppColors.primary),
                     title: Text('প্রোফাইল সম্পাদনা'.tr(context)),
-                    trailing: const Icon(Icons.arrow_forward_ios, size: 14),
+                    trailing: Icon(Icons.arrow_forward_ios, size: 14),
                     onTap: () {
                       Navigator.pop(context);
                       _navigateToScreen(const ProfileEditScreen());
                     },
                   ),
                   ListTile(
-                    leading: const Icon(Icons.settings_outlined, color: AppColors.primary),
+                    leading: Icon(Icons.settings_outlined, color: AppColors.primary),
                     title: Text('সেটিংস'.tr(context)),
-                    trailing: const Icon(Icons.arrow_forward_ios, size: 14),
+                    trailing: Icon(Icons.arrow_forward_ios, size: 14),
                     onTap: () {
                       Navigator.pop(context);
                       _navigateToScreen(const SettingsScreen());
                     },
                   ),
                   ListTile(
-                    leading: const Icon(Icons.info_outline, color: AppColors.primary),
+                    leading: Icon(Icons.info_outline, color: AppColors.primary),
                     title: Text('অ্যাপ সম্পর্কে'.tr(context)),
-                    trailing: const Icon(Icons.arrow_forward_ios, size: 14),
+                    trailing: Icon(Icons.arrow_forward_ios, size: 14),
                     onTap: () {
                       Navigator.pop(context);
                       _navigateToScreen(const AboutAppScreen());
@@ -1268,7 +1270,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   ),
                   const Divider(),
                   ListTile(
-                    leading: const Icon(Icons.logout_rounded, color: AppColors.error),
+                    leading: Icon(Icons.logout_rounded, color: AppColors.error),
                     title: Text(
                       'লগআউট',
                       style: AppTextStyles.labelMedium.copyWith(color: AppColors.error),
@@ -1278,7 +1280,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                       context.read<AuthBloc>().add(const AuthLogoutRequested());
                     },
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12),
                 ],
               ),
             ),
@@ -1319,14 +1321,14 @@ class _TrackerMenuSheet extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Text('সকল ট্র্যাকার সমূহ'.tr(context), style: AppTextStyles.headingMedium),
-            const SizedBox(height: 16),
+            SizedBox(height: 16),
             _buildMenuItem(context, Icons.pregnant_woman_rounded, 'কিক কাউন্টার'.tr(context), const KickCounterScreen(), const Color(0xFF7C3AED)),
             _buildMenuItem(context, Icons.calendar_month_rounded, 'সাপ্তাহিক বেবি আপডেট'.tr(context), const WeeklyUpdateScreen(), const Color(0xFF00897B)),
             _buildMenuItem(context, Icons.vaccines_rounded, 'শিশুর টিকা সূচি'.tr(context), const RemindersScreen(), const Color(0xFFEC407A)),
             _buildMenuItem(context, Icons.checklist_rounded, 'ডেলিভারির প্রস্তুতি'.tr(context), const DeliveryPrepScreen(), const Color(0xFFFF8F00)),
-            const SizedBox(height: 12),
+            SizedBox(height: 12),
           ],
         ),
       ),
@@ -1342,7 +1344,7 @@ class _TrackerMenuSheet extends StatelessWidget {
         child: Center(child: Icon(icon, color: color, size: 20)),
       ),
       title: Text(title, style: AppTextStyles.labelMedium),
-      trailing: const Icon(Icons.arrow_forward_ios, size: 14),
+      trailing: Icon(Icons.arrow_forward_ios, size: 14),
       onTap: () {
         Navigator.pop(context);
         onModuleTap(screen);
@@ -1365,7 +1367,7 @@ class _MoreMenuSheet extends StatelessWidget {
       minChildSize: 0.4,
       builder: (_, scrollCtrl) => Column(
         children: [
-          const SizedBox(height: 12),
+          SizedBox(height: 12),
           Center(
             child: Container(
               width: 40,
@@ -1376,12 +1378,12 @@ class _MoreMenuSheet extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Text('আরও ফিচার সমূহ'.tr(context), style: AppTextStyles.headingMedium),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8),
           Expanded(
             child: ListView(
               controller: scrollCtrl,
@@ -1432,9 +1434,9 @@ class _MoreMenuSheet extends StatelessWidget {
       child: Row(
         children: [
           Container(width: 3, height: 16, decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(3))),
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
           Icon(icon, color: color, size: 15),
-          const SizedBox(width: 6),
+          SizedBox(width: 6),
           Text(
             title,
             style: TextStyle(
@@ -1460,7 +1462,7 @@ class _MoreMenuSheet extends StatelessWidget {
         child: Center(child: Icon(icon, color: color, size: 18)),
       ),
       title: Text(title, style: AppTextStyles.labelMedium),
-      trailing: const Icon(Icons.arrow_forward_ios, size: 12, color: Colors.grey),
+      trailing: Icon(Icons.arrow_forward_ios, size: 12, color: Colors.grey),
       onTap: () {
         Navigator.pop(context);
         onModuleTap(screen);

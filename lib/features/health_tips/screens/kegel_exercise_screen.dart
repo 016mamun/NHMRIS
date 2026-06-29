@@ -1,5 +1,8 @@
+import '../../../core/localization/language_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/app_translations.dart';
 
 class KegelExerciseScreen extends StatefulWidget {
   const KegelExerciseScreen({super.key});
@@ -65,6 +68,8 @@ class _KegelExerciseScreenState extends State<KegelExerciseScreen>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
+    context.watch<LanguageCubit>();
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Column(
@@ -75,11 +80,11 @@ class _KegelExerciseScreenState extends State<KegelExerciseScreen>
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
               children: [
                 _buildBenefitsCard(),
-                const SizedBox(height: 20),
+                SizedBox(height: 20),
                 _buildExerciseTracker(),
-                const SizedBox(height: 20),
+                SizedBox(height: 20),
                 _buildHowToCard(),
-                const SizedBox(height: 16),
+                SizedBox(height: 16),
                 _buildCautionCard(),
               ],
             ),
@@ -91,7 +96,7 @@ class _KegelExerciseScreenState extends State<KegelExerciseScreen>
 
   Widget _buildHeader(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Color(0xFF6B3FA0),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(28),
@@ -103,6 +108,7 @@ class _KegelExerciseScreenState extends State<KegelExerciseScreen>
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
                 onTap: () => Navigator.pop(context),
@@ -112,17 +118,21 @@ class _KegelExerciseScreenState extends State<KegelExerciseScreen>
                     color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
+                  child: Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Kegel ব্যায়াম', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('শ্রোণিদেশের পেশী মজবুত করুন', style: const TextStyle(fontSize: 12, color: Colors.white70)),
-                  ],
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('Kegel ব্যায়াম'.tr(context), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
+                      Text('শ্রোণিদেশের পেশী মজবুত করুন'.tr(context), style: TextStyle(fontSize: 12, color: Colors.white70)),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -145,21 +155,21 @@ class _KegelExerciseScreenState extends State<KegelExerciseScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
-              Text('✨', style: TextStyle(fontSize: 22)),
+              Text('✨'.tr(context), style: TextStyle(fontSize: 22)),
               SizedBox(width: 8),
-              Text('কেন করবেন?', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Color(0xFFAD1457))),
+              Text('কেন করবেন?'.tr(context), style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Color(0xFFAD1457))),
             ],
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: 10),
           ...benefits.map((b) => Padding(
             padding: const EdgeInsets.only(bottom: 6),
             child: Row(
               children: [
-                const Icon(Icons.check_circle, color: Color(0xFFD81B60), size: 16),
-                const SizedBox(width: 8),
-                Text(b, style: const TextStyle(fontSize: 13, color: AppColors.textSecondary)),
+                Icon(Icons.check_circle, color: Color(0xFFD81B60), size: 16),
+                SizedBox(width: 8),
+                Text(b, style: TextStyle(fontSize: 13, color: AppColors.textSecondary)),
               ],
             ),
           )),
@@ -180,10 +190,10 @@ class _KegelExerciseScreenState extends State<KegelExerciseScreen>
       child: Column(
         children: [
           Text(
-            'ব্যায়াম ট্র্যাকার',
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+            'ব্যায়াম ট্র্যাকার'.tr(context),
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
           AnimatedBuilder(
             animation: _pulse,
             builder: (_, __) => Transform.scale(
@@ -210,17 +220,17 @@ class _KegelExerciseScreenState extends State<KegelExerciseScreen>
                         ),
                       ),
                       if (_isRunning)
-                        const Text('সেকেন্ড', style: TextStyle(fontSize: 13, color: Colors.white70)),
+                        Text('সেকেন্ড'.tr(context), style: TextStyle(fontSize: 13, color: Colors.white70)),
                     ],
                   ),
                 ),
               ),
             ),
           ),
-          const SizedBox(height: 16),
-          Text('$_reps / $_targetReps', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Color(0xFFD81B60))),
-          const Text('সম্পন্ন', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
-          const SizedBox(height: 16),
+          SizedBox(height: 16),
+          Text('$_reps / $_targetReps', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Color(0xFFD81B60))),
+          Text('সম্পন্ন'.tr(context), style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+          SizedBox(height: 16),
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: LinearProgressIndicator(
@@ -230,14 +240,14 @@ class _KegelExerciseScreenState extends State<KegelExerciseScreen>
               minHeight: 10,
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
           Row(
             children: [
               Expanded(
                 child: ElevatedButton.icon(
                   onPressed: (_isRunning || _reps >= _targetReps) ? null : _startExercise,
-                  icon: const Icon(Icons.play_arrow_rounded),
-                  label: const Text('শুরু করুন', style: TextStyle(fontFamily: 'Hind_Siliguri')),
+                  icon: Icon(Icons.play_arrow_rounded),
+                  label: Text('শুরু করুন'.tr(context), style: TextStyle(fontFamily: 'Hind_Siliguri')),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFD81B60),
                     foregroundColor: Colors.white,
@@ -246,7 +256,7 @@ class _KegelExerciseScreenState extends State<KegelExerciseScreen>
                   ),
                 ),
               ),
-              const SizedBox(width: 10),
+              SizedBox(width: 10),
               OutlinedButton(
                 onPressed: _reset,
                 style: OutlinedButton.styleFrom(
@@ -255,14 +265,14 @@ class _KegelExerciseScreenState extends State<KegelExerciseScreen>
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                   padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
                 ),
-                child: const Icon(Icons.refresh_rounded),
+                child: Icon(Icons.refresh_rounded),
               ),
             ],
           ),
           if (_reps >= _targetReps)
-            const Padding(
-              padding: EdgeInsets.only(top: 12),
-              child: Text('🎉 আজকের লক্ষ্য সম্পন্ন!', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Color(0xFF43A047))),
+            Padding(
+              padding: const EdgeInsets.only(top: 12),
+              child: Text('🎉 আজকের লক্ষ্য সম্পন্ন!'.tr(context), style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Color(0xFF43A047))),
             ),
         ],
       ),
@@ -289,8 +299,8 @@ class _KegelExerciseScreenState extends State<KegelExerciseScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('📋 কীভাবে করবেন?', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Color(0xFFAD1457))),
-          const SizedBox(height: 10),
+          Text('📋 কীভাবে করবেন?'.tr(context), style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Color(0xFFAD1457))),
+          SizedBox(height: 10),
           ...steps.asMap().entries.map((e) => Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: Row(
@@ -299,10 +309,10 @@ class _KegelExerciseScreenState extends State<KegelExerciseScreen>
                 Container(
                   width: 22, height: 22,
                   decoration: BoxDecoration(color: const Color(0xFFD81B60), shape: BoxShape.circle),
-                  child: Center(child: Text('${e.key + 1}', style: const TextStyle(fontSize: 11, color: Colors.white, fontWeight: FontWeight.w700))),
+                  child: Center(child: Text('${e.key + 1}', style: TextStyle(fontSize: 11, color: Colors.white, fontWeight: FontWeight.w700))),
                 ),
-                const SizedBox(width: 8),
-                Expanded(child: Text(e.value, style: const TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.4))),
+                SizedBox(width: 8),
+                Expanded(child: Text(e.value, style: TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.4))),
               ],
             ),
           )),
@@ -319,13 +329,13 @@ class _KegelExerciseScreenState extends State<KegelExerciseScreen>
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: const Color(0xFFFF8F00).withValues(alpha: 0.3)),
       ),
-      child: const Row(
+      child: Row(
         children: [
           Icon(Icons.info_outline, color: Color(0xFFFF8F00), size: 20),
           SizedBox(width: 8),
           Expanded(
             child: Text(
-              'যদি ব্যায়াম করতে ব্যথা লাগে তাহলে থামুন এবং ডাক্তারের পরামর্শ নিন। প্রস্রাব করার সময় এই ব্যায়াম করবেন না।',
+              'যদি ব্যায়াম করতে ব্যথা লাগে তাহলে থামুন এবং ডাক্তারের পরামর্শ নিন। প্রস্রাব করার সময় এই ব্যায়াম করবেন না।'.tr(context),
               style: TextStyle(fontSize: 12, color: Color(0xFF7B4F00), height: 1.4),
             ),
           ),

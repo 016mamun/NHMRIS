@@ -98,16 +98,16 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
                     color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
+                  child: Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('মায়ের স্বাস্থ্য'.tr(context), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('মায়ের বিস্তারিত অবস্থা ও সমস্যা'.tr(context), style: const TextStyle(fontSize: 12, color: Colors.white70)),
+                    Text('মায়ের স্বাস্থ্য', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
+                    Text('মায়ের বিস্তারিত অবস্থা ও সমস্যা', style: TextStyle(fontSize: 12, color: Colors.white70)),
                   ],
                 ),
               ),
@@ -152,18 +152,18 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
           color: const Color(0xFF7C3AED),
           child: Column(
             children: [
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               ..._weeklyProgress.asMap().entries.map((e) {
                 final idx = e.key;
                 final item = e.value;
                 return _progressRow(context, item, idx);
               }),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               _addWeightButton(context),
             ],
           ),
         ),
-        const SizedBox(height: 14),
+        SizedBox(height: 14),
         _sectionCard(
           title: 'শরীরের পরিবর্তনসমূহ'.tr(context),
           icon: Icons.pregnant_woman_rounded,
@@ -171,7 +171,7 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               _changeItem(context, '১ম ত্রৈমাসিক', 'বমি বমি ভাব, ক্লান্তি, স্তন কোমলতা', const Color(0xFFEC407A)),
               _changeItem(context, '২য় ত্রৈমাসিক', 'পেট বড় হওয়া, শিশুর নড়াচড়া অনুভব', const Color(0xFF7C3AED)),
               _changeItem(context, '৩য় ত্রৈমাসিক', 'পিঠে ব্যথা, ঘন ঘন প্রস্রাব, পা ফোলা', const Color(0xFF00897B)),
@@ -196,14 +196,14 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
           Container(
             width: 36, height: 36,
             decoration: BoxDecoration(color: AppColors.primary.withOpacity(0.1), shape: BoxShape.circle),
-            child: Center(child: Text('${idx + 1}', style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold))),
+            child: Center(child: Text('${idx + 1}', style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold))),
           ),
-          const SizedBox(width: 12),
+          SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text((item['week'] as String).tr(context), style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+                Text((item['week'] as String), style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
                 Text((item['weight'] as String).tr(context), style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
               ],
             ),
@@ -211,7 +211,7 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(color: const Color(0xFFE8F5E9), borderRadius: BorderRadius.circular(8)),
-            child: Text((item['change'] as String).tr(context) + ' কেজি'.tr(context), style: const TextStyle(fontSize: 11, color: Color(0xFF43A047), fontWeight: FontWeight.w600)),
+            child: Text((item['change'] as String), style: TextStyle(fontSize: 11, color: Color(0xFF43A047), fontWeight: FontWeight.w600)),
           ),
         ],
       ),
@@ -231,9 +231,9 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.add_circle_outline, color: AppColors.primary, size: 18),
-            const SizedBox(width: 8),
-            Text('আজকের ওজন যোগ করুন'.tr(context), style: const TextStyle(fontSize: 13, color: AppColors.primary, fontWeight: FontWeight.w600)),
+            Icon(Icons.add_circle_outline, color: AppColors.primary, size: 18),
+            SizedBox(width: 8),
+            Text('আজকের ওজন যোগ করুন', style: TextStyle(fontSize: 13, color: AppColors.primary, fontWeight: FontWeight.w600)),
           ],
         ),
       ),
@@ -253,14 +253,14 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
             margin: const EdgeInsets.only(top: 5),
             decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           ),
-          const SizedBox(width: 10),
+          SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(period.tr(context), style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: color)),
-                const SizedBox(height: 3),
-                Text(description.tr(context), style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, height: 1.4)),
+                SizedBox(height: 3),
+                Text(description, style: TextStyle(fontSize: 12, color: AppColors.textSecondary, height: 1.4)),
               ],
             ),
           ),
@@ -280,7 +280,7 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
           color: const Color(0xFF8E24AA),
           child: Column(
             children: [
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: _moods.asMap().entries.map((e) {
@@ -299,8 +299,8 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
                       ),
                       child: Column(
                         children: [
-                          Text(m['emoji'] as String, style: const TextStyle(fontSize: 28)),
-                          const SizedBox(height: 4),
+                          Text(m['emoji'] as String, style: TextStyle(fontSize: 28)),
+                          SizedBox(height: 4),
                           Text((m['label'] as String).tr(context), style: TextStyle(fontSize: 11, color: selected ? m['color'] as Color : Colors.grey.shade600, fontWeight: FontWeight.w600)),
                         ],
                       ),
@@ -308,7 +308,7 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
                   );
                 }).toList(),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
               if (_selectedMood >= 0)
                 Container(
                   padding: const EdgeInsets.all(12),
@@ -318,14 +318,14 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
             ],
           ),
         ),
-        const SizedBox(height: 14),
+        SizedBox(height: 14),
         _sectionCard(
           title: 'মন ভালো করার টিপস'.tr(context),
           icon: Icons.lightbulb_rounded,
           color: const Color(0xFF43A047),
           child: Column(
             children: [
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               _tipRow(context, '🧘', 'গভীর শ্বাস-প্রশ্বাসের ব্যায়াম করুন — ৫ মিনিটেই মন শান্ত হবে'),
               _tipRow(context, '🎵', 'প্রিয় গান শুনুন বা হালকা মেডিটেশন সঙ্গীত ব্যবহার করুন'),
               _tipRow(context, '🌿', 'বাইরে হালকা হাঁটুন এবং তাজা বাতাস নিন'),
@@ -334,7 +334,7 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
             ],
           ),
         ),
-        const SizedBox(height: 14),
+        SizedBox(height: 14),
         _warningCard(context,
           'পোস্টপার্টাম ডিপ্রেশন সম্পর্কে জানুন',
           'সন্তান জন্মের পর বিষণ্নতা খুবই স্বাভাবিক। ২ সপ্তাহের বেশি কষ্ট থাকলে দ্রুত ডাক্তারের পরামর্শ নিন।',
@@ -350,9 +350,9 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
       padding: const EdgeInsets.only(bottom: 10),
       child: Row(
         children: [
-          Text(emoji, style: const TextStyle(fontSize: 20)),
-          const SizedBox(width: 10),
-          Expanded(child: Text(text.tr(context), style: const TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.4))),
+          Text(emoji, style: TextStyle(fontSize: 20)),
+          SizedBox(width: 10),
+          Expanded(child: Text(text, style: TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.4))),
         ],
       ),
     );
@@ -366,35 +366,35 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
         Row(
           children: [
             Expanded(child: _vitalCard(context, 'রক্তচাপ', '120/80', 'mmHg', Icons.favorite_rounded, const Color(0xFFE53935), 'স্বাভাবিক')),
-            const SizedBox(width: 12),
+            SizedBox(width: 12),
             Expanded(child: _vitalCard(context, 'ব্লাড সুগার', '৫.৫', 'mmol/L', Icons.water_drop_rounded, const Color(0xFF00897B), 'স্বাভাবিক')),
           ],
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12),
         Row(
           children: [
             Expanded(child: _vitalCard(context, 'পালস রেট', '৭৮', 'bpm', Icons.monitor_heart_rounded, const Color(0xFF7C3AED), 'স্বাভাবিক')),
-            const SizedBox(width: 12),
+            SizedBox(width: 12),
             Expanded(child: _vitalCard(context, 'তাপমাত্রা', '৯৮.৬', '°F', Icons.device_thermostat_rounded, const Color(0xFFFB8C00), 'স্বাভাবিক')),
           ],
         ),
-        const SizedBox(height: 14),
+        SizedBox(height: 14),
         _sectionCard(
           title: 'ভাইটালস লগ ইতিহাস'.tr(context),
           icon: Icons.history_rounded,
           color: AppColors.primary,
           child: Column(
             children: [
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               _vitalsLogRow(context, 'আজ সকাল', '120/80', '৫.৫', '৭৮'),
               _vitalsLogRow(context, 'গতকাল', '118/78', '৫.৩', '৮০'),
               _vitalsLogRow(context, '২ দিন আগে', '122/82', '৫.৬', '৭৬'),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               _addVitalButton(context),
             ],
           ),
         ),
-        const SizedBox(height: 14),
+        SizedBox(height: 14),
         _warningCard(context,
           'সতর্কতা',
           'রক্তচাপ ১৪০/৯০ এর বেশি হলে অবিলম্বে ডাক্তারের সাথে যোগাযোগ করুন।',
@@ -427,18 +427,18 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(color: const Color(0xFFE8F5E9), borderRadius: BorderRadius.circular(6)),
-                child: Text(status.tr(context), style: const TextStyle(fontSize: 10, color: Color(0xFF43A047))),
+                child: Text(status, style: TextStyle(fontSize: 10, color: Color(0xFF43A047))),
               ),
             ],
           ),
-          const SizedBox(height: 10),
-          Text(title.tr(context), style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
-          const SizedBox(height: 2),
+          SizedBox(height: 10),
+          Text(title, style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+          SizedBox(height: 2),
           RichText(
             text: TextSpan(
               children: [
                 TextSpan(text: value.tr(context), style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: color)),
-                TextSpan(text: ' ${unit.tr(context)}', style: const TextStyle(fontSize: 11, color: AppColors.textSecondary)),
+                TextSpan(text: ' ${unit.tr(context)}', style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
               ],
             ),
           ),
@@ -454,11 +454,11 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
       decoration: BoxDecoration(color: const Color(0xFFF7F4FB), borderRadius: BorderRadius.circular(10)),
       child: Row(
         children: [
-          Expanded(child: Text(date.tr(context), style: const TextStyle(fontSize: 12, color: AppColors.textSecondary))),
+          Expanded(child: Text(date, style: TextStyle(fontSize: 12, color: AppColors.textSecondary))),
           _logChip(context, bp, const Color(0xFFE53935)),
-          const SizedBox(width: 6),
+          SizedBox(width: 6),
           _logChip(context, sugar, const Color(0xFF00897B)),
-          const SizedBox(width: 6),
+          SizedBox(width: 6),
           _logChip(context, pulse, const Color(0xFF7C3AED)),
         ],
       ),
@@ -485,9 +485,9 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.add_circle_outline, color: AppColors.primary, size: 18),
-            const SizedBox(width: 8),
-            Text('নতুন রিডিং যোগ করুন'.tr(context), style: const TextStyle(fontSize: 13, color: AppColors.primary, fontWeight: FontWeight.w600)),
+            Icon(Icons.add_circle_outline, color: AppColors.primary, size: 18),
+            SizedBox(width: 8),
+            Text('নতুন রিডিং যোগ করুন', style: TextStyle(fontSize: 13, color: AppColors.primary, fontWeight: FontWeight.w600)),
           ],
         ),
       ),
@@ -505,32 +505,32 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
           color: const Color(0xFF00897B),
           child: Column(
             children: [
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               ..._medications.asMap().entries.map((e) {
                 final idx = e.key;
                 final med = e.value;
                 return _medicationRow(context, med, idx);
               }),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               _addMedicationButton(context),
             ],
           ),
         ),
-        const SizedBox(height: 14),
+        SizedBox(height: 14),
         _sectionCard(
           title: 'রিমাইন্ডার সেটিংস'.tr(context),
           icon: Icons.alarm_rounded,
           color: const Color(0xFFFB8C00),
           child: Column(
             children: [
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               _reminderRow(context, 'সকাল ৮:০০', 'ফলিক অ্যাসিড', true),
               _reminderRow(context, 'দুপুর ২:০০', 'ক্যালসিয়াম ট্যাবলেট', true),
               _reminderRow(context, 'রাত ১০:০০', 'আয়রন ট্যাবলেট', false),
             ],
           ),
         ),
-        const SizedBox(height: 14),
+        SizedBox(height: 14),
         _warningCard(context,
           'মনে রাখবেন',
           'ডাক্তারের পরামর্শ ছাড়া কোনো ওষুধ বন্ধ করবেন ঘন বা নতুন ওষুধ শুরু করবেন না।',
@@ -562,11 +562,11 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
                 border: Border.all(color: (med['done'] as bool) ? const Color(0xFF43A047) : Colors.grey.shade400),
               ),
               child: (med['done'] as bool)
-                  ? const Icon(Icons.check, color: Colors.white, size: 16)
+                  ? Icon(Icons.check, color: Colors.white, size: 16)
                   : null,
             ),
           ),
-          const SizedBox(width: 12),
+          SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -598,13 +598,13 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
       child: Row(
         children: [
           Icon(Icons.alarm_rounded, color: isActive ? const Color(0xFFFB8C00) : Colors.grey, size: 20),
-          const SizedBox(width: 10),
+          SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(time.tr(context), style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: isActive ? const Color(0xFFFB8C00) : Colors.grey)),
-                Text(med.tr(context), style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                Text(med, style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
               ],
             ),
           ),
@@ -630,9 +630,9 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.add_circle_outline, color: Color(0xFF00897B), size: 18),
-            const SizedBox(width: 8),
-            Text('নতুন ওষুধ যোগ করুন'.tr(context), style: const TextStyle(fontSize: 13, color: Color(0xFF00897B), fontWeight: FontWeight.w600)),
+            Icon(Icons.add_circle_outline, color: Color(0xFF00897B), size: 18),
+            SizedBox(width: 8),
+            Text('নতুন ওষুধ যোগ করুন', style: TextStyle(fontSize: 13, color: Color(0xFF00897B), fontWeight: FontWeight.w600)),
           ],
         ),
       ),
@@ -658,8 +658,8 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
                   decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(10)),
                   child: Icon(icon, color: color, size: 20),
                 ),
-                const SizedBox(width: 10),
-                Text(title, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                SizedBox(width: 10),
+                Text(title, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
               ],
             ),
             child,
@@ -681,14 +681,14 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(icon, color: color, size: 22),
-          const SizedBox(width: 10),
+          SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(title.tr(context), style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: color)),
-                const SizedBox(height: 4),
-                Text(body.tr(context), style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, height: 1.5)),
+                SizedBox(height: 4),
+                Text(body, style: TextStyle(fontSize: 12, color: AppColors.textSecondary, height: 1.5)),
               ],
             ),
           ),
@@ -702,17 +702,17 @@ class _MayerShasthoScreenState extends State<MayerShasthoScreen>
       context: context,
       builder: (_) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: Text('ওজন যোগ করুন'.tr(context), style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text('ওজন যোগ করুন', style: TextStyle(fontWeight: FontWeight.bold)),
         content: TextField(
           keyboardType: TextInputType.number,
           decoration: InputDecoration(hintText: 'কেজি'.tr(context), hintStyle: const TextStyle(fontFamily: 'Hind_Siliguri')),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: Text('বাতিল'.tr(context), style: const TextStyle(fontFamily: 'Hind_Siliguri'))),
+          TextButton(onPressed: () => Navigator.pop(context), child: Text('বাতিল', style: TextStyle(fontFamily: 'Hind_Siliguri'))),
           ElevatedButton(
             onPressed: () => Navigator.pop(context),
             style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary),
-            child: Text('সংরক্ষণ'.tr(context), style: const TextStyle(color: Colors.white)),
+            child: Text('সংরক্ষণ', style: TextStyle(color: Colors.white)),
           ),
         ],
       ),

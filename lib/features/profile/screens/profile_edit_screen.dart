@@ -193,7 +193,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                   isMother ? 'মাতার ছবি পরিবর্তন' : 'স্বামীর ছবি পরিবর্তন',
                   style: AppTextStyles.headingMedium.copyWith(color: AppColors.primary),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20),
                 ListTile(
                   leading: const CircleAvatar(
                     backgroundColor: AppColors.primarySurface,
@@ -245,7 +245,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                 ListTile(
                   leading: CircleAvatar(
                     backgroundColor: AppColors.error.withValues(alpha: 0.1),
-                    child: const Icon(Icons.delete_outline, color: AppColors.error),
+                    child: Icon(Icons.delete_outline, color: AppColors.error),
                   ),
                   title: const Text('ছবি মুছে ফেলুন'),
                   onTap: () {
@@ -351,7 +351,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                   'রক্তের গ্রুপ নির্বাচন করুন',
                   style: AppTextStyles.headingMedium.copyWith(color: AppColors.primary),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16),
                 Expanded(
                   child: ListView.builder(
                     itemCount: bloodGroups.length,
@@ -367,7 +367,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           ),
                         ),
                         trailing: isSelected
-                            ? const Icon(Icons.check_circle_rounded, color: AppColors.primary)
+                            ? Icon(Icons.check_circle_rounded, color: AppColors.primary)
                             : null,
                         onTap: () {
                           setState(() {
@@ -409,7 +409,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                   isMother ? 'মাতার পেশা নির্বাচন করুন' : 'স্বামীর পেশা নির্বাচন করুন',
                   style: AppTextStyles.headingMedium.copyWith(color: AppColors.primary),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16),
                 Flexible(
                   child: ListView.builder(
                     shrinkWrap: true,
@@ -427,7 +427,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           ),
                         ),
                         trailing: isSelected
-                            ? const Icon(Icons.check_circle_rounded, color: AppColors.primary)
+                            ? Icon(Icons.check_circle_rounded, color: AppColors.primary)
                             : null,
                         onTap: () {
                           setState(() {
@@ -479,7 +479,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                   'নিয়মিত বসবাসের স্থান নির্বাচন করুন',
                   style: AppTextStyles.headingMedium.copyWith(color: AppColors.primary),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16),
                 Flexible(
                   child: ListView.builder(
                     shrinkWrap: true,
@@ -496,7 +496,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           ),
                         ),
                         trailing: isSelected
-                            ? const Icon(Icons.check_circle_rounded, color: AppColors.primary)
+                            ? Icon(Icons.check_circle_rounded, color: AppColors.primary)
                             : null,
                         onTap: () {
                           setState(() {
@@ -545,7 +545,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new, color: AppColors.textPrimary, size: 20),
+            icon: Icon(Icons.arrow_back_ios_new, color: AppColors.textPrimary, size: 20),
             onPressed: _prevPage,
           ),
           title: Text(
@@ -649,7 +649,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
           ),
           child: Center(
             child: isCompleted
-                ? const Icon(Icons.check_rounded, color: Colors.white, size: 16)
+                ? Icon(Icons.check_rounded, color: Colors.white, size: 16)
                 : Text(
                     '${i + 1}',
                     style: TextStyle(
@@ -697,7 +697,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
         children: [
-          const SizedBox(height: 8),
+          SizedBox(height: 8),
           // Circular profile picture picker
           Center(
             child: Stack(
@@ -753,7 +753,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           ),
                         ],
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.camera_alt_rounded,
                         color: Colors.white,
                         size: 16,
@@ -764,7 +764,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
               ],
             ),
           ),
-          const SizedBox(height: 28),
+          SizedBox(height: 28),
 
           // Fields Card List
           _buildInputCard(
@@ -785,7 +785,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             ),
             isValid: _motherNameCtrl.text.isNotEmpty,
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: 14),
 
           _buildPickerCard(
             icon: Icons.calendar_today_outlined,
@@ -795,7 +795,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             onTap: _selectDate,
             isValid: _dob.isNotEmpty,
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: 14),
 
           _buildPickerCard(
             icon: Icons.bloodtype_outlined,
@@ -805,7 +805,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             onTap: _selectBloodGroup,
             isValid: _bloodGroup.isNotEmpty,
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: 14),
 
           _buildPickerCard(
             icon: Icons.work_outline,
@@ -815,7 +815,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             onTap: () => _selectOccupation(isMother: true),
             isValid: _motherOccupation.isNotEmpty,
           ),
-          const SizedBox(height: 32),
+          SizedBox(height: 32),
         ],
       ),
     );
@@ -828,7 +828,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
         children: [
-          const SizedBox(height: 8),
+          SizedBox(height: 8),
           _buildInputCard(
             icon: Icons.home_outlined,
             label: 'বাড়ি নং / রোড',
@@ -846,7 +846,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             ),
             isValid: _houseRoadCtrl.text.isNotEmpty,
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: 14),
 
           _buildInputCard(
             icon: Icons.location_city_outlined,
@@ -865,7 +865,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             ),
             isValid: _areaCtrl.text.isNotEmpty,
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: 14),
 
           _buildInputCard(
             icon: Icons.mail_outline,
@@ -884,7 +884,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             ),
             isValid: _postOfficeCtrl.text.isNotEmpty,
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: 14),
 
           _buildInputCard(
             icon: Icons.map_outlined,
@@ -903,7 +903,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             ),
             isValid: _thanaCtrl.text.isNotEmpty,
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: 14),
 
           _buildInputCard(
             icon: Icons.location_on_outlined,
@@ -922,7 +922,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             ),
             isValid: _districtCtrl.text.isNotEmpty,
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: 14),
 
           _buildInputCard(
             icon: Icons.pin_outlined,
@@ -942,7 +942,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             ),
             isValid: _postCodeCtrl.text.isNotEmpty,
           ),
-          const SizedBox(height: 28),
+          SizedBox(height: 28),
         ],
       ),
     );
@@ -955,7 +955,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
         children: [
-          const SizedBox(height: 8),
+          SizedBox(height: 8),
           // Circular picture picker for husband
           Center(
             child: Stack(
@@ -1011,7 +1011,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           ),
                         ],
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.camera_alt_rounded,
                         color: Colors.white,
                         size: 16,
@@ -1022,7 +1022,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
               ],
             ),
           ),
-          const SizedBox(height: 28),
+          SizedBox(height: 28),
 
           _buildInputCard(
             icon: Icons.person_outline,
@@ -1041,7 +1041,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             ),
             isValid: _husbandNameCtrl.text.isNotEmpty,
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: 14),
 
           _buildPickerCard(
             icon: Icons.work_outline,
@@ -1051,7 +1051,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             onTap: () => _selectOccupation(isMother: false),
             isValid: _husbandOccupation.isNotEmpty,
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
 
           // Optional Info Banner Card
           Container(
@@ -1064,12 +1064,12 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(
+                Icon(
                   Icons.info_outline_rounded,
                   color: AppColors.primary,
                   size: 20,
                 ),
-                const SizedBox(width: 12),
+                SizedBox(width: 12),
                 Expanded(
                   child: Text(
                     'স্বামীর তথ্য প্রদান সম্পূর্ণ ঐচ্ছিক, তবে দিলে আমরা আপনাকে আরও ভালোভাবে সাহায্য করতে পারব।',
@@ -1083,7 +1083,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
               ],
             ),
           ),
-          const SizedBox(height: 28),
+          SizedBox(height: 28),
         ],
       ),
     );
@@ -1096,7 +1096,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
         children: [
-          const SizedBox(height: 8),
+          SizedBox(height: 8),
           // Beautiful Map Pin Visual Card
           Container(
             width: double.infinity,
@@ -1142,7 +1142,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         color: AppColors.primary,
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.location_on_rounded,
                         color: Colors.white,
                         size: 24,
@@ -1153,7 +1153,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
               ],
             ),
           ),
-          const SizedBox(height: 28),
+          SizedBox(height: 28),
 
           _buildInputCard(
             icon: Icons.my_location_rounded,
@@ -1174,7 +1174,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             actionWidget: GestureDetector(
               onTap: _isLocating ? null : _simulateLocationFetch,
               child: _isLocating
-                  ? const SizedBox(
+                  ? SizedBox(
                       width: 20,
                       height: 20,
                       child: CircularProgressIndicator(
@@ -1182,14 +1182,14 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
                       ),
                     )
-                  : const Icon(
+                  : Icon(
                       Icons.gps_fixed_rounded,
                       color: AppColors.primary,
                       size: 20,
                     ),
             ),
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: 14),
 
           _buildPickerCard(
             icon: Icons.home_work_outlined,
@@ -1199,7 +1199,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             onTap: _selectRegularResidence,
             isValid: _regularResidence.isNotEmpty,
           ),
-          const SizedBox(height: 28),
+          SizedBox(height: 28),
         ],
       ),
     );
@@ -1212,7 +1212,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
         children: [
-          const SizedBox(height: 8),
+          SizedBox(height: 8),
           // Phone mock illustration
           Container(
             width: double.infinity,
@@ -1248,7 +1248,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                     color: AppColors.primary,
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.security_rounded,
                     color: Colors.white,
                     size: 26,
@@ -1257,7 +1257,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
               ],
             ),
           ),
-          const SizedBox(height: 28),
+          SizedBox(height: 28),
 
           _buildInputCard(
             icon: Icons.phone_android_rounded,
@@ -1277,7 +1277,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             ),
             isValid: _mobilePhoneCtrl.text.isNotEmpty,
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: 14),
 
           _buildInputCard(
             icon: Icons.phone_iphone_rounded,
@@ -1297,7 +1297,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             ),
             isValid: _alternativePhoneCtrl.text.isNotEmpty,
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
 
           // Security Policy Info Banner
           Container(
@@ -1310,12 +1310,12 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(
+                Icon(
                   Icons.lock_rounded,
                   color: AppColors.success,
                   size: 20,
                 ),
-                const SizedBox(width: 12),
+                SizedBox(width: 12),
                 Expanded(
                   child: Text(
                     'আপনার নম্বর নিরাপদ এবং গোপন রাখা হবে। আমরা শুধুমাত্র প্রয়োজনীয় ক্ষেত্রে যোগাযোগ করি।',
@@ -1329,7 +1329,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
               ],
             ),
           ),
-          const SizedBox(height: 28),
+          SizedBox(height: 28),
         ],
       ),
     );
@@ -1369,7 +1369,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
             ),
             child: Icon(icon, color: AppColors.primaryLight, size: 22),
           ),
-          const SizedBox(width: 16),
+          SizedBox(width: 16),
           // Input block in middle
           Expanded(
             child: Column(
@@ -1382,19 +1382,19 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: 4),
                 widget,
               ],
             ),
           ),
-          const SizedBox(width: 12),
+          SizedBox(width: 12),
           // Validation Checkmark Badge on right
           if (actionWidget != null)
             actionWidget
           else if (isValid)
-            const Icon(Icons.check_circle_rounded, color: AppColors.success, size: 20)
+            Icon(Icons.check_circle_rounded, color: AppColors.success, size: 20)
           else
-            const Icon(Icons.check_circle_rounded, color: AppColors.border, size: 20),
+            Icon(Icons.check_circle_rounded, color: AppColors.border, size: 20),
         ],
       ),
     );
@@ -1437,7 +1437,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
               ),
               child: Icon(icon, color: AppColors.primaryLight, size: 22),
             ),
-            const SizedBox(width: 16),
+            SizedBox(width: 16),
             // Picker content in middle
             Expanded(
               child: Column(
@@ -1450,7 +1450,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4),
                   Text(
                     value.isNotEmpty ? value : hint,
                     style: AppTextStyles.labelMedium.copyWith(
@@ -1461,12 +1461,12 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                 ],
               ),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: 12),
             // Dropdown/Chevron or checkmark badge
             if (isValid)
-              const Icon(Icons.check_circle_rounded, color: AppColors.success, size: 20)
+              Icon(Icons.check_circle_rounded, color: AppColors.success, size: 20)
             else
-              const Icon(Icons.check_circle_rounded, color: AppColors.border, size: 20),
+              Icon(Icons.check_circle_rounded, color: AppColors.border, size: 20),
           ],
         ),
       ),
@@ -1557,7 +1557,7 @@ class _SuccessDialogState extends State<_SuccessDialog> with SingleTickerProvide
                     child: Center(
                       child: ScaleTransition(
                         scale: _checkAnimation,
-                        child: const Icon(
+                        child: Icon(
                           Icons.check_circle_rounded,
                           color: AppColors.success,
                           size: 54,
@@ -1567,19 +1567,19 @@ class _SuccessDialogState extends State<_SuccessDialog> with SingleTickerProvide
                   );
                 },
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: 24),
               Text(
                 'সফলভাবে সংরক্ষিত!',
                 style: AppTextStyles.headingLarge.copyWith(color: AppColors.primary),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               Text(
                 'আপনার পরিবর্তিত প্রোফাইল সফলভাবে আপডেট ও সংরক্ষণ করা হয়েছে।',
                 style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 28),
+              SizedBox(height: 28),
               SizedBox(
                 width: double.infinity,
                 height: 48,

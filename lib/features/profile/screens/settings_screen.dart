@@ -52,12 +52,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   'অ্যাপের ভাষা নির্বাচন করুন (Select Language)',
                   style: AppTextStyles.headingMedium.copyWith(color: AppColors.primary),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20),
                 ListTile(
                   leading: const Text('🇧🇩', style: TextStyle(fontSize: 24)),
                   title: const Text('বাংলা', style: TextStyle(fontWeight: FontWeight.bold)),
                   trailing: _selectedLanguage == 'বাংলা'
-                      ? const Icon(Icons.check_circle, color: AppColors.primary)
+                      ? Icon(Icons.check_circle, color: AppColors.primary)
                       : null,
                   onTap: () {
                     setState(() {
@@ -71,7 +71,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   leading: const Text('🇺🇸', style: TextStyle(fontSize: 24)),
                   title: const Text('English', style: TextStyle(fontWeight: FontWeight.bold)),
                   trailing: _selectedLanguage == 'English'
-                      ? const Icon(Icons.check_circle, color: AppColors.primary)
+                      ? Icon(Icons.check_circle, color: AppColors.primary)
                       : null,
                   onTap: () {
                     setState(() {
@@ -118,7 +118,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 }
                 messenger.showSnackBar(
                   SnackBar(
-                    content: Text(successMsg, style: const TextStyle(fontFamily: 'Hind_Siliguri')),
+                    content: Text(successMsg, style: TextStyle(fontFamily: 'Hind_Siliguri')),
                     backgroundColor: AppColors.success,
                     behavior: SnackBarBehavior.floating,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -131,32 +131,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
               title: Row(
                 children: [
-                  const Icon(Icons.sync_rounded, color: AppColors.primary),
-                  const SizedBox(width: 8),
+                  Icon(Icons.sync_rounded, color: AppColors.primary),
+                  SizedBox(width: 8),
                   Text(
                     syncTitle,
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8),
                   CircularProgressIndicator(
                     value: _syncProgress,
                     backgroundColor: Colors.grey.shade200,
                     valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16),
                   Text(
                     '$syncProgressPrefix ${(_syncProgress * 100).toInt()}%',
-                    style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4),
                   Text(
                     syncWaitMsg,
-                    style: const TextStyle(fontSize: 11, color: Colors.grey),
+                    style: TextStyle(fontSize: 11, color: Colors.grey),
                   ),
                 ],
               ),
@@ -179,11 +179,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: Row(
           children: [
-            const Icon(Icons.lock_reset_rounded, color: AppColors.primary),
-            const SizedBox(width: 8),
+            Icon(Icons.lock_reset_rounded, color: AppColors.primary),
+            SizedBox(width: 8),
             Text(
-              'পাসওয়ার্ড পরিবর্তন করুন'.tr(context),
-              style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+              'পাসওয়ার্ড পরিবর্তন করুন', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -199,7 +198,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   labelStyle: const TextStyle(fontSize: 13),
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               TextField(
                 controller: newPasswordCtrl,
                 obscureText: true,
@@ -208,7 +207,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   labelStyle: const TextStyle(fontSize: 13),
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               TextField(
                 controller: confirmPasswordCtrl,
                 obscureText: true,
@@ -223,7 +222,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: Text('বাতিল'.tr(context), style: const TextStyle(color: Colors.grey)),
+            child: Text('বাতিল', style: TextStyle(color: Colors.grey)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -235,7 +234,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Navigator.pop(ctx);
                 messenger.showSnackBar(
                   SnackBar(
-                    content: Text('পাসওয়ার্ড সফলভাবে পরিবর্তন করা হয়েছে!'.tr(context), style: const TextStyle(fontFamily: 'Hind_Siliguri')),
+                    content: Text('পাসওয়ার্ড সফলভাবে পরিবর্তন করা হয়েছে!', style: TextStyle(fontFamily: 'Hind_Siliguri')),
                     backgroundColor: AppColors.success,
                     behavior: SnackBarBehavior.floating,
                   ),
@@ -243,14 +242,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
               } else {
                 messenger.showSnackBar(
                   SnackBar(
-                    content: Text('নতুন পাসওয়ার্ড দুইটি মেলেনি!'.tr(context), style: const TextStyle(fontFamily: 'Hind_Siliguri')),
+                    content: Text('নতুন পাসওয়ার্ড দুইটি মেলেনি!', style: TextStyle(fontFamily: 'Hind_Siliguri')),
                     backgroundColor: AppColors.error,
                     behavior: SnackBarBehavior.floating,
                   ),
                 );
               }
             },
-            child: Text('আপডেট করুন'.tr(context), style: const TextStyle(color: Colors.white)),
+            child: Text('আপডেট করুন', style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -265,22 +264,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: Row(
           children: [
-            const Icon(Icons.warning_amber_rounded, color: AppColors.error),
-            const SizedBox(width: 8),
+            Icon(Icons.warning_amber_rounded, color: AppColors.error),
+            SizedBox(width: 8),
             Text(
-              'অ্যাকাউন্ট মুছে ফেলবেন?'.tr(context),
-              style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: AppColors.error),
+              'অ্যাকাউন্ট মুছে ফেলবেন?', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: AppColors.error),
             ),
           ],
         ),
         content: Text(
-          'আপনি কি নিশ্চিত যে আপনার MHRIS অ্যাকাউন্টটি স্থায়ীভাবে ডিলিট করতে চান? আপনার পূর্ববর্তী সমস্ত গর্ভাবস্থা ও ভ্যাকসিনের মেডিকেল রেকর্ড ডাটা স্থায়ীভাবে মুছে যাবে!'.tr(context),
-          style: const TextStyle(fontSize: 13, height: 1.45, color: Colors.black87),
+          'আপনি কি নিশ্চিত যে আপনার MHRIS অ্যাকাউন্টটি স্থায়ীভাবে ডিলিট করতে চান? আপনার পূর্ববর্তী সমস্ত গর্ভাবস্থা ও ভ্যাকসিনের মেডিকেল রেকর্ড ডাটা স্থায়ীভাবে মুছে যাবে!', style: TextStyle(fontSize: 13, height: 1.45, color: Colors.black87),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: Text('বাতিল করুন'.tr(context), style: const TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
+            child: Text('বাতিল করুন', style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -291,13 +288,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
               Navigator.pop(ctx);
               messenger.showSnackBar(
                 SnackBar(
-                  content: Text('অ্যাকাউন্ট নিষ্ক্রিয়করণের অনুরোধ জমা হয়েছে।'.tr(context), style: const TextStyle(fontFamily: 'Hind_Siliguri')),
+                  content: Text('অ্যাকাউন্ট নিষ্ক্রিয়করণের অনুরোধ জমা হয়েছে।', style: TextStyle(fontFamily: 'Hind_Siliguri')),
                   backgroundColor: AppColors.error,
                   behavior: SnackBarBehavior.floating,
                 ),
               );
             },
-            child: Text('হ্যাঁ, ডিলিট করুন'.tr(context), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            child: Text('হ্যাঁ, ডিলিট করুন', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
           ),
         ],
       ),
@@ -309,11 +306,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Text('সেটিংস (Settings)'.tr(context), style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B))),
+        title: Text('সেটিংস (Settings)', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E1B4B))),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Color(0xFF1E1B4B), size: 18),
+          icon: Icon(Icons.arrow_back_ios_new, color: Color(0xFF1E1B4B), size: 18),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -324,7 +321,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             // General Settings Card
             _buildSectionHeader('সাধারণ সেটিংস (General)'.tr(context)),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
             _buildSettingsCard([
               _buildListTile(
                 icon: Icons.language_rounded,
@@ -342,11 +339,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onTap: _simulateDataSync,
               ),
             ]),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
 
             // Notification Settings Card
             _buildSectionHeader('বিজ্ঞপ্তি ও রিমাইন্ডার সেটিংস'.tr(context)),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
             _buildSettingsCard([
               _buildSwitchTile(
                 icon: Icons.vaccines_outlined,
@@ -384,11 +381,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onChanged: (val) => setState(() => _kickCounterAlerts = val),
               ),
             ]),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
 
             // Security & Privacy Card
             _buildSectionHeader('নিরাপত্তা ও ডাটা পলিসি'.tr(context)),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
             _buildSettingsCard([
               _buildSwitchTile(
                 icon: Icons.lock_outline_rounded,
@@ -408,11 +405,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onChanged: (val) => setState(() => _biometricAuth = val),
               ),
             ]),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
 
             // Account Actions Card
             _buildSectionHeader('অ্যাকাউন্ট সেটিংস'.tr(context)),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
             _buildSettingsCard([
               _buildListTile(
                 icon: Icons.lock_reset_rounded,
@@ -431,11 +428,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 titleStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.error),
               ),
             ]),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
 
             // Support Card
             _buildSectionHeader('সহায়তা ও তথ্য'.tr(context)),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
             _buildSettingsCard([
               _buildListTile(
                 icon: Icons.privacy_tip_outlined,
@@ -445,7 +442,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onTap: () {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('গোপনীয়তা নীতিমালা ফাইল ওপেন করা হচ্ছে...'.tr(context), style: const TextStyle(fontFamily: 'Hind_Siliguri')),
+                      content: Text('গোপনীয়তা নীতিমালা ফাইল ওপেন করা হচ্ছে...', style: TextStyle(fontFamily: 'Hind_Siliguri')),
                       behavior: SnackBarBehavior.floating,
                     ),
                   );
@@ -460,14 +457,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onTap: () {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('এফএকিউ পেজ লোড হচ্ছে...'.tr(context), style: const TextStyle(fontFamily: 'Hind_Siliguri')),
+                      content: Text('এফএকিউ পেজ লোড হচ্ছে...', style: TextStyle(fontFamily: 'Hind_Siliguri')),
                       behavior: SnackBarBehavior.floating,
                     ),
                   );
                 },
               ),
             ]),
-            const SizedBox(height: 32),
+            SizedBox(height: 32),
           ],
         ),
       ),
@@ -479,7 +476,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       padding: const EdgeInsets.only(left: 4),
       child: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           
           fontSize: 14,
           fontWeight: FontWeight.bold,
@@ -539,13 +536,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       subtitle: Text(
         subtitle,
-        style: const TextStyle(
+        style: TextStyle(
           
           fontSize: 11,
           color: Color(0xFF64748B),
         ),
       ),
-      trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: Colors.grey),
+      trailing: Icon(Icons.arrow_forward_ios_rounded, size: 14, color: Colors.grey),
       onTap: onTap,
     );
   }
@@ -571,7 +568,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       title: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           
           fontSize: 14.5,
           fontWeight: FontWeight.bold,
@@ -580,7 +577,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       subtitle: Text(
         subtitle,
-        style: const TextStyle(
+        style: TextStyle(
           
           fontSize: 11,
           color: Color(0xFF64748B),

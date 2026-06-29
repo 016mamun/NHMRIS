@@ -1,5 +1,8 @@
+import '../../../core/localization/language_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/app_translations.dart';
 
 class GorvokalinShasthoSomosshaScreen extends StatefulWidget {
   const GorvokalinShasthoSomosshaScreen({super.key});
@@ -75,6 +78,8 @@ class _GorvokalinShasthoSomosshaScreenState extends State<GorvokalinShasthoSomos
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
+    context.watch<LanguageCubit>();
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Column(
@@ -99,7 +104,7 @@ class _GorvokalinShasthoSomosshaScreenState extends State<GorvokalinShasthoSomos
 
   Widget _buildHeader(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Color(0xFF6B3FA0),
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(28), bottomRight: Radius.circular(28)),
       ),
@@ -108,26 +113,31 @@ class _GorvokalinShasthoSomosshaScreenState extends State<GorvokalinShasthoSomos
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
                 onTap: () => Navigator.pop(context),
                 child: Container(
                   width: 40, height: 40,
                   decoration: BoxDecoration(color: Colors.white.withOpacity(0.2), borderRadius: BorderRadius.circular(12)),
-                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
+                  child: Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text('গর্ভকালীন স্বাস্থ্য সমস্যা', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('সমস্যা চিহ্নিত করুন ও সমাধান পান', style: TextStyle(fontSize: 12, color: Colors.white70)),
-                  ],
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('গর্ভকালীন স্বাস্থ্য সমস্যা'.tr(context), style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Colors.white)),
+                      Text('সমস্যা চিহ্নিত করুন ও সমাধান পান'.tr(context), style: TextStyle(fontSize: 12, color: Colors.white70)),
+                    ],
+                  ),
                 ),
               ),
-              const Text('🩺', style: TextStyle(fontSize: 28)),
+              Text('🩺'.tr(context), style: TextStyle(fontSize: 28)),
             ],
           ),
         ),
@@ -145,13 +155,13 @@ class _GorvokalinShasthoSomosshaScreenState extends State<GorvokalinShasthoSomos
         unselectedLabelColor: Colors.grey.shade500,
         indicatorColor: AppColors.primary,
         indicatorWeight: 3,
-        labelStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
-        unselectedLabelStyle: const TextStyle(fontSize: 12),
-        tabs: const [
-          Tab(text: 'লক্ষণ চেকার'),
-          Tab(text: 'বিপদের লক্ষণ'),
-          Tab(text: 'FAQ'),
-          Tab(text: 'ডাক্তার কল'),
+        labelStyle: TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
+        unselectedLabelStyle: TextStyle(fontSize: 12),
+        tabs: [
+          Tab(text: 'লক্ষণ চেকার'.tr(context)),
+          Tab(text: 'বিপদের লক্ষণ'.tr(context)),
+          const Tab(text: 'FAQ'),
+          Tab(text: 'ডাক্তার কল'.tr(context)),
         ],
       ),
     );
@@ -162,7 +172,7 @@ class _GorvokalinShasthoSomosshaScreenState extends State<GorvokalinShasthoSomos
       padding: const EdgeInsets.all(16),
       children: [
         _infoCard('আপনার বর্তমান সমস্যাটি বেছে নিন', const Color(0xFF7C3AED)),
-        const SizedBox(height: 14),
+        SizedBox(height: 14),
         GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
@@ -184,8 +194,8 @@ class _GorvokalinShasthoSomosshaScreenState extends State<GorvokalinShasthoSomos
                 ),
                 child: Row(
                   children: [
-                    Text(s['emoji'] as String, style: const TextStyle(fontSize: 22)),
-                    const SizedBox(width: 8),
+                    Text(s['emoji'] as String, style: TextStyle(fontSize: 22)),
+                    SizedBox(width: 8),
                     Expanded(child: Text(s['label'] as String, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: selected ? s['color'] as Color : AppColors.textPrimary))),
                   ],
                 ),
@@ -194,7 +204,7 @@ class _GorvokalinShasthoSomosshaScreenState extends State<GorvokalinShasthoSomos
           },
         ),
         if (_selectedSymptom != null) ...[
-          const SizedBox(height: 16),
+          SizedBox(height: 16),
           _resultCard(_symptoms[_selectedSymptom!]),
         ],
       ],
@@ -212,18 +222,18 @@ class _GorvokalinShasthoSomosshaScreenState extends State<GorvokalinShasthoSomos
         children: [
           Row(
             children: [
-              Text(symptom['emoji'] as String, style: const TextStyle(fontSize: 28)),
-              const SizedBox(width: 10),
+              Text(symptom['emoji'] as String, style: TextStyle(fontSize: 28)),
+              SizedBox(width: 10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(symptom['label'] as String, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: color)),
-                    const SizedBox(height: 2),
+                    SizedBox(height: 2),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                       decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(8)),
-                      child: Text(symptom['severity'] as String, style: const TextStyle(fontSize: 11, color: Colors.white, fontWeight: FontWeight.w600)),
+                      child: Text(symptom['severity'] as String, style: TextStyle(fontSize: 11, color: Colors.white, fontWeight: FontWeight.w600)),
                     ),
                   ],
                 ),
@@ -231,12 +241,12 @@ class _GorvokalinShasthoSomosshaScreenState extends State<GorvokalinShasthoSomos
             ],
           ),
           if (isUrgent) ...[
-            const SizedBox(height: 12),
+            SizedBox(height: 12),
             ElevatedButton.icon(
               onPressed: () {},
               style: ElevatedButton.styleFrom(backgroundColor: color, minimumSize: const Size(double.infinity, 44), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
-              icon: const Icon(Icons.call_rounded, color: Colors.white, size: 18),
-              label: const Text('এখনই ডাক্তারকে কল করুন', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+              icon: Icon(Icons.call_rounded, color: Colors.white, size: 18),
+              label: Text('এখনই ডাক্তারকে কল করুন'.tr(context), style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
             ),
           ],
         ],
@@ -249,7 +259,7 @@ class _GorvokalinShasthoSomosshaScreenState extends State<GorvokalinShasthoSomos
       padding: const EdgeInsets.all(16),
       children: [
         _infoCard('এই লক্ষণগুলো দেখা দিলে দেরি না করে হাসপাতালে যান।', const Color(0xFFE53935)),
-        const SizedBox(height: 14),
+        SizedBox(height: 14),
         ..._warningSigns.map((sign) => _warningCard(sign)).toList(),
       ],
     );
@@ -274,7 +284,7 @@ class _GorvokalinShasthoSomosshaScreenState extends State<GorvokalinShasthoSomos
             decoration: BoxDecoration(color: color.withOpacity(0.12), shape: BoxShape.circle),
             child: Icon(isVeryUrgent ? Icons.warning_rounded : Icons.info_rounded, color: color, size: 20),
           ),
-          const SizedBox(width: 12),
+          SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -285,12 +295,12 @@ class _GorvokalinShasthoSomosshaScreenState extends State<GorvokalinShasthoSomos
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                       decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(8)),
-                      child: Text(sign['urgency'] as String, style: const TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.w600)),
+                      child: Text(sign['urgency'] as String, style: TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.w600)),
                     ),
                   ],
                 ),
-                const SizedBox(height: 4),
-                Text(sign['detail'] as String, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, height: 1.4)),
+                SizedBox(height: 4),
+                Text(sign['detail'] as String, style: TextStyle(fontSize: 12, color: AppColors.textSecondary, height: 1.4)),
               ],
             ),
           ),
@@ -317,11 +327,11 @@ class _GorvokalinShasthoSomosshaScreenState extends State<GorvokalinShasthoSomos
                 leading: Container(
                   width: 32, height: 32,
                   decoration: BoxDecoration(color: AppColors.primary.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
-                  child: Center(child: Text('Q${idx + 1}', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primary))),
+                  child: Center(child: Text('Q${idx + 1}', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primary))),
                 ),
-                title: Text(faq['q'] as String, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+                title: Text(faq['q'] as String, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
                 children: [
-                  Text(faq['a'] as String, style: const TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.5)),
+                  Text(faq['a'] as String, style: TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.5)),
                 ],
               ),
             ),
@@ -343,21 +353,21 @@ class _GorvokalinShasthoSomosshaScreenState extends State<GorvokalinShasthoSomos
           ),
           child: Column(
             children: [
-              const Text('🆘', style: TextStyle(fontSize: 40)),
-              const SizedBox(height: 12),
-              const Text('জরুরি সেবা দরকার?', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
-              const SizedBox(height: 6),
-              const Text('যেকোনো জরুরি অবস্থায় নিচের নম্বরে কল করুন', textAlign: TextAlign.center, style: TextStyle(fontSize: 13, color: Colors.white70)),
-              const SizedBox(height: 20),
+              Text('🆘'.tr(context), style: TextStyle(fontSize: 40)),
+              SizedBox(height: 12),
+              Text('জরুরি সেবা দরকার?'.tr(context), style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
+              SizedBox(height: 6),
+              Text('যেকোনো জরুরি অবস্থায় নিচের নম্বরে কল করুন'.tr(context), textAlign: TextAlign.center, style: TextStyle(fontSize: 13, color: Colors.white70)),
+              SizedBox(height: 20),
               _callButton('জাতীয় স্বাস্থ্য সেবা হেল্পলাইন', '16000', Icons.call_rounded, Colors.white),
-              const SizedBox(height: 10),
+              SizedBox(height: 10),
               _callButton('জরুরি এ্যাম্বুলেন্স', '999', Icons.local_hospital_rounded, Colors.white),
             ],
           ),
         ),
-        const SizedBox(height: 16),
+        SizedBox(height: 16),
         _contactCard('নিকটস্থ স্বাস্থ্য কেন্দ্র', 'আপনার এলাকার UHC বা UHFWC', Icons.location_on_rounded, const Color(0xFF00897B)),
-        const SizedBox(height: 10),
+        SizedBox(height: 10),
         _contactCard('গাইনোকোলজিস্ট পরামর্শ', 'ডাক্তারের সাথে অনলাইন পরামর্শ', Icons.video_call_rounded, const Color(0xFF1E88E5)),
       ],
     );
@@ -372,7 +382,7 @@ class _GorvokalinShasthoSomosshaScreenState extends State<GorvokalinShasthoSomos
         child: Row(
           children: [
             Icon(icon, color: color, size: 22),
-            const SizedBox(width: 12),
+            SizedBox(width: 12),
             Expanded(child: Text(label, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: color))),
             Text(number, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: color)),
           ],
@@ -392,13 +402,13 @@ class _GorvokalinShasthoSomosshaScreenState extends State<GorvokalinShasthoSomos
             decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(12)),
             child: Icon(icon, color: color, size: 24),
           ),
-          const SizedBox(width: 14),
+          SizedBox(width: 14),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-                Text(subtitle, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                Text(title, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                Text(subtitle, style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
               ],
             ),
           ),
@@ -415,8 +425,8 @@ class _GorvokalinShasthoSomosshaScreenState extends State<GorvokalinShasthoSomos
       child: Row(
         children: [
           Icon(Icons.info_outline_rounded, color: color, size: 20),
-          const SizedBox(width: 10),
-          Expanded(child: Text(text, style: const TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.4))),
+          SizedBox(width: 10),
+          Expanded(child: Text(text, style: TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.4))),
         ],
       ),
     );

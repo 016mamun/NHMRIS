@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/localization/language_cubit.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../../core/constants/app_constants.dart';
+import '../../../core/localization/app_translations.dart';
 
 class WeeklyUpdateScreen extends StatefulWidget {
   const WeeklyUpdateScreen({super.key});
@@ -124,6 +127,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
     final data = _currentData;
     final trimester = _getTrimester(_selectedWeek);
 
@@ -144,17 +148,17 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                   // Week Selection Slider
                   _buildSliderCard(),
 
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16),
 
                   // ── Top Baby Specs Card ──────────────────────────────────────────
                   _buildBabySpecsCard(data, trimester),
 
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16),
 
                   // ── Tab Bar Rows ────────────────────────────────────────────────
                   _buildTabRow(),
 
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12),
 
                   // ── Tab Content Card ────────────────────────────────────────────
                   _buildTabContentCard(data),
@@ -169,7 +173,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
 
   Widget _buildHeader(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Color(0xFF6B3FA0),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(28),
@@ -181,6 +185,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
                 onTap: () => Navigator.pop(context),
@@ -190,17 +195,21 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                     color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
+                  child: Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('সাপ্তাহিক বেবি আপডেট', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('শিশুর সাপ্তাহিক বিকাশ ট্র্যাক করুন', style: const TextStyle(fontSize: 12, color: Colors.white70)),
-                  ],
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('সাপ্তাহিক বেবি আপডেট'.tr(context), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
+                      Text('শিশুর সাপ্তাহিক বিকাশ ট্র্যাক করুন'.tr(context), style: TextStyle(fontSize: 12, color: Colors.white70)),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -230,8 +239,8 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'সপ্তাহ নির্বাচন করুন',
+              Text(
+                'সপ্তাহ নির্বাচন করুন'.tr(context),
                 style: TextStyle(
                   
                   fontSize: 13,
@@ -246,8 +255,8 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
-                  '${AppConstants.toBengaliNumber(_selectedWeek)} সপ্তাহ',
-                  style: const TextStyle(
+                  '${AppConstants.toBengaliNumber(_selectedWeek)} ${'সপ্তাহ'.tr(context)}',
+                  style: TextStyle(
                     
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
@@ -276,7 +285,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '২৪ সপ্তাহ',
+                  '${AppConstants.toBengaliNumber(24)} ${'সপ্তাহ'.tr(context)}',
                   style: TextStyle(
                     
                     fontSize: 10,
@@ -284,7 +293,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                   ),
                 ),
                 Text(
-                  '৪০ সপ্তাহ',
+                  '${AppConstants.toBengaliNumber(40)} ${'সপ্তাহ'.tr(context)}',
                   style: TextStyle(
                     
                     fontSize: 10,
@@ -326,7 +335,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                 Row(
                   children: [
                     Text(
-                      'আপনার বেবি',
+                      'আপনার বেবি'.tr(context),
                       style: TextStyle(
                         
                         fontSize: 20,
@@ -334,13 +343,13 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                         color: Colors.purple.shade900,
                       ),
                     ),
-                    const SizedBox(width: 6),
-                    const Text('🍼', style: TextStyle(fontSize: 18)),
+                    SizedBox(width: 6),
+                    Text('🍼', style: TextStyle(fontSize: 18)),
                   ],
                 ),
-                const SizedBox(height: 2),
+                SizedBox(height: 2),
                 Text(
-                  '${AppConstants.toBengaliNumber(_selectedWeek)} সপ্তাহ ($trimester)',
+                  '${AppConstants.toBengaliNumber(_selectedWeek)} ${'সপ্তাহ'.tr(context)} (${trimester.tr(context)})',
                   style: TextStyle(
                     
                     fontSize: 13,
@@ -348,45 +357,45 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                     color: Colors.purple.shade700,
                   ),
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12),
 
                 // Length Spec Card
                 _buildBabySpecRow(
                   Icons.straighten_rounded,
                   Colors.amber.shade700,
                   Colors.amber.shade50,
-                  'দৈর্ঘ্য',
-                  data['length'] as String,
+                  'দৈর্ঘ্য'.tr(context),
+                  (data['length'] as String).tr(context),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8),
 
                 // Weight Spec Card
                 _buildBabySpecRow(
                   Icons.monitor_weight_outlined,
                   Colors.blue.shade600,
                   Colors.blue.shade50,
-                  'ওজন',
-                  data['weight'] as String,
+                  'ওজন'.tr(context),
+                  (data['weight'] as String).tr(context),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8),
 
                 // Size Veggie Spec Card
                 _buildBabySpecRow(
                   Icons.eco_rounded,
                   Colors.purple.shade600,
                   Colors.purple.shade50,
-                  'বেবির আকার',
-                  '${data['size']}র মতো',
+                  'বেবির আকার'.tr(context),
+                  '${(data['size'] as String).tr(context)} ${'র মতো'.tr(context)}',
                   leadingWidget: Text(
                     data['emoji'] as String,
-                    style: const TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: 18),
                   ),
                 ),
               ],
             ),
           ),
 
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
 
           // ── Right Side Womb/Baby representation ──
           Expanded(
@@ -446,20 +455,20 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                           color: Colors.white.withValues(alpha: 0.2),
                           shape: BoxShape.circle,
                         ),
-                        child: const Text(
+                        child: Text(
                           '👶',
                           style: TextStyle(fontSize: 48),
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      SizedBox(height: 4),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.8),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: const Text(
-                          'নিরাপদ',
+                        child: Text(
+                          'নিরাপদ'.tr(context),
                           style: TextStyle(
                             
                             fontSize: 9,
@@ -512,13 +521,13 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                   ),
             ),
           ),
-          const SizedBox(width: 10),
+          SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                title,
-                style: const TextStyle(
+                title.tr(context),
+                style: TextStyle(
                   
                   fontSize: 10,
                   fontWeight: FontWeight.w600,
@@ -582,9 +591,9 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                 color: isActive ? Colors.white : AppColors.primary,
                 size: 20,
               ),
-              const SizedBox(height: 4),
+              SizedBox(height: 4),
               Text(
-                title,
+                title.tr(context),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   
@@ -641,8 +650,8 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      textContent,
-                      style: const TextStyle(
+                      textContent.tr(context),
+                      style: TextStyle(
                         
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -653,7 +662,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                   ],
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               // Mother sitting / Yoga graphics representation
               Container(
                 width: 90,
@@ -671,7 +680,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                         size: 60,
                         color: AppColors.primary.withValues(alpha: 0.15),
                       ),
-                      const Text(
+                      Text(
                         '🧘‍♀️',
                         style: TextStyle(fontSize: 36),
                       ),
@@ -681,16 +690,16 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 18),
+          SizedBox(height: 18),
           // "আরও বিস্তারিত পড়ুন" Button
           SizedBox(
             width: double.infinity,
             height: 46,
             child: ElevatedButton.icon(
               onPressed: () => _showDetailedInfo(data),
-              icon: const Icon(Icons.menu_book_rounded, size: 16),
-              label: const Text(
-                'আরও বিস্তারিত পড়ুন',
+              icon: Icon(Icons.menu_book_rounded, size: 16),
+              label: Text(
+                'আরও বিস্তারিত পড়ুন'.tr(context),
                 style: TextStyle(
                   
                   fontSize: 13,
@@ -735,26 +744,26 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
               Row(
                 children: [
-                  const Text('📖 ', style: TextStyle(fontSize: 20)),
+                  Text('📖 ', style: TextStyle(fontSize: 20)),
                   Text(
-                    '${AppConstants.toBengaliNumber(_selectedWeek)} সপ্তাহের গাইড',
+                    '${AppConstants.toBengaliNumber(_selectedWeek)} ${'সপ্তাহের গাইড'.tr(context)}',
                     style: AppTextStyles.headingMedium.copyWith(color: AppColors.primary),
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
-              _buildModalDetailRow('👶 বেবির বিকাশ:', data['development'] as String),
-              _buildModalDetailRow('🤰 মায়ের শরীর:', data['mother'] as String),
-              _buildModalDetailRow('💡 ডাক্তারের পরামর্শ:', data['advice'] as String),
-              const SizedBox(height: 20),
+              SizedBox(height: 16),
+              _buildModalDetailRow('👶 ${'বেবির বিকাশ'.tr(context)}:', (data['development'] as String).tr(context)),
+              _buildModalDetailRow('🤰 ${'মায়ের শরীর'.tr(context)}:', (data['mother'] as String).tr(context)),
+              _buildModalDetailRow('💡 ${'ডাক্তারের পরামর্শ'.tr(context)}:', (data['advice'] as String).tr(context)),
+              SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text('ঠিক আছে'),
+                  child: Text('ঠিক আছে'.tr(context)),
                 ),
               ),
             ],
@@ -772,17 +781,17 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
         children: [
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               
               fontSize: 14,
               fontWeight: FontWeight.w700,
               color: AppColors.textPrimary,
             ),
           ),
-          const SizedBox(height: 2),
+          SizedBox(height: 2),
           Text(
             value,
-            style: const TextStyle(
+            style: TextStyle(
               
               fontSize: 13,
               color: AppColors.textSecondary,

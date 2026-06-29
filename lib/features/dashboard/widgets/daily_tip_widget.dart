@@ -46,7 +46,7 @@ class DailyTipWidget extends StatelessWidget {
               style: TextStyle(fontSize: 22, height: 2.0),
             ),
           ),
-          const SizedBox(width: 12),
+          SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +57,7 @@ class DailyTipWidget extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                const SizedBox(height: 3),
+                SizedBox(height: 3),
                 Text(
                   tip,
                   style: AppTextStyles.bodySmall,
@@ -67,7 +67,7 @@ class DailyTipWidget extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
           GestureDetector(
             onTap: onDetails,
             child: Text(

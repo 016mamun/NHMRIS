@@ -1,5 +1,8 @@
+import '../../../core/localization/language_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/app_translations.dart';
 
 class MedicineguideScreen extends StatefulWidget {
   const MedicineguideScreen({super.key});
@@ -26,6 +29,8 @@ class _MedicineguideScreenState extends State<MedicineguideScreen>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
+    context.watch<LanguageCubit>();
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Column(
@@ -49,7 +54,7 @@ class _MedicineguideScreenState extends State<MedicineguideScreen>
 
   Widget _buildHeader(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Color(0xFF6B3FA0),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(28),
@@ -61,6 +66,7 @@ class _MedicineguideScreenState extends State<MedicineguideScreen>
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
                 onTap: () => Navigator.pop(context),
@@ -70,17 +76,14 @@ class _MedicineguideScreenState extends State<MedicineguideScreen>
                     color: Colors.white.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
+                  child: Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('ওষুধ, চিকিৎসা ও পরীক্ষা', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('', style: const TextStyle(fontSize: 12, color: Colors.white70)),
-                  ],
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text('ওষুধ, চিকিৎসা ও পরীক্ষা'.tr(context), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
                 ),
               ),
             ],
@@ -99,9 +102,9 @@ class _MedicineguideScreenState extends State<MedicineguideScreen>
         labelColor: const Color(0xFF0277BD),
         unselectedLabelColor: Colors.grey,
         indicatorColor: const Color(0xFF0277BD),
-        labelStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
-        unselectedLabelStyle: const TextStyle(fontSize: 13),
-        tabs: const [
+        labelStyle: TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
+        unselectedLabelStyle: TextStyle(fontSize: 13),
+        tabs: [
           Tab(text: 'ওষুধ'),
           Tab(text: 'ল্যাব পরীক্ষা'),
           Tab(text: 'ডোজ নির্দেশিকা'),
@@ -185,8 +188,8 @@ class _MedicineguideScreenState extends State<MedicineguideScreen>
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(item['icon'] as String, style: const TextStyle(fontSize: 28)),
-          const SizedBox(width: 12),
+          Text(item['icon'] as String, style: TextStyle(fontSize: 28)),
+          SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -217,12 +220,12 @@ class _MedicineguideScreenState extends State<MedicineguideScreen>
                     ),
                   ],
                 ),
-                const SizedBox(height: 4),
-                Text('📌 ডোজ: ${item['dose']}', style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
-                const SizedBox(height: 2),
-                Text('🔹 ব্যবহার: ${item['use']}', style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, height: 1.4)),
-                const SizedBox(height: 2),
-                Text('⏰ সময়: ${item['time']}', style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                SizedBox(height: 4),
+                Text('📌 ডোজ: ${item['dose']}', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                SizedBox(height: 2),
+                Text('🔹 ব্যবহার: ${item['use']}', style: TextStyle(fontSize: 12, color: AppColors.textSecondary, height: 1.4)),
+                SizedBox(height: 2),
+                Text('⏰ সময়: ${item['time']}', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
               ],
             ),
           ),
@@ -254,16 +257,16 @@ class _MedicineguideScreenState extends State<MedicineguideScreen>
         ),
         child: Row(
           children: [
-            Text(test['icon']!, style: const TextStyle(fontSize: 28)),
-            const SizedBox(width: 12),
+            Text(test['icon']!, style: TextStyle(fontSize: 28)),
+            SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(test['name']!, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Color(0xFF0277BD))),
-                  const SizedBox(height: 3),
-                  Text('⏰ ${test['time']!}', style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
-                  Text('✅ ${test['why']!}', style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, height: 1.4)),
+                  Text(test['name']!, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Color(0xFF0277BD))),
+                  SizedBox(height: 3),
+                  Text('⏰ ${test['time']!}', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                  Text('✅ ${test['why']!}', style: TextStyle(fontSize: 12, color: AppColors.textSecondary, height: 1.4)),
                 ],
               ),
             ),
@@ -284,20 +287,20 @@ class _MedicineguideScreenState extends State<MedicineguideScreen>
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: const Color(0xFFFFCC02).withValues(alpha: 0.4)),
           ),
-          child: const Row(
+          child: Row(
             children: [
               Icon(Icons.warning_amber_rounded, color: Color(0xFFFF8F00), size: 24),
               SizedBox(width: 10),
               Expanded(
                 child: Text(
-                  'যেকোনো ওষুধ গ্রহণের আগে অবশ্যই আপনার ডাক্তার বা স্বাস্থ্যকর্মীর পরামর্শ নিন।',
+                  'যেকোনো ওষুধ গ্রহণের আগে অবশ্যই আপনার ডাক্তার বা স্বাস্থ্যকর্মীর পরামর্শ নিন।'.tr(context),
                   style: TextStyle(fontSize: 13, height: 1.4, color: Color(0xFF7B4F00), fontWeight: FontWeight.w600),
                 ),
               ),
             ],
           ),
         ),
-        const SizedBox(height: 16),
+        SizedBox(height: 16),
         ...[
           {'title': 'প্রথম ত্রৈমাসিক (১–১২ সপ্তাহ)', 'items': ['ফলিক অ্যাসিড: ৪০০ মাইক্রোগ্রাম/দিন', 'আয়রন ট্যাবলেট: শুরু করুন', 'বমির ওষুধ: প্রয়োজনে ডাক্তারের পরামর্শে'], 'color': const Color(0xFF7C3AED), 'bg': const Color(0xFFEDE7F6)},
           {'title': 'দ্বিতীয় ত্রৈমাসিক (১৩–২৮ সপ্তাহ)', 'items': ['আয়রন + ফলিক: চালু রাখুন', 'ক্যালসিয়াম: ১০০০ মিগ্রা/দিন', 'ভিটামিন ডি: প্রয়োজনে'], 'color': const Color(0xFF43A047), 'bg': const Color(0xFFE8F5E9)},
@@ -314,14 +317,14 @@ class _MedicineguideScreenState extends State<MedicineguideScreen>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(section['title'] as String, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: section['color'] as Color)),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               ...(section['items'] as List<String>).map((item) => Padding(
                 padding: const EdgeInsets.only(bottom: 4),
                 child: Row(
                   children: [
                     Container(width: 6, height: 6, decoration: BoxDecoration(color: section['color'] as Color, shape: BoxShape.circle)),
-                    const SizedBox(width: 8),
-                    Expanded(child: Text(item, style: const TextStyle(fontSize: 13, color: AppColors.textSecondary))),
+                    SizedBox(width: 8),
+                    Expanded(child: Text(item, style: TextStyle(fontSize: 13, color: AppColors.textSecondary))),
                   ],
                 ),
               )),

@@ -1,5 +1,8 @@
+import '../../../core/localization/language_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/app_translations.dart';
 
 class ComplicationsScreen extends StatelessWidget {
   const ComplicationsScreen({super.key});
@@ -69,6 +72,8 @@ class ComplicationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<LanguageCubit>();
+    context.watch<LanguageCubit>();
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Column(
@@ -89,7 +94,7 @@ class ComplicationsScreen extends StatelessWidget {
 
   Widget _buildHeader(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Color(0xFF6B3FA0),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(28),
@@ -101,6 +106,7 @@ class ComplicationsScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
                 onTap: () => Navigator.pop(context),
@@ -110,17 +116,21 @@ class ComplicationsScreen extends StatelessWidget {
                     color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
+                  child: Center(child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18)),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('গর্ভকালীন জটিলতা', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('জরুরি লক্ষণ ও করণীয়', style: const TextStyle(fontSize: 12, color: Colors.white70)),
-                  ],
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('গর্ভকালীন জটিলতা'.tr(context), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
+                      Text('জরুরি লক্ষণ ও করণীয়'.tr(context), style: TextStyle(fontSize: 12, color: Colors.white70)),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -154,8 +164,8 @@ class ComplicationsScreen extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text(item['emoji'] as String, style: const TextStyle(fontSize: 26)),
-                const SizedBox(width: 10),
+                Text(item['emoji'] as String, style: TextStyle(fontSize: 26)),
+                SizedBox(width: 10),
                 Expanded(
                   child: Text(
                     item['title'] as String,
@@ -187,7 +197,7 @@ class ComplicationsScreen extends StatelessWidget {
             ),
             const Divider(height: 16),
             _infoRow('🔍 লক্ষণ:', item['signs'] as String),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
             _infoRow('✅ করণীয়:', item['action'] as String),
           ],
         ),
@@ -199,12 +209,12 @@ class ComplicationsScreen extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
-        const SizedBox(width: 6),
+        Text(label, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
+        SizedBox(width: 6),
         Expanded(
           child: Text(
             text,
-            style: const TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.5),
+            style: TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.5),
           ),
         ),
       ],
@@ -218,7 +228,7 @@ class ComplicationsScreen extends StatelessWidget {
           context: context,
           builder: (_) => AlertDialog(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            title: const Text('জরুরি যোগাযোগ', style: TextStyle(fontWeight: FontWeight.w700)),
+            title: Text('জরুরি যোগাযোগ'.tr(context), style: TextStyle(fontWeight: FontWeight.w700)),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -230,24 +240,24 @@ class ComplicationsScreen extends StatelessWidget {
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('বন্ধ করুন', style: TextStyle(fontFamily: 'Hind_Siliguri')),
+                child: Text('বন্ধ করুন'.tr(context), style: TextStyle(fontFamily: 'Hind_Siliguri')),
               ),
             ],
           ),
         );
       },
       backgroundColor: const Color(0xFFE53935),
-      icon: const Icon(Icons.phone_in_talk, color: Colors.white),
-      label: const Text('জরুরি কল', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+      icon: Icon(Icons.phone_in_talk, color: Colors.white),
+      label: Text('জরুরি কল'.tr(context), style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
     );
   }
 
   Widget _emergencyContact(String number, String label) {
     return ListTile(
       dense: true,
-      leading: const Icon(Icons.phone, color: Color(0xFFE53935)),
-      title: Text(number, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
-      subtitle: Text(label, style: const TextStyle(fontSize: 13)),
+      leading: Icon(Icons.phone, color: Color(0xFFE53935)),
+      title: Text(number, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
+      subtitle: Text(label, style: TextStyle(fontSize: 13)),
     );
   }
 }
