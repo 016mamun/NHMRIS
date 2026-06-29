@@ -44,13 +44,11 @@ class MHRISApp extends StatelessWidget {
       child: BlocBuilder<LanguageCubit, String>(
         builder: (context, languageState) {
           return MaterialApp(
-            title: 'গর্ভবতী আয়না - MHRIS',
+            title: 'গর্ভবতী আয়না - NHMRIS',
             debugShowCheckedModeBanner: false,
             theme: AppTheme.lightTheme,
             builder: (context, child) {
               final size = MediaQuery.of(context).size;
-              // Dynamically scale text size based on device width relative to 375 baseline.
-              // Clamped to [0.85, 1.15] to prevent extremely tiny or oversized fonts.
               final double textScale = (size.width / 375).clamp(0.85, 1.15);
 
               Widget appWidget = MediaQuery(
@@ -60,10 +58,9 @@ class MHRISApp extends StatelessWidget {
                 child: child!,
               );
 
-              // Center and constrain the application inside a premium mobile viewport on large screens (tablets, desktops, monitors)
               if (size.width > 600) {
                 return Container(
-                  color: const Color(0xFFF3F4F6), // Premium light-gray desktop backdrop
+                  color: const Color(0xFFF3F4F6),
                   child: Center(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(16),
@@ -102,9 +99,7 @@ class _AppRoot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
-      listener: (context, state) {
-        // Side-effects on auth state changes
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         if (state is AuthLoading || state is AuthInitial) {
           return const _SplashScreen();
@@ -118,6 +113,9 @@ class _AppRoot extends StatelessWidget {
   }
 }
 
+// ══════════════════════════════════════════════════════
+//  SPLASH SCREEN
+// ══════════════════════════════════════════════════════
 class _SplashScreen extends StatefulWidget {
   const _SplashScreen();
 
@@ -126,30 +124,48 @@ class _SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<_SplashScreen>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _ctrl;
+    with TickerProviderStateMixin {
+  late AnimationController _mainCtrl;
+  late AnimationController _pulseCtrl;
   late Animation<double> _fadeAnim;
   late Animation<double> _scaleAnim;
+  late Animation<double> _slideUpAnim;
+  late Animation<double> _pulseAnim;
 
   @override
   void initState() {
     super.initState();
-    _ctrl = AnimationController(
+
+    _mainCtrl = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 900),
+      duration: const Duration(milliseconds: 1400),
     );
+    _pulseCtrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    );
+
     _fadeAnim = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _ctrl, curve: const Interval(0.0, 0.6, curve: Curves.easeOut)),
+      CurvedAnimation(parent: _mainCtrl, curve: const Interval(0.0, 0.5, curve: Curves.easeOut)),
     );
-    _scaleAnim = Tween<double>(begin: 0.7, end: 1.0).animate(
-      CurvedAnimation(parent: _ctrl, curve: Curves.elasticOut),
+    _scaleAnim = Tween<double>(begin: 0.6, end: 1.0).animate(
+      CurvedAnimation(parent: _mainCtrl, curve: const Interval(0.0, 0.6, curve: Curves.elasticOut)),
     );
-    _ctrl.forward();
+    _slideUpAnim = Tween<double>(begin: 40.0, end: 0.0).animate(
+      CurvedAnimation(parent: _mainCtrl, curve: const Interval(0.4, 1.0, curve: Curves.easeOut)),
+    );
+    _pulseAnim = Tween<double>(begin: 1.0, end: 1.08).animate(
+      CurvedAnimation(parent: _pulseCtrl, curve: Curves.easeInOut),
+    );
+
+    _mainCtrl.forward();
+    _pulseCtrl.repeat(reverse: true);
   }
 
   @override
   void dispose() {
-    _ctrl.dispose();
+    _mainCtrl.dispose();
+    _pulseCtrl.dispose();
     super.dispose();
   }
 
@@ -159,63 +175,206 @@ class _SplashScreenState extends State<_SplashScreen>
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFF8A5DCE), Color(0xFF4A2B7A)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+            colors: [Color(0xFF6B21A8), Color(0xFF7C3AED), Color(0xFF4A2B7A)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0.0, 0.5, 1.0],
           ),
         ),
-        child: Center(
-          child: FadeTransition(
-            opacity: _fadeAnim,
-            child: ScaleTransition(
-              scale: _scaleAnim,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.2),
-                      borderRadius: BorderRadius.circular(28),
-                    ),
-                    child: const Icon(
-                      Icons.favorite_rounded,
-                      color: Colors.white,
-                      size: 56,
-                    ),
+        child: SafeArea(
+          child: Stack(
+            children: [
+              // Background decorative circles
+              Positioned(
+                top: -60,
+                right: -60,
+                child: Container(
+                  width: 220,
+                  height: 220,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white.withValues(alpha: 0.05),
                   ),
-                  const SizedBox(height: 24),
-                  Text(
-                    'গর্ভবতী আয়না',
-                    style: GoogleFonts.hindSiliguri(
-                      fontSize: 32,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'MHRIS - Maternal Health Record\nInformation System',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.hindSiliguri(
-                      fontSize: 13,
-                      color: Colors.white70,
-                      height: 1.6,
-                    ),
-                  ),
-                  const SizedBox(height: 48),
-                  const SizedBox(
-                    width: 28,
-                    height: 28,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2.5,
-                      valueColor: AlwaysStoppedAnimation(Colors.white70),
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
+              Positioned(
+                bottom: 40,
+                left: -80,
+                child: Container(
+                  width: 280,
+                  height: 280,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white.withValues(alpha: 0.04),
+                  ),
+                ),
+              ),
+
+              // Main content
+              Center(
+                child: FadeTransition(
+                  opacity: _fadeAnim,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // Animated Logo
+                      ScaleTransition(
+                        scale: _scaleAnim,
+                        child: ScaleTransition(
+                          scale: _pulseAnim,
+                          child: Container(
+                            width: 120,
+                            height: 120,
+                            decoration: BoxDecoration(
+                              color: Colors.white.withValues(alpha: 0.15),
+                              borderRadius: BorderRadius.circular(34),
+                              border: Border.all(
+                                color: Colors.white.withValues(alpha: 0.3),
+                                width: 2,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withValues(alpha: 0.2),
+                                  blurRadius: 20,
+                                  offset: const Offset(0, 8),
+                                ),
+                              ],
+                            ),
+                            child: const Center(
+                              child: Icon(
+                                Icons.favorite_rounded,
+                                color: Colors.white,
+                                size: 60,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 32),
+
+                      // Title with slide animation
+                      AnimatedBuilder(
+                        animation: _slideUpAnim,
+                        builder: (context, child) => Transform.translate(
+                          offset: Offset(0, _slideUpAnim.value),
+                          child: child,
+                        ),
+                        child: Column(
+                          children: [
+                            // Govt tag
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withValues(alpha: 0.15),
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: Colors.white.withValues(alpha: 0.3),
+                                ),
+                              ),
+                              child: Text(
+                                'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
+                                style: GoogleFonts.hindSiliguri(
+                                  fontSize: 11,
+                                  color: Colors.white.withValues(alpha: 0.9),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              'গর্ভবতী আয়না',
+                              style: GoogleFonts.hindSiliguri(
+                                fontSize: 38,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                                height: 1.2,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 24),
+                              child: Text(
+                                '"নিরাপদ হোক প্রতিটি প্রসব\nযত্নে থাকুক মা ও নবজাতক"',
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.hindSiliguri(
+                                  fontSize: 15,
+                                  color: Colors.white.withValues(alpha: 0.9),
+                                  fontStyle: FontStyle.italic,
+                                  height: 1.6,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            Text(
+                              'NHMRIS · মাতৃ ও শিশু স্বাস্থ্য তথ্য ব্যবস্থাপনা',
+                              style: GoogleFonts.hindSiliguri(
+                                fontSize: 12,
+                                color: Colors.white.withValues(alpha: 0.7),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 64),
+
+                      // Loading indicator
+                      Column(
+                        children: [
+                          SizedBox(
+                            width: 40,
+                            height: 40,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 3,
+                              valueColor: AlwaysStoppedAnimation(Colors.white.withValues(alpha: 0.8)),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            'লোড হচ্ছে...',
+                            style: GoogleFonts.hindSiliguri(
+                              fontSize: 13,
+                              color: Colors.white.withValues(alpha: 0.6),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              // Bottom version info
+              Positioned(
+                bottom: 20,
+                left: 0,
+                right: 0,
+                child: FadeTransition(
+                  opacity: _fadeAnim,
+                  child: Column(
+                    children: [
+                      Text(
+                        'স্বাস্থ্য ও পরিবার কল্যাণ মন্ত্রণালয়',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.hindSiliguri(
+                          fontSize: 11,
+                          color: Colors.white.withValues(alpha: 0.5),
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Version 1.0.0',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.hindSiliguri(
+                          fontSize: 10,
+                          color: Colors.white.withValues(alpha: 0.4),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
