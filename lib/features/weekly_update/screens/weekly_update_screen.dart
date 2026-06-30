@@ -119,17 +119,17 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
     return _weeklyData[nearest]!;
   }
 
-  String _getTrimester(int week) {
-    if (week <= 13) return '১ম ট্রাইমিস্টার';
-    if (week <= 27) return '২য় ট্রাইমিস্টার';
-    return '৩য় ট্রাইমিস্টার';
+  String _getTrimester(int week, BuildContext context) {
+    if (week <= 13) return '১ম ট্রাইমিস্টার'.tr(context);
+    if (week <= 27) return '২য় ট্রাইমিস্টার'.tr(context);
+    return '৩য় ট্রাইমিস্টার'.tr(context);
   }
 
   @override
   Widget build(BuildContext context) {
     context.watch<LanguageCubit>();
     final data = _currentData;
-    final trimester = _getTrimester(_selectedWeek);
+    final trimester = _getTrimester(_selectedWeek, context);
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -146,22 +146,22 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Week Selection Slider
-                  _buildSliderCard(),
+                  _buildSliderCard(context),
 
                   SizedBox(height: 16),
 
                   // ── Top Baby Specs Card ──────────────────────────────────────────
-                  _buildBabySpecsCard(data, trimester),
+                  _buildBabySpecsCard(context, data, trimester),
 
                   SizedBox(height: 16),
 
                   // ── Tab Bar Rows ────────────────────────────────────────────────
-                  _buildTabRow(),
+                  _buildTabRow(context),
 
                   SizedBox(height: 12),
 
                   // ── Tab Content Card ────────────────────────────────────────────
-                  _buildTabContentCard(data),
+                  _buildTabContentCard(context, data),
                 ],
               ),
             ),
@@ -220,7 +220,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
   }
 
 
-  Widget _buildSliderCard() {
+  Widget _buildSliderCard(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
@@ -255,7 +255,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
-                  '${AppConstants.toBengaliNumber(_selectedWeek)} ${'সপ্তাহ'.tr(context)}',
+                  '${_selectedWeek} ${'সপ্তাহ'.tr(context)}',
                   style: TextStyle(
                     
                     fontSize: 12,
@@ -285,7 +285,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '${AppConstants.toBengaliNumber(24)} ${'সপ্তাহ'.tr(context)}',
+                  '24 ${'সপ্তাহ'.tr(context)}',
                   style: TextStyle(
                     
                     fontSize: 10,
@@ -293,7 +293,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                   ),
                 ),
                 Text(
-                  '${AppConstants.toBengaliNumber(40)} ${'সপ্তাহ'.tr(context)}',
+                  '40 ${'সপ্তাহ'.tr(context)}',
                   style: TextStyle(
                     
                     fontSize: 10,
@@ -308,7 +308,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
     );
   }
 
-  Widget _buildBabySpecsCard(Map<String, dynamic> data, String trimester) {
+  Widget _buildBabySpecsCard(BuildContext context, Map<String, dynamic> data, String trimester) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(18),
@@ -349,7 +349,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                 ),
                 SizedBox(height: 2),
                 Text(
-                  '${AppConstants.toBengaliNumber(_selectedWeek)} ${'সপ্তাহ'.tr(context)} (${trimester.tr(context)})',
+                  '$_selectedWeek ${'সপ্তাহ'.tr(context)} (${trimester.tr(context)})',
                   style: TextStyle(
                     
                     fontSize: 13,
@@ -361,6 +361,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
 
                 // Length Spec Card
                 _buildBabySpecRow(
+                  context,
                   Icons.straighten_rounded,
                   Colors.amber.shade700,
                   Colors.amber.shade50,
@@ -371,6 +372,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
 
                 // Weight Spec Card
                 _buildBabySpecRow(
+                  context,
                   Icons.monitor_weight_outlined,
                   Colors.blue.shade600,
                   Colors.blue.shade50,
@@ -381,6 +383,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
 
                 // Size Veggie Spec Card
                 _buildBabySpecRow(
+                  context,
                   Icons.eco_rounded,
                   Colors.purple.shade600,
                   Colors.purple.shade50,
@@ -489,6 +492,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
   }
 
   Widget _buildBabySpecRow(
+    BuildContext context,
     IconData icon,
     Color iconColor,
     Color bgColor,
@@ -550,7 +554,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
     );
   }
 
-  Widget _buildTabRow() {
+  Widget _buildTabRow(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: AppColors.surface,
@@ -560,9 +564,9 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
       padding: const EdgeInsets.all(4),
       child: Row(
         children: [
-          _buildTabItem(0, 'বেবির বিকাশ', Icons.child_care_rounded),
-          _buildTabItem(1, 'মায়ের শরীরে পরিবর্তন', Icons.pregnant_woman_rounded),
-          _buildTabItem(2, 'পরামর্শ', Icons.favorite_rounded),
+          _buildTabItem(0, 'বেবির বিকাশ'.tr(context), Icons.child_care_rounded),
+          _buildTabItem(1, 'মায়ের শরীরে পরিবর্তন'.tr(context), Icons.pregnant_woman_rounded),
+          _buildTabItem(2, 'পরামর্শ'.tr(context), Icons.favorite_rounded),
         ],
       ),
     );
@@ -593,7 +597,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
               ),
               SizedBox(height: 4),
               Text(
-                title.tr(context),
+                title,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   
@@ -610,18 +614,18 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
     );
   }
 
-  Widget _buildTabContentCard(Map<String, dynamic> data) {
+  Widget _buildTabContentCard(BuildContext context, Map<String, dynamic> data) {
     String textContent = '';
     IconData cardIcon = Icons.child_care_rounded;
 
     if (_activeTab == 0) {
-      textContent = data['development'] as String;
+      textContent = (data['development'] as String).tr(context);
       cardIcon = Icons.child_care_rounded;
     } else if (_activeTab == 1) {
-      textContent = data['mother'] as String;
+      textContent = (data['mother'] as String).tr(context);
       cardIcon = Icons.pregnant_woman_rounded;
     } else {
-      textContent = data['advice'] as String;
+      textContent = (data['advice'] as String).tr(context);
       cardIcon = Icons.tips_and_updates_rounded;
     }
 
@@ -650,7 +654,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      textContent.tr(context),
+                      textContent,
                       style: TextStyle(
                         
                         fontSize: 14,
@@ -696,7 +700,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
             width: double.infinity,
             height: 46,
             child: ElevatedButton.icon(
-              onPressed: () => _showDetailedInfo(data),
+              onPressed: () => _showDetailedInfo(context, data),
               icon: Icon(Icons.menu_book_rounded, size: 16),
               label: Text(
                 'আরও বিস্তারিত পড়ুন'.tr(context),
@@ -721,7 +725,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
     );
   }
 
-  void _showDetailedInfo(Map<String, dynamic> data) {
+  void _showDetailedInfo(BuildContext context, Map<String, dynamic> data) {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -749,7 +753,7 @@ class _WeeklyUpdateScreenState extends State<WeeklyUpdateScreen> {
                 children: [
                   Text('📖 ', style: TextStyle(fontSize: 20)),
                   Text(
-                    '${AppConstants.toBengaliNumber(_selectedWeek)} ${'সপ্তাহের গাইড'.tr(context)}',
+                    '$_selectedWeek ${'সপ্তাহের গাইড'.tr(context)}',
                     style: AppTextStyles.headingMedium.copyWith(color: AppColors.primary),
                   ),
                 ],

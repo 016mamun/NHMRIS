@@ -135,7 +135,7 @@ class _DailyTipsScreenState extends State<DailyTipsScreen>
       body: Column(
         children: [
           _buildHeader(context),
-          _buildCategoryFilter(),
+          _buildCategoryFilter(context),
           Expanded(
             child: FadeTransition(
               opacity: _fade,
@@ -183,7 +183,7 @@ class _DailyTipsScreenState extends State<DailyTipsScreen>
               Expanded(
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: Text('প্রতিদিনের স্বাস্থ্য টিপস', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
+                  child: Text('প্রতিদিনের স্বাস্থ্য টিপস'.tr(context), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
                 ),
               ),
             ],
@@ -194,7 +194,7 @@ class _DailyTipsScreenState extends State<DailyTipsScreen>
   }
 
 
-  Widget _buildCategoryFilter() {
+  Widget _buildCategoryFilter(BuildContext context) {
     return Container(
       height: 56,
       color: Colors.white,
@@ -290,7 +290,7 @@ class _DailyTipsScreenState extends State<DailyTipsScreen>
                       ),
                       SizedBox(height: 4),
                       Text(
-                        (tip['title'] as String), style: TextStyle(
+                        (tip['title'] as String).tr(context), style: TextStyle(
                           
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
@@ -304,7 +304,7 @@ class _DailyTipsScreenState extends State<DailyTipsScreen>
             ),
             SizedBox(height: 12),
             Text(
-              (tip['body'] as String), style: TextStyle(
+              (tip['body'] as String).tr(context), style: TextStyle(
                 
                 fontSize: 14,
                 color: AppColors.textSecondary,

@@ -26,7 +26,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           id: prefs.getString('user_id') ?? '1',
           name: prefs.getString('user_name') ?? 'তাসনিয়া রহমান',
           phone: prefs.getString('user_phone') ?? '01700000000',
-          pregnancyWeeks: prefs.getInt('pregnancy_weeks') ?? 28,
+          pregnancyWeeks: prefs.getInt('pregnancy_weeks') ?? 0,
           profileImage: prefs.getString('user_profileImage'),
           dob: prefs.getString('user_dob'),
           bloodGroup: prefs.getString('user_bloodGroup'),
@@ -122,7 +122,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         id: '1',
         name: 'তাসনিয়া রহমান',
         phone: phone,
-        pregnancyWeeks: 28,
+        pregnancyWeeks: 0,
       );
       await _saveUserToPrefs(user);
       emit(AuthAuthenticated(user: user));

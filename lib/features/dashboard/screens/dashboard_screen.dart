@@ -30,6 +30,8 @@ import '../../emergency/screens/hospital_directory_screen.dart';
 import '../../emergency/screens/helpline_screen.dart';
 import '../../emergency/screens/about_app_screen.dart';
 import '../../pregnancy_registration/screens/pregnancy_registration_screen.dart';
+import '../../pregnancy_registration/screens/pregnancy_setup_flow_screen.dart';
+import 'baby_profile_screen.dart';
 import '../../health_tips/screens/daily_tips_screen.dart';
 import '../../health_tips/screens/common_problems_screen.dart';
 import '../../health_tips/screens/complications_screen.dart';
@@ -55,6 +57,8 @@ class _DashboardScreenState extends State<DashboardScreen>
   late Animation<double> _fadeAnim;
   final ScrollController _scrollCtrl = ScrollController();
   bool _headerCollapsed = false;
+  int? _selectedWeek;
+  bool _isSummaryExpanded = false;
 
   @override
   void initState() {
@@ -137,9 +141,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // ── Tagline Banner ──────────────────────────────
-                        _buildTaglineBanner(context),
-
                         // ── Pregnancy Progress Card ──────────────────────
                         _buildPregnancyProgressCard(context),
 
@@ -673,152 +674,329 @@ class _DashboardScreenState extends State<DashboardScreen>
   Widget _buildPregnancyProgressCard(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
-        int weeks = 26;
+        int currentWeeks = 26;
         if (state is AuthAuthenticated) {
-          weeks = state.user.pregnancyWeeks;
+          currentWeeks = state.user.pregnancyWeeks;
+        }
+        int weeks = _selectedWeek ?? currentWeeks;
+        if (weeks < 1) weeks = 1;
+        if (weeks > 42) weeks = 42;
+
+        // Weekly baby size data
+        const weeklyInfo = {
+          1: {'bn': 'একটি বীজ', 'en': 'A seed', 'emoji': '🌱'},
+          2: {'bn': 'একটি তিলের দানা', 'en': 'A sesame seed', 'emoji': '🌾'},
+          3: {'bn': 'একটি মটর দানা', 'en': 'A pea', 'emoji': '🫛'},
+          4: {'bn': 'একটি সরিষা দানা', 'en': 'A poppy seed', 'emoji': '🌿'},
+          5: {'bn': 'একটি তিল', 'en': 'A sesame', 'emoji': '🌱'},
+          6: {'bn': 'একটি মসুর ডাল', 'en': 'A lentil', 'emoji': '🫘'},
+          7: {'bn': 'একটি মটরশুটি', 'en': 'A blueberry', 'emoji': '🫐'},
+          8: {'bn': 'একটি আঙুর', 'en': 'A grape', 'emoji': '🍇'},
+          9: {'bn': 'একটি জলপাই', 'en': 'An olive', 'emoji': '🫒'},
+          10: {'bn': 'একটি স্ট্রবেরি', 'en': 'A strawberry', 'emoji': '🍓'},
+          11: {'bn': 'একটি ডুমুর', 'en': 'A fig', 'emoji': '🫐'},
+          12: {'bn': 'একটি লেবু', 'en': 'A lemon', 'emoji': '🍋'},
+          13: {'bn': 'একটি মটর', 'en': 'A peach', 'emoji': '🍑'},
+          14: {'bn': 'একটি কমলা', 'en': 'An orange', 'emoji': '🍊'},
+          15: {'bn': 'একটি আপেল', 'en': 'An apple', 'emoji': '🍎'},
+          16: {'bn': 'একটি নাশপাতি', 'en': 'A pear', 'emoji': '🍐'},
+          17: {'bn': 'একটি ডালিম', 'en': 'A pomegranate', 'emoji': '🍈'},
+          18: {'bn': 'একটি মিষ্টি আলু', 'en': 'A sweet potato', 'emoji': '🍠'},
+          19: {'bn': 'একটি আম', 'en': 'A mango', 'emoji': '🥭'},
+          20: {'bn': 'একটি কলা', 'en': 'A banana', 'emoji': '🍌'},
+          21: {'bn': 'একটি গাজর', 'en': 'A carrot', 'emoji': '🥕'},
+          22: {'bn': 'একটি কচুর লতি', 'en': 'A corn', 'emoji': '🌽'},
+          23: {'bn': 'একটি বড় আম', 'en': 'A large mango', 'emoji': '🥭'},
+          24: {'bn': 'একটি ভুট্টা', 'en': 'A corn cob', 'emoji': '🌽'},
+          25: {'bn': 'একটি ফুলকপি', 'en': 'A cauliflower', 'emoji': '🥦'},
+          26: {'bn': 'একটি ঝিঙ্গা', 'en': 'A ridge gourd', 'emoji': '🥒'},
+          27: {'bn': 'একটি বাঁধাকপি', 'en': 'A cabbage', 'emoji': '🥬'},
+          28: {'bn': 'একটি বেগুন', 'en': 'An eggplant', 'emoji': '🍆'},
+          29: {'bn': 'একটি আনারস', 'en': 'A pineapple', 'emoji': '🍍'},
+          30: {'bn': 'একটি তরমুজ', 'en': 'A watermelon', 'emoji': '🍉'},
+          31: {'bn': 'একটি নারকেল', 'en': 'A coconut', 'emoji': '🥥'},
+          32: {'bn': 'একটি নারকেল', 'en': 'A coconut', 'emoji': '🥥'},
+          33: {'bn': 'একটি আনারস', 'en': 'A pineapple', 'emoji': '🍍'},
+          34: {'bn': 'একটি কুমড়া', 'en': 'A pumpkin', 'emoji': '🎃'},
+          35: {'bn': 'একটি মাঝারি কুমড়া', 'en': 'A medium pumpkin', 'emoji': '🎃'},
+          36: {'bn': 'একটি লেটুস', 'en': 'A head of lettuce', 'emoji': '🥬'},
+          37: {'bn': 'একটি বড় বাঁধাকপি', 'en': 'A large cabbage', 'emoji': '🥬'},
+          38: {'bn': 'একটি লাউ', 'en': 'A bottle gourd', 'emoji': '🎃'},
+          39: {'bn': 'একটি ছোট তরমুজ', 'en': 'A small watermelon', 'emoji': '🍉'},
+          40: {'bn': 'একটি কুমড়া', 'en': 'A pumpkin', 'emoji': '🎃'},
+          41: {'bn': 'একটি তরমুজ', 'en': 'A watermelon', 'emoji': '🍉'},
+          42: {'bn': 'একটি কাঁঠাল', 'en': 'A jackfruit', 'emoji': '🍈'},
+        };
+
+        final info = weeklyInfo[weeks] ?? weeklyInfo[26]!;
+        final isEnglish = context.read<LanguageCubit>().state == 'English';
+        final sizeName = isEnglish ? info['en']! : info['bn']!;
+        final emoji = info['emoji']!;
+
+        // Date range for selected week
+        final now = DateTime.now();
+        final currentWeekStart = now.subtract(Duration(days: now.weekday - 1));
+        final diff = weeks - currentWeeks;
+        final weekStart = currentWeekStart.add(Duration(days: diff * 7));
+        final weekEnd = weekStart.add(const Duration(days: 6));
+        final dateRange = '${weekStart.day.toString().padLeft(2, '0')} ${_monthNameShort(weekStart.month)} - ${weekEnd.day.toString().padLeft(2, '0')} ${_monthNameShort(weekEnd.month)}';
+
+        // Expected delivery date
+        final lmp = now.subtract(Duration(days: (currentWeeks - 1) * 7 + (now.weekday - 1)));
+        final edd = lmp.add(const Duration(days: 280));
+        final expectedDeliveryStr = '${edd.day.toString().padLeft(2, '0')} ${_monthName(edd.month)}, ${edd.year}';
+
+        // Ongoing days
+        int ongoingDays = 0;
+        if (weeks < currentWeeks) {
+          ongoingDays = 7;
+        } else if (weeks == currentWeeks) {
+          ongoingDays = now.weekday;
         }
 
-        final deliveryDate = DateTime.now().add(Duration(days: (40 - weeks) * 7));
-        final deliveryStr =
-            '${deliveryDate.day.toString().padLeft(2, '0')} ${_monthName(deliveryDate.month).tr(context)} ${deliveryDate.year}';
-        final progress = weeks / 40.0;
-
-        return Container(
-          margin: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(18),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.07),
-                blurRadius: 12,
-                offset: const Offset(0, 3),
-              ),
-            ],
-          ),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Container(
-                    width: 48,
-                    height: 48,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [Color(0xFF7C3AED), Color(0xFF5B21B6)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                    child: Icon(Icons.pregnant_woman_rounded, color: Colors.white, size: 26),
-                  ),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '$weeks${'তম সপ্তাহ চলছে'.tr(context)}',
-                          style: TextStyle(
-                            
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF1A1030),
-                          ),
-                        ),
-                        Text(
-                          '${'সম্ভাব্য ডেলিভারি:'.tr(context)} $deliveryStr',
-                          style: TextStyle(
-                            
-                            fontSize: 12,
-                            color: Colors.grey.shade600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: AppColors.primarySurface,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Text(
-                      '${(40 - weeks)} ${'সপ্তাহ বাকি'.tr(context)}',
-                      style: TextStyle(
-                        
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.primary,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 14),
-              // Progress Bar
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'গর্ভাবস্থার অগ্রগতি'.tr(context),
-                        style: TextStyle(
-                          
-                          fontSize: 11,
-                          color: Colors.grey.shade600,
-                        ),
-                      ),
-                      Text(
-                        '${(progress * 100).toInt()}%',
-                        style: TextStyle(
-                          
-                          fontSize: 11,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.primary,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 6),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(6),
-                    child: LinearProgressIndicator(
-                      value: progress,
-                      minHeight: 8,
-                      backgroundColor: AppColors.primarySurface,
-                      valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
-                    ),
-                  ),
-                  SizedBox(height: 6),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        '১ম ত্রৈমাসিক'.tr(context),
-                        style: TextStyle(fontSize: 9, color: Colors.grey.shade500),
-                      ),
-                      Text(
-                        '২য় ত্রৈমাসিক'.tr(context),
-                        style: TextStyle(fontSize: 9, color: Colors.grey.shade500),
-                      ),
-                      Text(
-                        '৩য় ত্রৈমাসিক'.tr(context),
-                        style: TextStyle(fontSize: 9, color: Colors.grey.shade500),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
+        return _WeeklyProgressCard(
+          weeks: weeks,
+          emoji: emoji,
+          sizeName: sizeName,
+          dateRange: dateRange,
+          isEnglish: isEnglish,
+          ongoingDays: ongoingDays,
+          expectedDeliveryDate: expectedDeliveryStr,
+          isExpanded: _isSummaryExpanded,
+          onPrevWeek: () {
+            setState(() {
+              _selectedWeek = (weeks - 1).clamp(1, 42);
+            });
+          },
+          onNextWeek: () {
+            setState(() {
+              _selectedWeek = (weeks + 1).clamp(1, 42);
+            });
+          },
+          onToggleSummary: () {
+            setState(() {
+              _isSummaryExpanded = !_isSummaryExpanded;
+            });
+          },
         );
       },
     );
+  }
+
+  Widget _WeeklyProgressCard({
+    required int weeks,
+    required String emoji,
+    required String sizeName,
+    required String dateRange,
+    required bool isEnglish,
+    required int ongoingDays,
+    required String expectedDeliveryDate,
+    required bool isExpanded,
+    required VoidCallback onPrevWeek,
+    required VoidCallback onNextWeek,
+    required VoidCallback onToggleSummary,
+  }) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(16, 12, 16, 24),
+      child: Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.bottomCenter,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.05),
+                  blurRadius: 15,
+                  offset: const Offset(0, 5),
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                // Top section
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: weeks > 1 ? onPrevWeek : null,
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: weeks > 1 ? Colors.grey.shade100 : Colors.grey.shade50,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(Icons.arrow_back_ios_new_rounded, size: 16, color: weeks > 1 ? Colors.grey.shade600 : Colors.grey.shade300),
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Text(
+                            dateRange,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            isEnglish ? 'Week $weeks ongoing' : '$weeksতম সপ্তাহ চলছে',
+                            style: const TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF333333),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: weeks < 42 ? onNextWeek : null,
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: weeks < 42 ? Colors.grey.shade100 : Colors.grey.shade50,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(Icons.arrow_forward_ios_rounded, size: 16, color: weeks < 42 ? Colors.grey.shade600 : Colors.grey.shade300),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Divider(color: Colors.grey.shade200, thickness: 1),
+                const SizedBox(height: 16),
+                // Bottom section
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            isEnglish ? 'Baby size is about' : 'শিশুর আকৃতি প্রায়',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.grey.shade700,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            sizeName,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF333333),
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            isEnglish ? 'in size' : 'এর সমান',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.grey.shade700,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Image / Emoji
+                    Text(
+                      emoji,
+                      style: const TextStyle(fontSize: 60),
+                    ),
+                  ],
+                ),
+                
+                // Expanded summary section
+                if (isExpanded) ...[
+                  const SizedBox(height: 16),
+                  Divider(color: Colors.grey.shade200, thickness: 1),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        isEnglish ? '$ongoingDays days ongoing' : '${['০','১','২','৩','৪','৫','৬','৭'][ongoingDays.clamp(0, 7)]} দিন চলছে',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF333333),
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      Icon(Icons.info_outline_rounded, size: 18, color: Colors.grey.shade500),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  // Progress bar
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(4),
+                    child: LinearProgressIndicator(
+                      value: ongoingDays / 7,
+                      backgroundColor: Colors.grey.shade200,
+                      color: const Color(0xFF5A5A5A),
+                      minHeight: 8,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    isEnglish ? 'Expected delivery: $expectedDeliveryDate' : 'সম্ভাব্য ডেলিভারি: $expectedDeliveryDate',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                ],
+                const SizedBox(height: 10),
+              ],
+            ),
+          ),
+          // Summary pill
+          Positioned(
+            bottom: -14,
+            child: GestureDetector(
+              onTap: onToggleSummary,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFD3E3FD),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      isEnglish ? 'Summary' : 'সামারি',
+                      style: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF1E3A8A),
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    Icon(isExpanded ? Icons.keyboard_arrow_up_rounded : Icons.keyboard_arrow_down_rounded, size: 16, color: const Color(0xFF1E3A8A)),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _monthNameShort(int month) {
+    const months = [
+      'জানু', 'ফেব্রু', 'মার্চ', 'এপ্রিল', 'মে', 'জুন',
+      'জুলাই', 'আগস্ট', 'সেপ্টে', 'অক্টো', 'নভে', 'ডিসে'
+    ];
+    return months[month - 1];
   }
 
   String _monthName(int month) {
@@ -1250,6 +1428,60 @@ class _DashboardScreenState extends State<DashboardScreen>
                       _navigateToScreen(const ProfileEditScreen());
                     },
                   ),
+                  if ((user?.pregnancyWeeks ?? 0) == 0)
+                    ListTile(
+                      leading: Icon(Icons.add_circle_outline, color: AppColors.primary),
+                      title: Text('গর্ভধারণ যোগ করুন'.tr(context)),
+                      trailing: Icon(Icons.arrow_forward_ios, size: 14),
+                      onTap: () {
+                        Navigator.pop(context);
+                        _navigateToScreen(const PregnancySetupFlowScreen());
+                      },
+                    )
+                  else ...[
+                    ListTile(
+                      leading: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFE86A45),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(Icons.child_care, color: Colors.white, size: 24),
+                      ),
+                      title: Text(
+                        'অনাগত সন্তান',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                      subtitle: Text(
+                        'সম্ভাব্য ডেলিভারি: ১৮ মা. ২০২৭',
+                        style: TextStyle(color: Colors.grey.shade700, fontSize: 13),
+                      ),
+                      trailing: Icon(Icons.arrow_forward_ios, size: 14),
+                      onTap: () {
+                        Navigator.pop(context);
+                        _navigateToScreen(const BabyProfileScreen());
+                      },
+                    ),
+                    ListTile(
+                      leading: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF4C8DF5),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(Icons.child_friendly, color: Colors.white, size: 24),
+                      ),
+                      title: Text(
+                        'জন্মের তথ্য দিন',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                      trailing: Icon(Icons.arrow_forward_ios, size: 14),
+                      onTap: () {
+                        Navigator.pop(context);
+                        // TODO: Navigate to Birth Info Screen
+                      },
+                    ),
+                  ],
                   ListTile(
                     leading: Icon(Icons.settings_outlined, color: AppColors.primary),
                     title: Text('সেটিংস'.tr(context)),
