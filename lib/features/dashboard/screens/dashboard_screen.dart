@@ -1367,9 +1367,7 @@ class _DashboardScreenState extends State<DashboardScreen>
           final user = state is AuthAuthenticated ? state.user : null;
           final String name = (user?.name ?? '').tr(context);
           final String initials = name.isNotEmpty ? name[0] : 'ম'.tr(context);
-          final int weeks = user?.pregnancyWeeks ?? 0;
-          final bool hasUnborn = weeks > 0;
-          final bool hasBorn = weeks < 0;
+          final babies = user?.babies ?? [];
 
           return Padding(
             padding: const EdgeInsets.all(24),
@@ -1400,49 +1398,81 @@ class _DashboardScreenState extends State<DashboardScreen>
                     trailing: Icon(Icons.arrow_forward_ios, size: 14),
                     onTap: () { Navigator.pop(context); _navigateToScreen(const ProfileEditScreen()); },
                   ),
-                  // Born baby option
-                  if (hasBorn)
+                  // Show all babies (only show born babies if there are any, otherwise show unborn)
+                  if (babies.any((b) => b.isBorn))
+                    ...babies.where((b) => b.isBorn).map((baby) => ListTile(
+                      leading: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF4C8DF5),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(Icons.child_friendly, color: Colors.white, size: 24),
+                      ),
+                      title: Text(
+                        baby.name,
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                      subtitle: Text(
+                        'জন্মের পর শিশুর তথ্য',
+                        style: TextStyle(color: Colors.grey.shade700, fontSize: 13),
+                      ),
+                      trailing: Icon(Icons.arrow_forward_ios, size: 14),
+                      onTap: () {
+                        Navigator.pop(context);
+                        _navigateToScreen(BabyProfileScreen(baby: baby));
+                      },
+                    ))
+                  else
+                    ...babies.map((baby) => ListTile(
+                      leading: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFE86A45),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(Icons.child_care, color: Colors.white, size: 24),
+                      ),
+                      title: Text(
+                        baby.name,
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                      subtitle: Text(
+                        'সম্ভাব্য ডেলিভারি: ${baby.birthDate ?? 'নির্ধারিত নয়'}',
+                        style: TextStyle(color: Colors.grey.shade700, fontSize: 13),
+                      ),
+                      trailing: Icon(Icons.arrow_forward_ios, size: 14),
+                      onTap: () {
+                        Navigator.pop(context);
+                        _navigateToScreen(BabyProfileScreen(baby: baby));
+                      },
+                    )),
+                  // Birth info option (show if has unborn babies and no born babies)
+                  if (babies.any((b) => !b.isBorn) && !babies.any((b) => b.isBorn))
                     ListTile(
                       leading: Container(
                         padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(color: const Color(0xFF4C8DF5), shape: BoxShape.circle),
-                        child: Icon(Icons.child_care, color: Colors.white, size: 24),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF4C8DF5),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(Icons.child_friendly, color: Colors.white, size: 24),
                       ),
-                      title: Text('নতুন বাবু', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                      subtitle: Text('বয়স: ১৪ ঘন্টা', style: TextStyle(color: Colors.grey.shade700, fontSize: 13)),
-                      trailing: Icon(Icons.arrow_forward_ios, size: 14),
-                      onTap: () { Navigator.pop(context); _navigateToScreen(const BabyProfileScreen()); },
-                    ),
-                  // Unborn baby option
-                  if (hasUnborn)
-                    ListTile(
-                      leading: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(color: const Color(0xFFE86A45), shape: BoxShape.circle),
-                        child: Icon(Icons.child_care, color: Colors.white, size: 24),
+                      title: Text(
+                        'জন্মের তথ্য দিন',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                       ),
-                      title: Text('অনাগত সন্তান', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                      subtitle: Text('সম্ভাব্য ডেলিভারি: ১৮ মা. ২০২৭', style: TextStyle(color: Colors.grey.shade700, fontSize: 13)),
                       trailing: Icon(Icons.arrow_forward_ios, size: 14),
-                      onTap: () { Navigator.pop(context); _navigateToScreen(const BabyProfileScreen()); },
+                      onTap: () {
+                        Navigator.pop(context);
+                        // TODO: Navigate to Birth Info Screen
+                      },
                     ),
-                  // Add pregnancy option (no pregnancy yet)
-                  if (!hasUnborn && !hasBorn)
+                  // Add pregnancy option (show if no babies OR has born babies)
+                  if (babies.isEmpty || babies.any((b) => b.isBorn))
                     ListTile(
                       leading: Icon(Icons.add_circle_outline, color: AppColors.primary),
                       title: Text('গর্ভধারণ যোগ করুন'.tr(context)),
-                      trailing: Icon(Icons.arrow_forward_ios, size: 14),
-                      onTap: () { Navigator.pop(context); _navigateToScreen(const PregnancySetupFlowScreen()); },
-                    ),
-                  // Add next pregnancy (after birth reported)
-                  if (hasBorn)
-                    ListTile(
-                      leading: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(color: const Color(0xFFE86A45), shape: BoxShape.circle),
-                        child: Icon(Icons.add_circle_outline, color: Colors.white, size: 24),
-                      ),
-                      title: Text('গর্ভধারণ যোগ করুন', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
                       trailing: Icon(Icons.arrow_forward_ios, size: 14),
                       onTap: () { Navigator.pop(context); _navigateToScreen(const PregnancySetupFlowScreen()); },
                     ),
