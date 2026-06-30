@@ -6,6 +6,7 @@ import '../../../core/theme/app_text_styles.dart';
 import '../../auth/bloc/auth_bloc.dart';
 import '../../auth/bloc/auth_event.dart';
 import '../../auth/bloc/auth_state.dart';
+import '../../auth/models/baby_model.dart';
 
 class PregnancySetupFlowScreen extends StatefulWidget {
   const PregnancySetupFlowScreen({super.key});
@@ -45,7 +46,17 @@ class _PregnancySetupFlowScreenState extends State<PregnancySetupFlowScreen> {
       if (weeks < 1) weeks = 1;
       if (weeks > 42) weeks = 42;
       
-      final updatedUser = user.copyWith(pregnancyWeeks: weeks);
+      final newBaby = BabyModel(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        name: 'অনাগত সন্তান',
+        isBorn: false,
+        birthDate: edd.toIso8601String(),
+      );
+
+      final updatedUser = user.copyWith(
+        pregnancyWeeks: weeks, 
+        babies: [...user.babies, newBaby],
+      );
       authBloc.add(AuthProfileUpdated(updatedUser: updatedUser));
       
       ScaffoldMessenger.of(context).showSnackBar(

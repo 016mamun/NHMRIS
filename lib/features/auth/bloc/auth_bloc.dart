@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 import '../models/user_model.dart';
+import '../models/baby_model.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
 
@@ -22,6 +24,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final prefs = await SharedPreferences.getInstance();
       final isLoggedIn = prefs.getBool('is_logged_in') ?? false;
       if (isLoggedIn) {
+        final babiesJson = prefs.getString('user_babies');
+        final List<BabyModel> babies = babiesJson != null 
+          ? (jsonDecode(babiesJson) as List).map((b) => BabyModel.fromMap(Map<String, dynamic>.from(b))).toList()
+          : [];
+
         final user = UserModel(
           id: prefs.getString('user_id') ?? '1',
           name: prefs.getString('user_name') ?? 'তাসনিয়া রহমান',
@@ -43,6 +50,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           currentLocation: prefs.getString('user_currentLocation'),
           regularResidence: prefs.getString('user_regularResidence'),
           alternativePhone: prefs.getString('user_alternativePhone'),
+          babies: babies,
         );
         emit(AuthAuthenticated(user: user));
       } else {
@@ -108,6 +116,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (user.alternativePhone != null) {
       await prefs.setString('user_alternativePhone', user.alternativePhone!);
     }
+    await prefs.setString('user_babies', jsonEncode(user.babies.map((b) => b.toMap()).toList()));
   }
 
   Future<void> _onLoginRequested(

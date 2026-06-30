@@ -1,18 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../auth/bloc/auth_bloc.dart';
+import '../../auth/bloc/auth_event.dart';
+import '../../auth/bloc/auth_state.dart';
+import '../../auth/models/baby_model.dart';
 
 class BabyProfileEditScreen extends StatefulWidget {
-  const BabyProfileEditScreen({super.key});
+  final BabyModel? babyToUpdate;
+  const BabyProfileEditScreen({super.key, this.babyToUpdate});
 
   @override
   State<BabyProfileEditScreen> createState() => _BabyProfileEditScreenState();
 }
 
 class _BabyProfileEditScreenState extends State<BabyProfileEditScreen> {
-  final TextEditingController _nameController = TextEditingController(text: 'নতুন বাবু');
-  String _gender = 'ছেলে';
-  String _dob = '30 Jun 2026';
-  String _deliveryType = 'নরমাল ডেলিভারি';
+  late TextEditingController _nameController;
+  late String _gender;
+  late String _dob;
+  late String _deliveryType;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController(text: widget.babyToUpdate?.name ?? 'নতুন বাবু');
+    _gender = widget.babyToUpdate?.gender ?? 'ছেলে';
+    _dob = widget.babyToUpdate?.birthDate ?? '30 Jun 2026';
+    _deliveryType = 'নরমাল ডেলিভারি';
+  }
 
   @override
   void dispose() {
@@ -182,14 +197,57 @@ class _BabyProfileEditScreenState extends State<BabyProfileEditScreen> {
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: ElevatedButton(
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('সংরক্ষণ করা হয়েছে!'),
-                  backgroundColor: AppColors.success,
-                ),
-              );
-              Navigator.pop(context);
+            onPressed: () async {
+              final authBloc = context.read<AuthBloc>();
+              if (authBloc.state is AuthAuthenticated) {
+                final user = (authBloc.state as AuthAuthenticated).user;
+                
+                if (widget.babyToUpdate != null) {
+                  // Update existing baby (Step 3: transition unborn -> born)
+                  List<BabyModel> updatedBabies = [];
+                  for (var b in user.babies) {
+                    if (b.id == widget.babyToUpdate!.id) {
+                      updatedBabies.add(b.copyWith(
+                        name: _nameController.text,
+                        gender: _gender,
+                        birthDate: _dob,
+                        isBorn: true,
+                      ));
+                    } else {
+                      updatedBabies.add(b);
+                    }
+                  }
+
+                  final updatedUser = user.copyWith(babies: updatedBabies);
+                  authBloc.add(AuthProfileUpdated(updatedUser: updatedUser));
+                } else {
+                  // Create completely new baby
+                  final newBaby = BabyModel(
+                    id: DateTime.now().millisecondsSinceEpoch.toString(),
+                    name: _nameController.text,
+                    gender: _gender,
+                    birthDate: _dob,
+                    isBorn: true,
+                  );
+                  final updatedUser = user.copyWith(
+                    babies: [...user.babies, newBaby],
+                  );
+                  authBloc.add(AuthProfileUpdated(updatedUser: updatedUser));
+                }
+                
+                await authBloc.stream.firstWhere(
+                  (s) => s is AuthAuthenticated,
+                );
+              }
+              if (mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('সংরক্ষণ করা হয়েছে!'),
+                    backgroundColor: AppColors.success,
+                  ),
+                );
+                Navigator.pop(context);
+              }
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF1E88E5), // Blue color from image

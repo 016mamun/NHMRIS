@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'baby_model.dart';
 
 class UserModel extends Equatable {
   final String id;
@@ -21,6 +22,7 @@ class UserModel extends Equatable {
   final String? currentLocation;
   final String? regularResidence;
   final String? alternativePhone;
+  final List<BabyModel> babies;
 
   const UserModel({
     required this.id,
@@ -43,6 +45,7 @@ class UserModel extends Equatable {
     this.currentLocation,
     this.regularResidence,
     this.alternativePhone,
+    this.babies = const [],
   });
 
   String get trimester {
@@ -77,6 +80,7 @@ class UserModel extends Equatable {
     String? currentLocation,
     String? regularResidence,
     String? alternativePhone,
+    List<BabyModel>? babies,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -99,6 +103,7 @@ class UserModel extends Equatable {
       currentLocation: currentLocation ?? this.currentLocation,
       regularResidence: regularResidence ?? this.regularResidence,
       alternativePhone: alternativePhone ?? this.alternativePhone,
+      babies: babies ?? this.babies,
     );
   }
 
@@ -123,6 +128,7 @@ class UserModel extends Equatable {
     'currentLocation': currentLocation,
     'regularResidence': regularResidence,
     'alternativePhone': alternativePhone,
+    'babies': babies.map((b) => b.toMap()).toList(),
   };
 
   factory UserModel.fromMap(Map<String, dynamic> map) => UserModel(
@@ -146,6 +152,7 @@ class UserModel extends Equatable {
     currentLocation: map['currentLocation'],
     regularResidence: map['regularResidence'],
     alternativePhone: map['alternativePhone'],
+    babies: (map['babies'] as List<dynamic>?)?.map((b) => BabyModel.fromMap(Map<String, dynamic>.from(b))).toList() ?? [],
   );
 
   @override
@@ -170,5 +177,6 @@ class UserModel extends Equatable {
     currentLocation,
     regularResidence,
     alternativePhone,
+    babies,
   ];
 }

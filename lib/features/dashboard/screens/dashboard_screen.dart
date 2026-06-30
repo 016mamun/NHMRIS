@@ -32,6 +32,7 @@ import '../../emergency/screens/about_app_screen.dart';
 import '../../pregnancy_registration/screens/pregnancy_registration_screen.dart';
 import '../../pregnancy_registration/screens/pregnancy_setup_flow_screen.dart';
 import 'baby_profile_screen.dart';
+import 'baby_profile_edit_screen.dart';
 import '../../health_tips/screens/daily_tips_screen.dart';
 import '../../health_tips/screens/common_problems_screen.dart';
 import '../../health_tips/screens/complications_screen.dart';
@@ -1263,7 +1264,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   SizedBox(height: 3),
                   Text(
                     subtitle,
-                    style: TextStyle(
+    style: TextStyle(
                       
                       fontSize: 11,
                       color: Colors.grey.shade600,
@@ -1310,35 +1311,19 @@ class _DashboardScreenState extends State<DashboardScreen>
               SizedBox(height: 16),
               const Text(
                 'গর্ভবতী আয়না',
-                style: TextStyle(
-                  
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 12),
               const Text(
                 '"নিরাপদ হোক প্রতিটি প্রসব, যত্নে থাকুক মা ও নবজাতক"',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  height: 1.6,
-                ),
+                style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600, height: 1.6),
               ),
               SizedBox(height: 8),
               Text(
                 'NHMRIS - National Health Management & Reporting Information System',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  
-                  color: Colors.white.withValues(alpha: 0.75),
-                  fontSize: 11,
-                  height: 1.5,
-                ),
+                style: TextStyle(color: Colors.white.withValues(alpha: 0.75), fontSize: 11, height: 1.5),
               ),
               SizedBox(height: 20),
               SizedBox(
@@ -1363,10 +1348,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   void _showComingSoon(BuildContext context, String feature) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(
-          '$feature শীঘ্রই আসছে...',
-          style: TextStyle(fontFamily: 'Hind_Siliguri'),
-        ),
+        content: Text('$feature শীঘ্রই আসছে...', style: TextStyle(fontFamily: 'Hind_Siliguri')),
         backgroundColor: AppColors.primary,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -1385,6 +1367,10 @@ class _DashboardScreenState extends State<DashboardScreen>
           final user = state is AuthAuthenticated ? state.user : null;
           final String name = (user?.name ?? '').tr(context);
           final String initials = name.isNotEmpty ? name[0] : 'ম'.tr(context);
+          final int weeks = user?.pregnancyWeeks ?? 0;
+          final bool hasUnborn = weeks > 0;
+          final bool hasBorn = weeks < 0;
+
           return Padding(
             padding: const EdgeInsets.all(24),
             child: SingleChildScrollView(
@@ -1393,120 +1379,89 @@ class _DashboardScreenState extends State<DashboardScreen>
                 children: [
                   Center(
                     child: Container(
-                      width: 40,
-                      height: 4,
-                      decoration: BoxDecoration(
-                        color: AppColors.border,
-                        borderRadius: BorderRadius.circular(2),
-                      ),
+                      width: 40, height: 4,
+                      decoration: BoxDecoration(color: AppColors.border, borderRadius: BorderRadius.circular(2)),
                     ),
                   ),
                   SizedBox(height: 20),
                   CircleAvatar(
                     radius: 36,
                     backgroundColor: AppColors.primarySurface,
-                    child: Text(
-                      initials,
-                      style: TextStyle(
-                        color: AppColors.primary,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    child: Text(initials, style: TextStyle(color: AppColors.primary, fontSize: 24, fontWeight: FontWeight.w700)),
                   ),
                   SizedBox(height: 12),
                   Text(name, style: AppTextStyles.headingMedium),
                   Text(user?.phone ?? '', style: AppTextStyles.bodyMedium),
                   SizedBox(height: 24),
-                  const Divider(),
+                  Divider(),
                   ListTile(
                     leading: Icon(Icons.person_outline, color: AppColors.primary),
                     title: Text('প্রোফাইল সম্পাদনা'.tr(context)),
                     trailing: Icon(Icons.arrow_forward_ios, size: 14),
-                    onTap: () {
-                      Navigator.pop(context);
-                      _navigateToScreen(const ProfileEditScreen());
-                    },
+                    onTap: () { Navigator.pop(context); _navigateToScreen(const ProfileEditScreen()); },
                   ),
-                  if ((user?.pregnancyWeeks ?? 0) == 0)
+                  // Born baby option
+                  if (hasBorn)
+                    ListTile(
+                      leading: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(color: const Color(0xFF4C8DF5), shape: BoxShape.circle),
+                        child: Icon(Icons.child_care, color: Colors.white, size: 24),
+                      ),
+                      title: Text('নতুন বাবু', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                      subtitle: Text('বয়স: ১৪ ঘন্টা', style: TextStyle(color: Colors.grey.shade700, fontSize: 13)),
+                      trailing: Icon(Icons.arrow_forward_ios, size: 14),
+                      onTap: () { Navigator.pop(context); _navigateToScreen(const BabyProfileScreen()); },
+                    ),
+                  // Unborn baby option
+                  if (hasUnborn)
+                    ListTile(
+                      leading: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(color: const Color(0xFFE86A45), shape: BoxShape.circle),
+                        child: Icon(Icons.child_care, color: Colors.white, size: 24),
+                      ),
+                      title: Text('অনাগত সন্তান', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                      subtitle: Text('সম্ভাব্য ডেলিভারি: ১৮ মা. ২০২৭', style: TextStyle(color: Colors.grey.shade700, fontSize: 13)),
+                      trailing: Icon(Icons.arrow_forward_ios, size: 14),
+                      onTap: () { Navigator.pop(context); _navigateToScreen(const BabyProfileScreen()); },
+                    ),
+                  // Add pregnancy option (no pregnancy yet)
+                  if (!hasUnborn && !hasBorn)
                     ListTile(
                       leading: Icon(Icons.add_circle_outline, color: AppColors.primary),
                       title: Text('গর্ভধারণ যোগ করুন'.tr(context)),
                       trailing: Icon(Icons.arrow_forward_ios, size: 14),
-                      onTap: () {
-                        Navigator.pop(context);
-                        _navigateToScreen(const PregnancySetupFlowScreen());
-                      },
-                    )
-                  else ...[
+                      onTap: () { Navigator.pop(context); _navigateToScreen(const PregnancySetupFlowScreen()); },
+                    ),
+                  // Add next pregnancy (after birth reported)
+                  if (hasBorn)
                     ListTile(
                       leading: Container(
                         padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFE86A45),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(Icons.child_care, color: Colors.white, size: 24),
+                        decoration: BoxDecoration(color: const Color(0xFFE86A45), shape: BoxShape.circle),
+                        child: Icon(Icons.add_circle_outline, color: Colors.white, size: 24),
                       ),
-                      title: Text(
-                        'অনাগত সন্তান',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                      ),
-                      subtitle: Text(
-                        'সম্ভাব্য ডেলিভারি: ১৮ মা. ২০২৭',
-                        style: TextStyle(color: Colors.grey.shade700, fontSize: 13),
-                      ),
+                      title: Text('গর্ভধারণ যোগ করুন', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
                       trailing: Icon(Icons.arrow_forward_ios, size: 14),
-                      onTap: () {
-                        Navigator.pop(context);
-                        _navigateToScreen(const BabyProfileScreen());
-                      },
+                      onTap: () { Navigator.pop(context); _navigateToScreen(const PregnancySetupFlowScreen()); },
                     ),
-                    ListTile(
-                      leading: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF4C8DF5),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(Icons.child_friendly, color: Colors.white, size: 24),
-                      ),
-                      title: Text(
-                        'জন্মের তথ্য দিন',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                      ),
-                      trailing: Icon(Icons.arrow_forward_ios, size: 14),
-                      onTap: () {
-                        Navigator.pop(context);
-                        // TODO: Navigate to Birth Info Screen
-                      },
-                    ),
-                  ],
                   ListTile(
                     leading: Icon(Icons.settings_outlined, color: AppColors.primary),
                     title: Text('সেটিংস'.tr(context)),
                     trailing: Icon(Icons.arrow_forward_ios, size: 14),
-                    onTap: () {
-                      Navigator.pop(context);
-                      _navigateToScreen(const SettingsScreen());
-                    },
+                    onTap: () { Navigator.pop(context); _navigateToScreen(const SettingsScreen()); },
                   ),
                   ListTile(
                     leading: Icon(Icons.info_outline, color: AppColors.primary),
                     title: Text('অ্যাপ সম্পর্কে'.tr(context)),
                     trailing: Icon(Icons.arrow_forward_ios, size: 14),
-                    onTap: () {
-                      Navigator.pop(context);
-                      _navigateToScreen(const AboutAppScreen());
-                    },
+                    onTap: () { Navigator.pop(context); _navigateToScreen(const AboutAppScreen()); },
                   ),
-                  const Divider(),
+                  Divider(),
                   ListTile(
                     leading: Icon(Icons.logout_rounded, color: AppColors.error),
-                    title: Text(
-                      'লগআউট',
-                      style: AppTextStyles.labelMedium.copyWith(color: AppColors.error),
-                    ),
+                    title: Text('লগআউট', style: AppTextStyles.labelMedium.copyWith(color: AppColors.error)),
                     onTap: () {
                       Navigator.pop(context);
                       context.read<AuthBloc>().add(const AuthLogoutRequested());
@@ -1521,9 +1476,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       ),
     ).then((_) {
       if (mounted) {
-        setState(() {
-          _currentIndex = 0;
-        });
+        setState(() { _currentIndex = 0; });
       }
     });
   }
