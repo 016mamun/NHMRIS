@@ -46,16 +46,30 @@ class _PregnancySetupFlowScreenState extends State<PregnancySetupFlowScreen> {
       if (weeks < 1) weeks = 1;
       if (weeks > 42) weeks = 42;
       
-      final newBaby = BabyModel(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
-        name: 'অনাগত সন্তান',
-        isBorn: false,
-        birthDate: edd.toIso8601String(),
-      );
+      // Check if there's already an unborn baby and update it, otherwise add new
+      final existingUnbornIndex = user.babies.indexWhere((b) => !b.isBorn);
+      List<BabyModel> updatedBabies;
+      
+      if (existingUnbornIndex != -1) {
+        // Update existing unborn baby
+        updatedBabies = List.from(user.babies);
+        updatedBabies[existingUnbornIndex] = updatedBabies[existingUnbornIndex].copyWith(
+          birthDate: edd.toIso8601String(),
+        );
+      } else {
+        // Add new baby
+        final newBaby = BabyModel(
+          id: DateTime.now().millisecondsSinceEpoch.toString(),
+          name: 'অনাগত সন্তান',
+          isBorn: false,
+          birthDate: edd.toIso8601String(),
+        );
+        updatedBabies = [...user.babies, newBaby];
+      }
 
       final updatedUser = user.copyWith(
         pregnancyWeeks: weeks, 
-        babies: [...user.babies, newBaby],
+        babies: updatedBabies,
       );
       authBloc.add(AuthProfileUpdated(updatedUser: updatedUser));
       

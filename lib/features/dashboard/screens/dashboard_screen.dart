@@ -771,12 +771,11 @@ class _DashboardScreenState extends State<DashboardScreen>
         if (edd != null) {
           lmp = edd.subtract(const Duration(days: 280));
         } else {
-          lmp = now.subtract(Duration(days: (currentWeeks - 1) * 7 + (now.weekday - 1)));
+          lmp = now.subtract(Duration(days: (currentWeeks - 1) * 7));
         }
         
-        final lmpWeekStart = lmp.subtract(Duration(days: lmp.weekday - 1));
-        final diff = weeks - 1;
-        final weekStart = lmpWeekStart.add(Duration(days: diff * 7));
+        // Calculate week start and end based on LMP
+        final weekStart = lmp.add(Duration(days: (weeks - 1) * 7));
         final weekEnd = weekStart.add(const Duration(days: 6));
         final dateRange = '${weekStart.day.toString().padLeft(2, '0')} ${_monthNameShort(weekStart.month)} - ${weekEnd.day.toString().padLeft(2, '0')} ${_monthNameShort(weekEnd.month)}';
 
@@ -785,7 +784,7 @@ class _DashboardScreenState extends State<DashboardScreen>
         if (edd != null) {
           expectedDeliveryStr = '${edd.day.toString().padLeft(2, '0')} ${_monthName(edd.month)}, ${edd.year}';
         } else {
-          final lmp = now.subtract(Duration(days: (currentWeeks - 1) * 7 + (now.weekday - 1)));
+          final lmp = now.subtract(Duration(days: (currentWeeks - 1) * 7));
           final calculatedEdd = lmp.add(const Duration(days: 280));
           expectedDeliveryStr = '${calculatedEdd.day.toString().padLeft(2, '0')} ${_monthName(calculatedEdd.month)}, ${calculatedEdd.year}';
         }
