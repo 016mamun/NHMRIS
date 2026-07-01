@@ -676,9 +676,40 @@ class _DashboardScreenState extends State<DashboardScreen>
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         int currentWeeks = 26;
+        DateTime? edd;
+        
         if (state is AuthAuthenticated) {
-          currentWeeks = state.user.pregnancyWeeks;
+          final user = state.user;
+          // Get EDD from unborn baby
+          if (user.babies.isEmpty) {
+            currentWeeks = user.pregnancyWeeks;
+          } else {
+            final unbornBaby = user.babies.firstWhere(
+              (b) => !b.isBorn,
+              orElse: () => user.babies.first,
+            );
+            if (unbornBaby.birthDate != null) {
+              try {
+                edd = DateTime.parse(unbornBaby.birthDate!);
+              } catch (e) {
+                edd = null;
+              }
+            }
+            
+            // Calculate current week based on EDD
+            if (edd != null) {
+              final now = DateTime.now();
+              final differenceDays = edd.difference(now).inDays;
+              final daysPassed = 280 - differenceDays;
+              currentWeeks = daysPassed ~/ 7;
+              if (currentWeeks < 1) currentWeeks = 1;
+              if (currentWeeks > 42) currentWeeks = 42;
+            } else {
+              currentWeeks = user.pregnancyWeeks;
+            }
+          }
         }
+        
         int weeks = _selectedWeek ?? currentWeeks;
         if (weeks < 1) weeks = 1;
         if (weeks > 42) weeks = 42;
@@ -734,25 +765,48 @@ class _DashboardScreenState extends State<DashboardScreen>
         final sizeName = isEnglish ? info['en']! : info['bn']!;
         final emoji = info['emoji']!;
 
-        // Date range for selected week
+        // Date range for selected week (based on EDD)
         final now = DateTime.now();
-        final currentWeekStart = now.subtract(Duration(days: now.weekday - 1));
-        final diff = weeks - currentWeeks;
-        final weekStart = currentWeekStart.add(Duration(days: diff * 7));
+        DateTime lmp;
+        if (edd != null) {
+          lmp = edd.subtract(const Duration(days: 280));
+        } else {
+          lmp = now.subtract(Duration(days: (currentWeeks - 1) * 7 + (now.weekday - 1)));
+        }
+        
+        final lmpWeekStart = lmp.subtract(Duration(days: lmp.weekday - 1));
+        final diff = weeks - 1;
+        final weekStart = lmpWeekStart.add(Duration(days: diff * 7));
         final weekEnd = weekStart.add(const Duration(days: 6));
         final dateRange = '${weekStart.day.toString().padLeft(2, '0')} ${_monthNameShort(weekStart.month)} - ${weekEnd.day.toString().padLeft(2, '0')} ${_monthNameShort(weekEnd.month)}';
 
-        // Expected delivery date
-        final lmp = now.subtract(Duration(days: (currentWeeks - 1) * 7 + (now.weekday - 1)));
-        final edd = lmp.add(const Duration(days: 280));
-        final expectedDeliveryStr = '${edd.day.toString().padLeft(2, '0')} ${_monthName(edd.month)}, ${edd.year}';
+        // Expected delivery date (use EDD from baby profile)
+        String expectedDeliveryStr = '';
+        if (edd != null) {
+          expectedDeliveryStr = '${edd.day.toString().padLeft(2, '0')} ${_monthName(edd.month)}, ${edd.year}';
+        } else {
+          final lmp = now.subtract(Duration(days: (currentWeeks - 1) * 7 + (now.weekday - 1)));
+          final calculatedEdd = lmp.add(const Duration(days: 280));
+          expectedDeliveryStr = '${calculatedEdd.day.toString().padLeft(2, '0')} ${_monthName(calculatedEdd.month)}, ${calculatedEdd.year}';
+        }
 
-        // Ongoing days
-        int ongoingDays = 0;
-        if (weeks < currentWeeks) {
-          ongoingDays = 7;
-        } else if (weeks == currentWeeks) {
-          ongoingDays = now.weekday;
+        // Ongoing days (total pregnancy progress in months and days)
+        int totalDaysPassed = 0;
+        if (edd != null) {
+          final now = DateTime.now();
+          final differenceDays = edd.difference(now).inDays;
+          totalDaysPassed = 280 - differenceDays;
+        } else {
+          totalDaysPassed = (currentWeeks - 1) * 7 + now.weekday;
+        }
+        
+        // Convert to months and days (1 month = 30 days)
+        int totalMonths = totalDaysPassed ~/ 30;
+        int remainingDays = totalDaysPassed % 30;
+        if (totalMonths > 10) {
+          totalMonths = 10;
+          remainingDays = totalDaysPassed - (10 * 30);
+          if (remainingDays < 0) remainingDays = 0;
         }
 
         return _WeeklyProgressCard(
@@ -761,7 +815,8 @@ class _DashboardScreenState extends State<DashboardScreen>
           sizeName: sizeName,
           dateRange: dateRange,
           isEnglish: isEnglish,
-          ongoingDays: ongoingDays,
+          totalMonths: totalMonths,
+          remainingDays: remainingDays,
           expectedDeliveryDate: expectedDeliveryStr,
           isExpanded: _isSummaryExpanded,
           onPrevWeek: () {
@@ -790,7 +845,8 @@ class _DashboardScreenState extends State<DashboardScreen>
     required String sizeName,
     required String dateRange,
     required bool isEnglish,
-    required int ongoingDays,
+    required int totalMonths,
+    required int remainingDays,
     required String expectedDeliveryDate,
     required bool isExpanded,
     required VoidCallback onPrevWeek,
@@ -923,7 +979,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        isEnglish ? '$ongoingDays days ongoing' : '${['০','১','২','৩','৪','৫','৬','৭'][ongoingDays.clamp(0, 7)]} দিন চলছে',
+                        isEnglish 
+                            ? '$totalMonths months $remainingDays days' 
+                            : '${['০','১','২','৩','৪','৫','৬','৭','৮','৯','১০'][totalMonths.clamp(0, 10)]} মাস ${['০','১','২','৩','৪','৫','৬','৭','৮','৯','১০','১১','১২','১৩','১৪','১৫','১৬','১৭','১৮','১৯','২০','২১','২২','২৩','২৪','২৫','২৬','২৭','২৮','২৯','৩০'][remainingDays.clamp(0, 30)]} দিন',
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -935,11 +993,11 @@ class _DashboardScreenState extends State<DashboardScreen>
                     ],
                   ),
                   const SizedBox(height: 16),
-                  // Progress bar
+                  // Progress bar (10 months = 300 days for progress calculation)
                   ClipRRect(
                     borderRadius: BorderRadius.circular(4),
                     child: LinearProgressIndicator(
-                      value: ongoingDays / 7,
+                      value: (totalMonths * 30 + remainingDays) / 300,
                       backgroundColor: Colors.grey.shade200,
                       color: const Color(0xFF5A5A5A),
                       minHeight: 8,
@@ -1359,6 +1417,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   void _showProfileBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
@@ -1367,139 +1426,71 @@ class _DashboardScreenState extends State<DashboardScreen>
           final user = state is AuthAuthenticated ? state.user : null;
           final String name = (user?.name ?? '').tr(context);
           final String initials = name.isNotEmpty ? name[0] : 'ম'.tr(context);
-          final babies = user?.babies ?? [];
 
-          return Padding(
-            padding: const EdgeInsets.all(24),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Center(
-                    child: Container(
-                      width: 40, height: 4,
-                      decoration: BoxDecoration(color: AppColors.border, borderRadius: BorderRadius.circular(2)),
-                    ),
+          return DraggableScrollableSheet(
+            expand: false,
+            initialChildSize: 0.5,
+            maxChildSize: 0.9,
+            minChildSize: 0.4,
+            builder: (_, scrollCtrl) => ListView(
+              controller: scrollCtrl,
+              padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
+              children: [
+                const SizedBox(height: 12),
+                Center(
+                  child: Container(
+                    width: 40, height: 4,
+                    decoration: BoxDecoration(color: AppColors.border, borderRadius: BorderRadius.circular(2)),
                   ),
-                  SizedBox(height: 20),
-                  CircleAvatar(
+                ),
+                const SizedBox(height: 20),
+                Center(
+                  child: CircleAvatar(
                     radius: 36,
                     backgroundColor: AppColors.primarySurface,
                     child: Text(initials, style: TextStyle(color: AppColors.primary, fontSize: 24, fontWeight: FontWeight.w700)),
                   ),
-                  SizedBox(height: 12),
-                  Text(name, style: AppTextStyles.headingMedium),
-                  Text(user?.phone ?? '', style: AppTextStyles.bodyMedium),
-                  SizedBox(height: 24),
-                  Divider(),
-                  ListTile(
-                    leading: Icon(Icons.person_outline, color: AppColors.primary),
-                    title: Text('প্রোফাইল সম্পাদনা'.tr(context)),
-                    trailing: Icon(Icons.arrow_forward_ios, size: 14),
-                    onTap: () { Navigator.pop(context); _navigateToScreen(const ProfileEditScreen()); },
-                  ),
-                  // Show all babies (only show born babies if there are any, otherwise show unborn)
-                  if (babies.any((b) => b.isBorn))
-                    ...babies.where((b) => b.isBorn).map((baby) => ListTile(
-                      leading: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF4C8DF5),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(Icons.child_friendly, color: Colors.white, size: 24),
-                      ),
-                      title: Text(
-                        baby.name,
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                      ),
-                      subtitle: Text(
-                        'জন্মের পর শিশুর তথ্য',
-                        style: TextStyle(color: Colors.grey.shade700, fontSize: 13),
-                      ),
-                      trailing: Icon(Icons.arrow_forward_ios, size: 14),
-                      onTap: () {
-                        Navigator.pop(context);
-                        _navigateToScreen(BabyProfileScreen(baby: baby));
-                      },
-                    ))
-                  else
-                    ...babies.map((baby) => ListTile(
-                      leading: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFE86A45),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(Icons.child_care, color: Colors.white, size: 24),
-                      ),
-                      title: Text(
-                        baby.name,
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                      ),
-                      subtitle: Text(
-                        'সম্ভাব্য ডেলিভারি: ${baby.birthDate ?? 'নির্ধারিত নয়'}',
-                        style: TextStyle(color: Colors.grey.shade700, fontSize: 13),
-                      ),
-                      trailing: Icon(Icons.arrow_forward_ios, size: 14),
-                      onTap: () {
-                        Navigator.pop(context);
-                        _navigateToScreen(BabyProfileScreen(baby: baby));
-                      },
-                    )),
-                  // Birth info option (show if has unborn babies and no born babies)
-                  if (babies.any((b) => !b.isBorn) && !babies.any((b) => b.isBorn))
-                    ListTile(
-                      leading: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF4C8DF5),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(Icons.child_friendly, color: Colors.white, size: 24),
-                      ),
-                      title: Text(
-                        'জন্মের তথ্য দিন',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                      ),
-                      trailing: Icon(Icons.arrow_forward_ios, size: 14),
-                      onTap: () {
-                        Navigator.pop(context);
-                        // TODO: Navigate to Birth Info Screen
-                      },
-                    ),
-                  // Add pregnancy option (show if no babies OR has born babies)
-                  if (babies.isEmpty || babies.any((b) => b.isBorn))
-                    ListTile(
-                      leading: Icon(Icons.add_circle_outline, color: AppColors.primary),
-                      title: Text('গর্ভধারণ যোগ করুন'.tr(context)),
-                      trailing: Icon(Icons.arrow_forward_ios, size: 14),
-                      onTap: () { Navigator.pop(context); _navigateToScreen(const PregnancySetupFlowScreen()); },
-                    ),
-                  ListTile(
-                    leading: Icon(Icons.settings_outlined, color: AppColors.primary),
-                    title: Text('সেটিংস'.tr(context)),
-                    trailing: Icon(Icons.arrow_forward_ios, size: 14),
-                    onTap: () { Navigator.pop(context); _navigateToScreen(const SettingsScreen()); },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.info_outline, color: AppColors.primary),
-                    title: Text('অ্যাপ সম্পর্কে'.tr(context)),
-                    trailing: Icon(Icons.arrow_forward_ios, size: 14),
-                    onTap: () { Navigator.pop(context); _navigateToScreen(const AboutAppScreen()); },
-                  ),
-                  Divider(),
-                  ListTile(
-                    leading: Icon(Icons.logout_rounded, color: AppColors.error),
-                    title: Text('লগআউট', style: AppTextStyles.labelMedium.copyWith(color: AppColors.error)),
-                    onTap: () {
-                      Navigator.pop(context);
-                      context.read<AuthBloc>().add(const AuthLogoutRequested());
-                    },
-                  ),
-                  SizedBox(height: 12),
-                ],
-              ),
+                ),
+                const SizedBox(height: 12),
+                Center(child: Text(name, style: AppTextStyles.headingMedium)),
+                Center(child: Text(user?.phone ?? '', style: AppTextStyles.bodyMedium)),
+                const SizedBox(height: 24),
+                const Divider(),
+                ListTile(
+                  leading: Icon(Icons.person_outline, color: AppColors.primary),
+                  title: Text('প্রোফাইল সম্পাদনা'.tr(context)),
+                  trailing: const Icon(Icons.arrow_forward_ios, size: 14),
+                  onTap: () { Navigator.pop(context); _navigateToScreen(const ProfileEditScreen()); },
+                ),
+                ListTile(
+                  leading: Icon(Icons.add_circle_outline_rounded, color: AppColors.primary),
+                  title: const Text('গর্ভধারণ যোগ করুন'),
+                  trailing: const Icon(Icons.arrow_forward_ios, size: 14),
+                  onTap: () { Navigator.pop(context); _navigateToScreen(const PregnancySetupFlowScreen()); },
+                ),
+                ListTile(
+                  leading: Icon(Icons.settings_outlined, color: AppColors.primary),
+                  title: Text('সেটিংস'.tr(context)),
+                  trailing: const Icon(Icons.arrow_forward_ios, size: 14),
+                  onTap: () { Navigator.pop(context); _navigateToScreen(const SettingsScreen()); },
+                ),
+                ListTile(
+                  leading: Icon(Icons.info_outline, color: AppColors.primary),
+                  title: Text('অ্যাপ সম্পর্কে'.tr(context)),
+                  trailing: const Icon(Icons.arrow_forward_ios, size: 14),
+                  onTap: () { Navigator.pop(context); _navigateToScreen(const AboutAppScreen()); },
+                ),
+                const Divider(),
+                ListTile(
+                  leading: Icon(Icons.logout_rounded, color: AppColors.error),
+                  title: Text('লগআউট', style: AppTextStyles.labelMedium.copyWith(color: AppColors.error)),
+                  onTap: () {
+                    Navigator.pop(context);
+                    context.read<AuthBloc>().add(const AuthLogoutRequested());
+                  },
+                ),
+                const SizedBox(height: 12),
+              ],
             ),
           );
         },
@@ -1511,7 +1502,6 @@ class _DashboardScreenState extends State<DashboardScreen>
     });
   }
 }
-
 // ── Tracker Menu Sheet ────────────────────────────────────────────────────────
 class _TrackerMenuSheet extends StatelessWidget {
   final Function(Widget) onModuleTap;

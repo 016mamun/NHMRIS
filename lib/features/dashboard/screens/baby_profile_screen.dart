@@ -31,7 +31,7 @@ class BabyProfileScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (_) => const BabyProfileEditScreen()));
+              Navigator.push(context, MaterialPageRoute(builder: (_) => BabyProfileEditScreen(babyToUpdate: baby)));
             },
             child: const Text(
               'এডিট',
